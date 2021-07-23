@@ -7,13 +7,13 @@ package vn.edu.nuce.daotao.StoreManager.respository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import vn.edu.nuce.daotao.StoreManager.model.Position;
+import vn.edu.nuce.daotao.StoreManager.model.Permission;
 
 /**
  *
  * @author Anh
  */
 @Repository
-public interface PositionRespository extends JpaRepository<Position, Long> {
+public interface PermissionRepository extends JpaRepository<Permission, Long>{
     
 }
