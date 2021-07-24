@@ -5,6 +5,8 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import vn.edu.nuce.daotao.StoreManager.respository.CustomerTypeRespository;
 import vn.edu.nuce.daotao.StoreManager.service.*;
 
 /**
@@ -14,4 +16,6 @@ import vn.edu.nuce.daotao.StoreManager.service.*;
 
 public class CustomerTypeServiceImpl implements CustomerTypeService{
     
+    @Autowired
+    private CustomerTypeRespository customerTypeRespository;
 }

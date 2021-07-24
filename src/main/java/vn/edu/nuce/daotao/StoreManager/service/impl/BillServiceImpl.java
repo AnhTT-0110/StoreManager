@@ -6,6 +6,8 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import vn.edu.nuce.daotao.StoreManager.respository.BillRespository;
 import vn.edu.nuce.daotao.StoreManager.service.*;
 
 /**
@@ -13,5 +15,8 @@ import vn.edu.nuce.daotao.StoreManager.service.*;
  * @author Anh
  */
 public class BillServiceImpl implements BillService{
+    
+    @Autowired
+    private BillRespository billRespository;
     
 }
