@@ -5,14 +5,14 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service;
 
-import org.springframework.stereotype.Service;
-
+import java.util.List;
+import vn.edu.nuce.daotao.StoreManager.response.PositionResponse;
 
 /**
  *
  * @author Anh
  */
-@Service
 public interface PositionService {
 
+    List<PositionResponse> getAllPositionResponses();
 }

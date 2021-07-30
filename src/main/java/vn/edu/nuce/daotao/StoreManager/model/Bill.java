@@ -9,8 +9,11 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  *
@@ -25,12 +28,16 @@ public class Bill implements Serializable {
     @Column(name = "MaHoaDon")
     private int codeBill;
     
-    @Column(name = "MaKhachHang")
-    private int codeCustomer;
+    @JoinColumn(name = "MaKhachHang", referencedColumnName = "MaKhachHang")
+    @ManyToOne(optional = false)
+    @ToString.Exclude
+    private Customer customer;
     
-    @Column(name = "MaNhanVien")
-    private int codeStaff;
-    
+    @JoinColumn(name = "MaNhanVien", referencedColumnName = "MaNhanVien")
+    @ManyToOne(optional = false)
+    @ToString.Exclude
+    private Staff staff;
+ 
     @Column(name = "NgayLapHoaDon")
     private int date;
     

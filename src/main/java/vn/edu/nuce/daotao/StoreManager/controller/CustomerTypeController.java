@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vn.edu.nuce.daotao.StoreManager.service;
+package vn.edu.nuce.daotao.StoreManager.controller;
 
 import java.util.List;
-import vn.edu.nuce.daotao.StoreManager.response.StaffResponse;
+import vn.edu.nuce.daotao.StoreManager.response.CustomerTypeResponse;
 
 /**
  *
  * @author Anh
  */
-public interface StaffService {
-
- List<StaffResponse> getAllStaffResponses();
- List<Object[]> getAllStaffResponseObjects();
+public interface CustomerTypeController {
+    List<CustomerTypeResponse> getAllCustomerType();
 }

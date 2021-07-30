@@ -8,6 +8,7 @@ package vn.edu.nuce.daotao.StoreManager.model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
+import org.hibernate.annotations.Type;
 
 /**
  *
@@ -23,41 +26,39 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "nhanvien")
-public class Staff implements Serializable {
+@Table(name = "khachhang")
+public class Customer implements Serializable {
 
     @Id
-    @Column(name = "MaNhanVien")
-    private int codeStaff;
+    @Column(name = "MaKhachHang")
+    private int codeCustomer;
 
-    @Column(name = "TenNhanVien")
-    private String nameStaff;
+    @Column(name = "TenKhachHang")
+    private String nameCustomer;
 
-    @Column(name = "NgaySinh")
+    @Column(name = "Ngaysinh")
+    @Type(type = "date")
     private Date birthday;
 
     @Column(name = "GioiTinh")
     private int sex;
 
-    @Column(name = "NgayVaoLam")
-    private Date dateStart;
-
     @Column(name = "DiaChi")
     private String address;
 
-    @Column(name = "SoDT")
+    @Column(name = "SDT")
     private String phoneNumber;
 
     @Column(name = "GhiChu")
     private String description;
     
-    @OneToMany(mappedBy = "staff")
-    private Collection<Bill> billCollection;
-
-    @JoinColumn(name = "ChucVu", referencedColumnName = "MaChucVu")
+    @OneToMany(mappedBy = "customer")
+    @ToString.Exclude
+    private Collection<Bill> bills;
+    
+    @JoinColumn(name = "LoaiKhachHang", referencedColumnName = "MaLoaiKhachHang")
     @ManyToOne(optional = false)
-    private Position position;
+    @ToString.Exclude
+    private CustomerType customerType;
 
-    @OneToMany(mappedBy = "staff")
-    private Collection<Receipt> receiptCollection;
 }

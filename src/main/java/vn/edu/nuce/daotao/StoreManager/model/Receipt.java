@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -26,8 +28,9 @@ public class Receipt implements Serializable{
     @Column(name = "MaPhieuNhap")
     private int codeDistributor;
     
-    @Column(name = "MaNhanVien")
-    private int codeStaff;
+    @JoinColumn(name = "MaNhanVien", referencedColumnName = "MaNhanVien")
+    @ManyToOne(optional = false)
+    private Staff staff;
     
     @Column(name = "MaNhaPhanPhoi")
     private int codesDistributor;

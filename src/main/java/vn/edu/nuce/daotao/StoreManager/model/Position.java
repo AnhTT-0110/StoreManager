@@ -6,15 +6,13 @@
 package vn.edu.nuce.daotao.StoreManager.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
 
 
 /**
@@ -35,5 +33,10 @@ public class Position implements Serializable {
 
     @Column(name = "GhiChu")
     private String description;
+    
+    @OneToMany(mappedBy = "position")
+    private Collection<Staff> positionCollection;
+    
+    
 
 }

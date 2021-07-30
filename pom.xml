@@ -55,11 +55,16 @@
             <scope>test</scope>
             <type>jar</type>
         </dependency>
-        <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout -->
+       <!-- https://mvnrepository.com/artifact/org.netbeans.external/AbsoluteLayout -->
+<dependency>
+    <groupId>org.netbeans.external</groupId>
+    <artifactId>AbsoluteLayout</artifactId>
+    <version>RELEASE124</version>
+</dependency>
+
+
     </dependencies>
 
     <build>

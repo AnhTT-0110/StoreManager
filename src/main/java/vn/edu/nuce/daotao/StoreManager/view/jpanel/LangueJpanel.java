@@ -23,13 +23,13 @@ public class LangueJpanel extends javax.swing.JPanel {
     }
 
     private void changeLanguage(Locale local) {
-        MainFrame mn = new MainFrame();
-        ResourceBundle bundle = ResourceBundle.getBundle("resource/i18n", local);
-        mn.getBtHoaDon().setText(bundle.getString("hoadon"));
-        mn.getBtDangxuat().setText(bundle.getString("dangxuat"));
-        mn.getBtKhachhang().setText(bundle.getString("khachhang"));
-        mn.getBtNhanvien().setText(bundle.getString("nhanvien"));
-        mn.getBtSanpham().setText(bundle.getString("sanpham"));
+//        MainFrame mn = new MainFrame();
+//        ResourceBundle bundle = ResourceBundle.getBundle("resource/i18n", local);
+//        mn.getBtHoaDon().setText(bundle.getString("hoadon"));
+//        mn.getBtDangxuat().setText(bundle.getString("dangxuat"));
+//        mn.getBtKhachhang().setText(bundle.getString("khachhang"));
+//        mn.getBtNhanvien().setText(bundle.getString("nhanvien"));
+//        mn.getBtSanpham().setText(bundle.getString("sanpham"));
 //        jLabel7.setText(bundle.getString("loaive"));
 //        jLabel8.setText(bundle.getString("nguoiLon"));
 //        jLabel9.setText(bundle.getString("treem"));

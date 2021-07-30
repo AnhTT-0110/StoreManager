@@ -5,13 +5,14 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+import vn.edu.nuce.daotao.StoreManager.response.CustomerTypeResponse;
 
 /**
  *
  * @author Anh
  */
-@Service
-public interface CustomerTypeService{
-    
+public interface CustomerTypeService {
+
+    List<CustomerTypeResponse> getAllCustomerType();
 }
