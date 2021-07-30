@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -23,10 +25,7 @@ public class Account implements Serializable {
 
     @Id
     @Column(name = "ID")
-    private int codeProduct;
-
-    @Column(name = "MaNhanVien")
-    private String codeStaff;
+    private int codeAccount;
 
     @Column(name = "TenDangNhap")
     private String username;
@@ -34,10 +33,15 @@ public class Account implements Serializable {
     @Column(name = "Password")
     private String password;
 
-    @Column(name = "Quyen")
-    private String codePermission;
-
     @Column(name = "ChuThich")
     private String description;
+    
+    @JoinColumn(name = "MaNhanVien", referencedColumnName = "MaNhanVien")
+    @ManyToOne(optional = false)
+    private Staff staff;
+    
+    @JoinColumn(name = "Quyen", referencedColumnName = "MaQuyen")
+    @ManyToOne(optional = false)
+    private Permission permission;
 
 }

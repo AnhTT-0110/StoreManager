@@ -5,13 +5,18 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+import vn.edu.nuce.daotao.StoreManager.response.AccountResponse;
 
 /*
  *
  * @author Anh
  */
-@Service
 public interface AccountService {
-    
+
+    List<Object[]> getAllAccountResponseObjects();
+
+    boolean updateAccount(int statusBtn, AccountResponse accountResponse);
+
+    boolean deleteAccount(AccountResponse accountResponse);
 }

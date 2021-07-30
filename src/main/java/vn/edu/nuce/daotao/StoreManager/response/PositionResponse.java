@@ -17,4 +17,13 @@ public class PositionResponse {
     private int codePosition;
     private String namePosition;
     private String description;
+
+    public PositionResponse(int codePosition, String namePosition, String description) {
+        this.codePosition = codePosition;
+        this.namePosition = namePosition;
+        this.description = description;
+    }
+
+    public PositionResponse() {
+    }
 }

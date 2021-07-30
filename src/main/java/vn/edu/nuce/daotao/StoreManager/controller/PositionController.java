@@ -7,6 +7,7 @@ package vn.edu.nuce.daotao.StoreManager.controller;
 
 import java.util.List;
 import vn.edu.nuce.daotao.StoreManager.response.PositionResponse;
+import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 
 /**
  *
@@ -14,4 +15,11 @@ import vn.edu.nuce.daotao.StoreManager.response.PositionResponse;
  */
 public interface PositionController {
     List<PositionResponse> getAllPositionResponses();
+    
+    List<Object[]> getAllPositionResponseObject();
+    
+    CodeSystem updatePositon(int statusBtn, PositionResponse response);
+
+    boolean deletePosition(PositionResponse positionResponse);
+    
 }

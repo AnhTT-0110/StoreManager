@@ -6,11 +6,16 @@
 package vn.edu.nuce.daotao.StoreManager.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  *
@@ -30,5 +35,9 @@ public class Permission implements Serializable{
     
     @Column(name = "ChuThich")
     private String description;
+    
+    @OneToMany(mappedBy = "permission" )
+    @ToString.Exclude
+    private Collection<Account> accounts;
     
 }

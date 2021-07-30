@@ -8,6 +8,7 @@ package vn.edu.nuce.daotao.StoreManager.model;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -50,7 +51,7 @@ public class Staff implements Serializable {
 
     @Column(name = "GhiChu")
     private String description;
-    
+
     @OneToMany(mappedBy = "staff")
     private Collection<Bill> billCollection;
 
@@ -60,4 +61,7 @@ public class Staff implements Serializable {
 
     @OneToMany(mappedBy = "staff")
     private Collection<Receipt> receiptCollection;
+
+    @OneToMany(mappedBy = "staff")
+    private Collection<Account> usersCollection;
 }

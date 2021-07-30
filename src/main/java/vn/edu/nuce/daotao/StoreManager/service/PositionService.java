@@ -15,4 +15,10 @@ import vn.edu.nuce.daotao.StoreManager.response.PositionResponse;
 public interface PositionService {
 
     List<PositionResponse> getAllPositionResponses();
+    
+    List<Object[]> getAllPositionResponseObject();
+    
+    boolean updatePosition(int statusBtn, PositionResponse positionResponse);
+
+    boolean deletePosition(PositionResponse positionResponse);
 }

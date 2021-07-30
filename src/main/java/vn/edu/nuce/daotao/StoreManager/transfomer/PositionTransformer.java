@@ -23,5 +23,22 @@ public class PositionTransformer {
         response.setDescription(position.getDescription());
         return response;
     }
+     
+     public Position transformToEntity(PositionResponse positionResponse) {
+        Position position = new Position();
+        position.setCodePosition(positionResponse.getCodePosition());
+        position.setNamePosition(positionResponse.getNamePosition());
+        position.setDescription(positionResponse.getDescription());
+        return position;
+    }
+     
+     public Object[] transformToObject(Position position) {
+        Object[] response = new Object[4];
+        response[1] = position.getCodePosition();
+        response[2] = position.getNamePosition();
+        response[3] = position.getDescription();
+        return response;
+    }
+     
     
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vn.edu.nuce.daotao.StoreManager.service;
+package vn.edu.nuce.daotao.StoreManager.controller;
 
 import java.util.List;
 import vn.edu.nuce.daotao.StoreManager.response.PermissionResponse;
@@ -12,7 +12,6 @@ import vn.edu.nuce.daotao.StoreManager.response.PermissionResponse;
  *
  * @author Anh
  */
-public interface PermissionService {
-
+public interface PermissionController {
     List<PermissionResponse> getAllPermission();
 }

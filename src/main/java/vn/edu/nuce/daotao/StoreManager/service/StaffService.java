@@ -21,4 +21,5 @@ public interface StaffService {
     boolean updateStaff(int statusBtn, StaffResponse staffResponse);
 
     boolean deleteStaff(StaffResponse staffResponse);
+    
 }
