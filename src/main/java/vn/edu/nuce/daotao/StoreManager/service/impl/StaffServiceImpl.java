@@ -23,17 +23,17 @@ import vn.edu.nuce.daotao.StoreManager.transfomer.StaffTransformer;
  * @author Anh
  */
 @Service
-public class StaffServiceImpl implements StaffService{
-    
+public class StaffServiceImpl implements StaffService {
+
     @Autowired
     private StaffRespository staffRespository;
 
     @Autowired
     private StaffTransformer staffTransformer;
-    
+
     @Autowired
     private PositionRespository positionRespository;
-    
+
     @Override
     public List<StaffResponse> getAllStaffResponses() {
         List<Position> positions = positionRespository.findAll();
@@ -46,13 +46,37 @@ public class StaffServiceImpl implements StaffService{
 
     @Override
     public List<Object[]> getAllStaffResponseObjects() {
-         List<Object[]> objects = new ArrayList<>();
-       List<Staff> staffs = staffRespository.findAll();
-         staffs.forEach((customer) -> {
+        List<Object[]> objects = new ArrayList<>();
+        List<Staff> staffs = staffRespository.findAll();
+        staffs.forEach((customer) -> {
             objects.add(staffTransformer.transform(customer));
         });
         return objects;
     }
 
- 
+    @Override
+    public boolean updateStaff(int statusBtn, StaffResponse staffResponse) {
+        int checkBtn = statusBtn;
+        List<Position> positions = positionRespository.findAll();
+        Staff staff = staffTransformer.transformToEntity(staffResponse, positions);
+        switch (checkBtn) {
+            case 2:
+            case 3:
+                staffRespository.save(staff);
+                return true;
+            case 4:
+                staffRespository.delete(staff);
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteStaff(StaffResponse staffResponse) {
+        List<Position> positions = positionRespository.findAll();
+        Staff staff = staffTransformer.transformToEntity(staffResponse, positions);
+        staffRespository.delete(staff);
+        return true;
+    }
+
 }

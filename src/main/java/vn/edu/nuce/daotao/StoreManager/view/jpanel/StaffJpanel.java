@@ -6,6 +6,7 @@
 package vn.edu.nuce.daotao.StoreManager.view.jpanel;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.controller.CustomerTypeController;
 import vn.edu.nuce.daotao.StoreManager.controller.PositionController;
 import vn.edu.nuce.daotao.StoreManager.controller.StaffController;
+import vn.edu.nuce.daotao.StoreManager.response.StaffResponse;
+import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 
 /**
  *
@@ -62,6 +65,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -287,6 +291,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jLabel12.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel12.setText("Giới tính: ");
 
+        buttonGroup1.add(rdiMale);
         rdiMale.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         rdiMale.setText("Nam");
         rdiMale.addActionListener(new java.awt.event.ActionListener() {
@@ -295,6 +300,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             }
         });
 
+        buttonGroup1.add(rdiFemale);
         rdiFemale.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         rdiFemale.setText("Nữ");
 
@@ -680,12 +686,12 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     }//GEN-LAST:event_cbbPositionMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-//        CodeSystem codeSystem = staffController.updateCustomer(checkButton, getCustomerResponse());
-//        if (codeSystem.equals(CodeSystem.SUCCESS)) {
-//            initData();
-//            return;
-//        }
-//        setErrorMsg(codeSystem.getDescription());
+        CodeSystem codeSystem = staffController.updateStaff(checkButton, getCustomerResponse());
+        if (codeSystem.equals(CodeSystem.SUCCESS)) {
+            initData();
+            return;
+        }
+        setErrorMsg(codeSystem.getDescription());
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -708,19 +714,19 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-//        int choose = JOptionPane.showConfirmDialog(null,
-//            "Bạn có muốn xóa khách hàng " + txtNameCus.getText(), "Chú ý", JOptionPane.YES_NO_OPTION);
-//        if (choose != 0) {
-//            return;
-//        }
-//        staffController.deleteCustomer(getCustomerResponse());
-//        initData();
-//        checkButton = 4;
+        int choose = JOptionPane.showConfirmDialog(null,
+            "Bạn có muốn xóa nhân viên " + txtNameStaff.getText(), "Chú ý", JOptionPane.YES_NO_OPTION);
+        if (choose != 0) {
+            return;
+        }
+        staffController.deleteStaff(getCustomerResponse());
+        initData();
+        checkButton = 4;
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         if (!txtSearch.getText().isEmpty()) {
-            init();
+            initData();
         }
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
         tblCustomer.setRowSelectionInterval(0, 0);
@@ -763,6 +769,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnSearch1;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbbPosition;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -840,6 +847,20 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         cbbPosition.removeAllItems();
         positionController.getAllPositionResponses().forEach(item -> cbbPosition.addItem(item.getNamePosition()));
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
+    }
+    
+    private StaffResponse getCustomerResponse() {
+        String codeStaff = txtCodeStaff.getText().isEmpty() ? String.valueOf(0) : txtCodeStaff.getText();
+        String nameStaff = txtNameStaff.getText();
+        String phoneNumber = txtPhoneNumber.getText();
+        String address = txtAddress.getText();
+        String description = txtDescription.getText();
+        String sex = (rdiFemale.isSelected()) ? "Nam" : "Nữ";
+        String namePosition = cbbPosition.getSelectedItem().toString();
+        String birthday = txtBirthday.getText();
+        String startDate = txtDateStart.getText();
+        StaffResponse staffResponse = new StaffResponse(codeStaff, nameStaff, birthday, sex, startDate, address, phoneNumber, description, namePosition);
+        return staffResponse;
     }
     
     void changeIndexOfTableAfterSort() {

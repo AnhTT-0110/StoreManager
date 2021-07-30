@@ -5,6 +5,7 @@
  */
 package vn.edu.nuce.daotao.StoreManager.transfomer;
 
+import java.sql.Date;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.model.Position;
@@ -48,5 +49,23 @@ public class StaffTransformer {
         item[8] = staff.getPhoneNumber();
         item[9] = staff.getDescription();
         return item;
+    }
+    
+     public Staff transformToEntity(StaffResponse staffResponse, List<Position> positions) {
+        Staff staff = new Staff();
+        staff.setCodeStaff(Integer.valueOf(staffResponse.getCodeStaff()));
+        staff.setNameStaff(staffResponse.getNameStaff());
+        staff.setAddress(staffResponse.getAddress());
+        staff.setBirthday(Date.valueOf(staffResponse.getBirthday()));
+        staff.setSex(staffResponse.getSex().equals("Nam") ? 1 : 0);
+        staff.setPhoneNumber(staffResponse.getPhoneNumber());
+        staff.setDescription(staffResponse.getDescription());
+        staff.setDateStart(Date.valueOf(staffResponse.getDateStart()));
+        positions
+                .stream()
+                .filter(position -> position.getNamePosition().equals(staffResponse.getNamePosition()))
+                .findAny()
+                .ifPresent(item -> staff.setPosition(item));
+        return staff;
     }
 }

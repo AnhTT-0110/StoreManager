@@ -14,6 +14,11 @@ import vn.edu.nuce.daotao.StoreManager.response.StaffResponse;
  */
 public interface StaffService {
 
- List<StaffResponse> getAllStaffResponses();
- List<Object[]> getAllStaffResponseObjects();
+    List<StaffResponse> getAllStaffResponses();
+
+    List<Object[]> getAllStaffResponseObjects();
+
+    boolean updateStaff(int statusBtn, StaffResponse staffResponse);
+
+    boolean deleteStaff(StaffResponse staffResponse);
 }

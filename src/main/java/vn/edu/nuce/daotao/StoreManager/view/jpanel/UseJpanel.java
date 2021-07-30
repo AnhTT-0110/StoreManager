@@ -737,7 +737,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         if (!txtSearch.getText().isEmpty()) {
-            init();
+            initData();
         }
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
         tblCustomer.setRowSelectionInterval(0, 0);
