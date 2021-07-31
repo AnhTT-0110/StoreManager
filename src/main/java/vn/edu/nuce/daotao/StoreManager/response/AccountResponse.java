@@ -11,29 +11,27 @@ import lombok.Data;
  *
  * @author Anh
  */
-
 @Data
 public class AccountResponse {
-    
+
     private String codeAccount;
     private String username;
     private String password;
     private String description;
+    private String codeStaff;
     private String nameStaff;
     private String permission;
 
-    public AccountResponse(String codeAccount, String username, String password, String description, String nameStaff, String permission) {
+    public AccountResponse(String codeAccount, String username, String password, String description, String codeStaff, String permission) {
         this.codeAccount = codeAccount;
         this.username = username;
         this.password = password;
         this.description = description;
-        this.nameStaff = nameStaff;
+        this.codeStaff = codeStaff;
         this.permission = permission;
     }
 
     public AccountResponse() {
     }
-    
-    
-    
+
 }

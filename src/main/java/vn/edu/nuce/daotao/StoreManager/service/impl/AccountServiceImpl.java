@@ -50,11 +50,15 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean updateAccount(int statusBtn, AccountResponse accountResponse) {
         int checkBtn = statusBtn;
+        List<Account> accounts = accountRespository.findAll();
         List<Staff> staffs = respository.findAll();
         List<Permission> positions = permissionRepository.findAll();
         Account account = accountTransformer.transformToEntity(accountResponse, staffs, positions);
         switch (checkBtn) {
             case 2:
+                if (accounts.stream().anyMatch(item -> item.getStaff().getCodeStaff() == Integer.valueOf(accountResponse.getCodeStaff()))) {
+                    return false;
+                }
             case 3:
                 accountRespository.save(account);
                 return true;

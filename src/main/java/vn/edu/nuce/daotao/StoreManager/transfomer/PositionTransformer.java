@@ -18,7 +18,7 @@ public class PositionTransformer {
     
      public PositionResponse transform(Position position) {
         PositionResponse response = new PositionResponse();
-        response.setCodePosition(position.getCodePosition());
+        response.setCodePosition(String.valueOf(position.getCodePosition()));
         response.setNamePosition(position.getNamePosition());
         response.setDescription(position.getDescription());
         return response;
@@ -26,7 +26,7 @@ public class PositionTransformer {
      
      public Position transformToEntity(PositionResponse positionResponse) {
         Position position = new Position();
-        position.setCodePosition(positionResponse.getCodePosition());
+        position.setCodePosition(Integer.valueOf(positionResponse.getCodePosition()));
         position.setNamePosition(positionResponse.getNamePosition());
         position.setDescription(positionResponse.getDescription());
         return position;

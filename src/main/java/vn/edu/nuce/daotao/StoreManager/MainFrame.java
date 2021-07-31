@@ -63,6 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Manager Store");
 
         btSanpham.setBackground(new java.awt.Color(255, 255, 204));
         btSanpham.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N

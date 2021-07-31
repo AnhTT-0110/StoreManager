@@ -16,8 +16,19 @@ public enum CodeSystem {
 
     ERROR01("ERROR01", "Nhập sai định dạng ngày: yyyy-MM-dd"),
     ERROR02("ERROR02", "Các trường phải đầy đủ thông tin"),
+    ERROR03("ERROR03", "Cập nhật không thành công"),
+    ERROR04("ERROR04", "Nhân viên này đã có tài khoản rồi"),
+    ERROR05("ERROR05", "\n Nhập sai format user:\n"
+            + "1. Có từ 4-> 15 kí tự\n"
+            + "2. Gồm kí tự thường a->z"
+            + " và các chữ số"),
+    ERROR06("ERROR06", "\nNhập sai format mật khẩu :\n "
+            + "1. Có độ dài từ 8-16 kí tự.\n"
+            + "2. Có ít nhất 1 kí tự thường, 1 kí tự hoa và 1 chữ số\n"
+            + "3. Có 1 trong những kí tự đặc biệt sau: @ # $ % ! \n"),
     SUCCESS("SUCCESS", "Cập nhật thành công!"),
-    SUCCESS02("SUCCESS02", "Đã đủ thông tin");
+    SUCCESS02("SUCCESS02", "Đã đủ thông tin"),
+    SUCCESS03("SUCCESS03", "Định dạng OK");
 
     private final String code;
     private final String description;

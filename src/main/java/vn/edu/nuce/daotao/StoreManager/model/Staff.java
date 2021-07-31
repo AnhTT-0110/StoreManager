@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -62,6 +63,10 @@ public class Staff implements Serializable {
     @OneToMany(mappedBy = "staff")
     private Collection<Receipt> receiptCollection;
 
+    @OneToOne(mappedBy = "staff")
+    private Account account;
+
     @OneToMany(mappedBy = "staff")
-    private Collection<Account> usersCollection;
+    private Collection<Account> accountCollection;
+    
 }

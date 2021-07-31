@@ -18,15 +18,16 @@ import vn.edu.nuce.daotao.StoreManager.response.AccountResponse;
  */
 @Component
 public class AccountTransformer {
-    
-      public Object[] transform(Account account) {
-        Object[] item = new Object[7];
+
+    public Object[] transform(Account account) {
+        Object[] item = new Object[8];
         item[1] = account.getCodeAccount();
-        item[2] = account.getStaff().getNameStaff();
-        item[3] = account.getUsername();
-        item[4] = account.getPassword();
-        item[5] = account.getPermission().getNamePermission();
-        item[6] = account.getDescription();
+        item[2] = account.getStaff().getCodeStaff();
+        item[3] = account.getStaff().getNameStaff();
+        item[4] = account.getUsername();
+        item[5] = account.getPassword();
+        item[6] = account.getPermission().getNamePermission();
+        item[7] = account.getDescription();
         return item;
     }
 
@@ -38,7 +39,7 @@ public class AccountTransformer {
         account.setDescription(accountResponse.getDescription());
         staffs
                 .stream()
-                .filter(staff -> staff.getNameStaff().equals(accountResponse.getNameStaff()))
+                .filter(staff -> staff.getCodeStaff() == (Integer.valueOf(accountResponse.getCodeStaff())))
                 .findAny()
                 .ifPresent(item -> account.setStaff(item));
         permissions

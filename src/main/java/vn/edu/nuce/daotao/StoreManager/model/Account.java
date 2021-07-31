@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -37,7 +38,7 @@ public class Account implements Serializable {
     private String description;
     
     @JoinColumn(name = "MaNhanVien", referencedColumnName = "MaNhanVien")
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private Staff staff;
     
     @JoinColumn(name = "Quyen", referencedColumnName = "MaQuyen")

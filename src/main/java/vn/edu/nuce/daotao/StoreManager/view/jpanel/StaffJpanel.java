@@ -1642,6 +1642,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     }//GEN-LAST:event_btnUpdateAccountActionPerformed
 
     private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
+       cbbStaff.setEnabled(true);
         setButtonsEnable(btnUpdateAccount, true, btnAddAccount, false, btnEditAccount, false, btnDeleteAccount, false, btnCancelAccount, true);
         txtCodeAccount.setText("");
         txtUsername.setText("");
@@ -1653,6 +1654,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     }//GEN-LAST:event_btnAddAccountActionPerformed
 
     private void btnEditAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccountActionPerformed
+        cbbStaff.setEnabled(false);
         setButtonsEnable(btnUpdateAccount, true, btnAddAccount, false, btnEditAccount, false, btnDeleteAccount, false, btnCancelAccount, true);
         checkButtonAccount = 3;
     }//GEN-LAST:event_btnEditAccountActionPerformed
@@ -1678,11 +1680,14 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         setButtonsEnable(btnUpdateAccount, false, btnAddAccount, true, btnEditAccount, true, btnDeleteAccount, true, btnCancelAccount, true);
         indexItemAccount = tblAccount.getSelectedRow();
         txtCodeAccount.setText(tblAccount.getValueAt(indexItemAccount, 1).toString());
-        cbbStaff.setSelectedItem(tblCustomer.getValueAt(indexItemAccount, 2).toString());
-        txtUsername.setText(tblAccount.getValueAt(indexItemAccount, 3).toString());
-        txtPassword.setText(tblAccount.getValueAt(indexItemAccount, 4).toString());
-        cbbPermission.setSelectedItem(tblCustomer.getValueAt(indexItemAccount, 5).toString());
-        txtDescriptionAccount.setText(tblAccount.getValueAt(indexItemAccount, 6).toString());
+        String staff = tblAccount.getValueAt(indexItemAccount, 2).toString() 
+                + " _ " + tblAccount.getValueAt(indexItemAccount, 3).toString();
+        cbbStaff.setSelectedItem(staff);
+        txtUsername.setText(tblAccount.getValueAt(indexItemAccount, 4).toString());
+        txtPassword.setText(tblAccount.getValueAt(indexItemAccount, 5).toString());
+        String permission = tblAccount.getValueAt(indexItemAccount, 6).toString();
+        cbbPermission.setSelectedItem(permission);
+        txtDescriptionAccount.setText(tblAccount.getValueAt(indexItemAccount, 7).toString());
     }//GEN-LAST:event_tblAccountMouseClicked
 
     private void btnSearch3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch3ActionPerformed
@@ -1943,7 +1948,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     private void initDataAccount() {
         accountResponses = accountController.getAllAccountResponsesObject();
-        Object[] obj = new Object[]{"STT", "Mã tài khoản", "Nhân viên", "Tên đăng nhập", "Mật khẩu", "Quyền", "Ghi chú"};
+        Object[] obj = new Object[]{"STT", "Mã tài khoản", "Mã nhân viên", "Nhân viên", "Tên đăng nhập", "Mật khẩu", "Quyền", "Ghi chú"};
         tableModelAccount = new DefaultTableModel(obj, 0);
         tableRowSorterAccount = new TableRowSorter<>(tableModelAccount);
         tblAccount.setModel(tableModelAccount);
@@ -1964,17 +1969,24 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         cbbStaff.removeAllItems();
         cbbPermission.removeAllItems();
         permissionController.getAllPermission().forEach(item -> cbbPermission.addItem(item.getNamePermission()));
-        staffController.getAllStaffResponses().forEach(item -> cbbStaff.addItem(item.getNameStaff()));
+        staffController.getAllStaffResponses().forEach(item -> cbbStaff.addItem(item.getCodeStaff() + " _ " + item.getNameStaff()));
+        cbbStaff.setEnabled(true);
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
     }
 
     private PositionResponse getPositionResponse() {
-        return new PositionResponse(Integer.valueOf(txtCosPosition.getText()), txtNamePosition.getText(), txtDescriptionPosition.getText());
+        String codePosition = txtCosPosition.getText().isEmpty() ? String.valueOf(0) : txtCosPosition.getText();
+        return new PositionResponse(codePosition, txtNamePosition.getText(), txtDescriptionPosition.getText());
     }
 
     private AccountResponse getAccountResponse() {
-        return new AccountResponse(txtCodeAccount.getText(), txtUsername.getText(), txtPassword.getText(), txtDescriptionAccount.getText(),
-                cbbStaff.getSelectedItem().toString(), cbbPermission.getSelectedItem().toString());
+        String codeAccount = txtCodeAccount.getText().isEmpty() ? String.valueOf(0) : txtCodeAccount.getText();
+        String[] codeStaff = cbbStaff.getSelectedItem().toString().split("_");
+        String codeStaffConvert = codeStaff[0].trim();
+        AccountResponse accountResponse =  new AccountResponse(codeAccount, txtUsername.getText(), txtPassword.getText(), txtDescriptionAccount.getText(),
+                codeStaffConvert, cbbPermission.getSelectedItem().toString());
+        log.info("accountResponse" + accountResponse);
+        return accountResponse;
     }
 
 }

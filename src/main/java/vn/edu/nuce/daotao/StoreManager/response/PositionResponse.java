@@ -14,11 +14,11 @@ import lombok.Data;
 @Data
 public class PositionResponse {
     
-    private int codePosition;
+    private String codePosition;
     private String namePosition;
     private String description;
 
-    public PositionResponse(int codePosition, String namePosition, String description) {
+    public PositionResponse(String codePosition, String namePosition, String description) {
         this.codePosition = codePosition;
         this.namePosition = namePosition;
         this.description = description;

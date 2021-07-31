@@ -37,13 +37,23 @@ public class AccountControllerImpl implements AccountController {
 
     @Override
     public CodeSystem updateAccount(int statusBtn, AccountResponse response) {
-        CodeSystem codeSystem = validator.validateRegexAndAllArgumentNotNull(response.getNameStaff(),
-                response.getUsername(),response.getPassword(),response.getPermission());
+        CodeSystem codeSystem = validator.validateRegexAndAllArgumentNotNull(response.getCodeStaff(),
+                response.getUsername(), response.getPassword(), response.getPermission());
         if (!CodeSystem.SUCCESS02.equals(codeSystem)) {
             return codeSystem;
         }
-        accountService.updateAccount(statusBtn, response);
-        return CodeSystem.SUCCESS;
+        codeSystem = validator.validateUser(response.getUsername());
+        if (CodeSystem.ERROR05.equals(codeSystem)) {
+            return codeSystem;
+        }
+        codeSystem = validator.validatePassword(response.getPassword());
+        if (CodeSystem.ERROR06.equals(codeSystem)) {
+            return codeSystem;
+        }
+        if (accountService.updateAccount(statusBtn, response)) {
+            return CodeSystem.SUCCESS;
+        }
+        return CodeSystem.ERROR04;
     }
 
     @Override
