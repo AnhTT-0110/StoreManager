@@ -6,13 +6,14 @@
 package vn.edu.nuce.daotao.StoreManager.view.jpanel;
 
 import java.util.Locale;
-import java.util.ResourceBundle;
-import vn.edu.nuce.daotao.StoreManager.MainFrame;
+import org.springframework.context.annotation.Scope;
 
 /**
  *
  * @author Trieu Anh
  */
+
+
 public class LangueJpanel extends javax.swing.JPanel {
 
     /**

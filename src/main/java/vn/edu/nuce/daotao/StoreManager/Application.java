@@ -18,13 +18,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 public class Application {
 
+    public static ConfigurableApplicationContext applicationContext;
+
     public static void main(String args[]) {
         System.out.println("MainFrame {} starting...");
         SpringApplicationBuilder builder = new SpringApplicationBuilder(Application.class);
         builder.headless(false);
-        ConfigurableApplicationContext context = builder.run(args);
+        applicationContext = builder.run(args);
         System.out.println("MainFrame {} started.");
-        MainFrame service = context.getBean(MainFrame.class);
+        MainFrame service = applicationContext.getBean(MainFrame.class);
         service.init();
 
     }

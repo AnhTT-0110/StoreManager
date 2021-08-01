@@ -11,8 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.BillJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.CustomerJpanel;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.DistributorJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.LangueJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.StaffJpanel;
 
@@ -23,15 +26,11 @@ import vn.edu.nuce.daotao.StoreManager.view.jpanel.StaffJpanel;
 @Component
 public class MainFrame extends javax.swing.JFrame {
 
+    static ConfigurableApplicationContext applicationContext;
+
     public static void thongBao(String noiDungThongBao, String tieuDeThongBao, int icon) {
         JOptionPane.showMessageDialog(new JFrame(), noiDungThongBao, tieuDeThongBao, icon);
     }
-
-    @Autowired
-    CustomerJpanel customerJpanel;
-    
-    @Autowired
-    StaffJpanel staffJpanel;
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -228,11 +227,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btTTCHActionPerformed
 
     private void btHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHoaDonActionPerformed
-//       jpanel.hoadon b = new hoadon();
-//        mainPanel.removeAll();
-//        mainPanel.add(b);
-//        mainPanel.repaint();
-//        mainPanel.revalidate();
+        BillJpanel billJpanel = applicationContext.getBean(BillJpanel.class);
+        billJpanel.init();
+        setValueToMainFrame(billJpanel);
     }//GEN-LAST:event_btHoaDonActionPerformed
 
     private void btSanphamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSanphamActionPerformed
@@ -244,22 +241,21 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btSanphamActionPerformed
 
     private void btKhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btKhachhangActionPerformed
-
+        CustomerJpanel customerJpanel = applicationContext.getBean(CustomerJpanel.class);
         customerJpanel.init();
         setValueToMainFrame(customerJpanel);
     }//GEN-LAST:event_btKhachhangActionPerformed
 
     private void btNhanvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNhanvienActionPerformed
+        StaffJpanel staffJpanel = applicationContext.getBean(StaffJpanel.class);
         staffJpanel.init();
         setValueToMainFrame(staffJpanel);
     }//GEN-LAST:event_btNhanvienActionPerformed
 
     private void btDoitacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDoitacActionPerformed
-//        jpanel.doitac b = new doitac();
-//        mainPanel.removeAll();
-//        mainPanel.add(b);
-//        mainPanel.repaint();
-//        mainPanel.revalidate();
+        DistributorJpanel distributorJpanel = applicationContext.getBean(DistributorJpanel.class);
+        distributorJpanel.init();
+        setValueToMainFrame(distributorJpanel);
     }//GEN-LAST:event_btDoitacActionPerformed
 
     private void btDoanhthuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDoanhthuActionPerformed
@@ -285,6 +281,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btNgonNguActionPerformed
 
     public void init() {
+        applicationContext = Application.applicationContext;
         initComponents();
         java.awt.EventQueue.invokeLater(() -> {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);

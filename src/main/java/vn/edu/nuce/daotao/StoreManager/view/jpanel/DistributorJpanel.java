@@ -8,8 +8,6 @@ package vn.edu.nuce.daotao.StoreManager.view.jpanel;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -18,9 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import vn.edu.nuce.daotao.StoreManager.controller.CustomerController;
-import vn.edu.nuce.daotao.StoreManager.controller.CustomerTypeController;
-import vn.edu.nuce.daotao.StoreManager.response.CustomerResponse;
+import vn.edu.nuce.daotao.StoreManager.controller.DistributorController;
+import vn.edu.nuce.daotao.StoreManager.response.DistributorResponse;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 
 /**
@@ -30,13 +27,10 @@ import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Log4j2
-public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
+public class DistributorJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     @Autowired
-    private CustomerController customerController;
-
-    @Autowired
-    private CustomerTypeController customerTypeController;
+    private DistributorController distributorController;
 
     int count = 0;
     int indexItem = 0;
@@ -71,16 +65,16 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel1 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtCodeCus = new javax.swing.JTextField();
+        txtCodeDis = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtNameCus = new javax.swing.JTextField();
+        txtNameDis = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        txtBirthday = new javax.swing.JTextField();
+        txtPhoneNumber = new javax.swing.JTextField();
         jPanel14 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
@@ -88,16 +82,8 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
-        txtPhoneNumber = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         jPanel10 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        rdiMale = new javax.swing.JRadioButton();
-        rdiFemale = new javax.swing.JRadioButton();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        cbbCustomerType = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescription = new javax.swing.JTextArea();
@@ -108,13 +94,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         btnDelete = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblCustomer = new javax.swing.JTable();
-        jPanel12 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        txtPage = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        tblDistribute = new javax.swing.JTable();
         jPanel17 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
@@ -134,19 +114,19 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel1.setText("Mã khách hàng:   ");
+        jLabel1.setText("Mã nhà phân phối:");
 
-        txtCodeCus.setEditable(false);
-        txtCodeCus.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtCodeDis.setEditable(false);
+        txtCodeDis.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCodeCus, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtCodeDis, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,13 +134,13 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodeCus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtCodeDis, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel1.add(jPanel15);
 
         jLabel2.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel2.setText(" Tên khách hàng:  ");
+        jLabel2.setText("Tên nhà phân phối:");
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -169,7 +149,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNameCus, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
+                .addComponent(txtNameDis, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,7 +158,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(txtNameCus))
+                        .addComponent(txtNameDis))
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -191,7 +171,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Quản lý khách hàng");
+        jLabel4.setText("Quản lý nhà phân phối");
         jLabel4.setToolTipText("");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -212,19 +192,19 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel5.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel5.setText("Ngày sinh:             ");
+        jLabel5.setText("Số điện thoại: ");
 
-        txtBirthday.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtBirthday.setMargin(new java.awt.Insets(2, 2, 2, 5));
+        txtPhoneNumber.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtPhoneNumber.setMargin(new java.awt.Insets(2, 2, 2, 5));
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,7 +212,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel2.add(jPanel13);
@@ -245,10 +225,9 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,101 +247,27 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel11.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel11.setText("Số điện thoại: ");
+        jLabel11.setText("Email:");
 
-        txtPhoneNumber.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtPhoneNumber.setMargin(new java.awt.Insets(2, 2, 2, 5));
+        txtEmail.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtEmail.setMargin(new java.awt.Insets(2, 2, 2, 5));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jLabel11)
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addComponent(txtPhoneNumber, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel8.add(jPanel9);
-
-        jLabel12.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel12.setText("Giới tính: ");
-
-        buttonGroup1.add(rdiMale);
-        rdiMale.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        rdiMale.setText("Nam");
-        rdiMale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdiMaleActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(rdiFemale);
-        rdiFemale.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        rdiFemale.setText("Nữ");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(rdiMale)
-                .addGap(18, 18, 18)
-                .addComponent(rdiFemale)
-                .addContainerGap(66, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdiMale)
-                    .addComponent(rdiFemale))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel8.add(jPanel10);
-
-        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
-
-        cbbCustomerType.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbbCustomerTypeMouseClicked(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel3.setText("Loại khách hàng:");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbCustomerType, 0, 188, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbCustomerType, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 22, Short.MAX_VALUE))
-        );
-
-        jPanel4.add(jPanel5);
 
         jLabel7.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel7.setText("Mô tả: ");
@@ -371,28 +276,26 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         txtDescription.setRows(5);
         jScrollPane1.setViewportView(txtDescription);
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel4.add(jPanel7);
+        jPanel8.add(jPanel10);
 
         btnUpdate.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/updating_v1.png"))); // NOI18N
@@ -444,8 +347,8 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         });
         jPanel11.add(btnCancel);
 
-        tblCustomer.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
-        tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
+        tblDistribute.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
+        tblDistribute.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -456,56 +359,12 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblDistribute.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomerMouseClicked(evt);
+                tblDistributeMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblCustomer);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back_first_v1.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton3);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/back_v1.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton4);
-
-        txtPage.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtPage.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtPage.setText("dsfdsfsdfdsfs");
-        txtPage.setMinimumSize(new java.awt.Dimension(100, 24));
-        txtPage.setPreferredSize(new java.awt.Dimension(80, 30));
-        txtPage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPageActionPerformed(evt);
-            }
-        });
-        jPanel12.add(txtPage);
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/next_last_v1.png"))); // NOI18N
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton5);
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/next_v1.png"))); // NOI18N
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-        jPanel12.add(jButton6);
+        jScrollPane2.setViewportView(tblDistribute);
 
         jPanel17.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -525,7 +384,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
-                .addGap(0, 139, Short.MAX_VALUE)
+                .addGap(0, 120, Short.MAX_VALUE)
                 .addComponent(btnSearch1))
         );
         jPanel24Layout.setVerticalGroup(
@@ -550,7 +409,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -565,7 +424,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 196, Short.MAX_VALUE)
+            .addGap(0, 177, Short.MAX_VALUE)
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -593,11 +452,9 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
                         .addGap(16, 16, 16))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(155, 155, 155)
                                 .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -615,8 +472,6 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -625,52 +480,25 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rdiMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdiMaleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdiMaleActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        tblCustomer.setRowSelectionInterval(indexItem - 1, indexItem - 1);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        tblCustomer.setRowSelectionInterval(0, 0);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void cbbCustomerTypeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCustomerTypeMouseClicked
-
-    }//GEN-LAST:event_cbbCustomerTypeMouseClicked
-
-    private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
+    private void tblDistributeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDistributeMouseClicked
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, true, btnDelete, true, btnCancel, true);
-        indexItem = tblCustomer.getSelectedRow();
-        txtPage.setText((indexItem + 1) + " / " + tblCustomer.getRowCount());
-        txtCodeCus.setText(tblCustomer.getValueAt(indexItem, 1).toString());
-        txtNameCus.setText(tblCustomer.getValueAt(indexItem, 2).toString());
-        txtAddress.setText(tblCustomer.getValueAt(indexItem, 5).toString());
-        txtPhoneNumber.setText(tblCustomer.getValueAt(indexItem, 6).toString());
-        txtDescription.setText(tblCustomer.getValueAt(indexItem, 8).toString());
-        String sex = tblCustomer.getValueAt(indexItem, 4).toString();
-        cbbCustomerType.setSelectedItem(tblCustomer.getValueAt(indexItem, 7).toString());
-        txtBirthday.setText(tblCustomer.getValueAt(indexItem, 3).toString());
-        if (sex.equals("Nam")) {
-            rdiMale.setSelected(true);
-            rdiFemale.setSelected(false);
-        } else {
-            rdiMale.setSelected(false);
-            rdiFemale.setSelected(true);
-        }
-    }//GEN-LAST:event_tblCustomerMouseClicked
+        indexItem = tblDistribute.getSelectedRow();
+        txtCodeDis.setText(tblDistribute.getValueAt(indexItem, 1).toString());
+        txtNameDis.setText(tblDistribute.getValueAt(indexItem, 2).toString());
+        txtAddress.setText(tblDistribute.getValueAt(indexItem, 3).toString());
+        txtPhoneNumber.setText(tblDistribute.getValueAt(indexItem, 4).toString());
+        txtEmail.setText(tblDistribute.getValueAt(indexItem, 5).toString());
+        txtDescription.setText(tblDistribute.getValueAt(indexItem, 6).toString());
+
+    }//GEN-LAST:event_tblDistributeMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        CodeSystem codeSystem = customerController.updateCustomer(checkButton, getCustomerResponse());
+        CodeSystem codeSystem = distributorController.updateDistributor(checkButton, getDistributorResponse());
         if (codeSystem.equals(CodeSystem.SUCCESS)) {
             initData();
             return;
@@ -678,37 +506,32 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         setErrorMsg(codeSystem.getDescription());
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private CustomerResponse getCustomerResponse() {
-        int codeCus = txtCodeCus.getText().isEmpty() ? 0 : Integer.valueOf(txtCodeCus.getText());
-        String nameCus = txtNameCus.getText();
-        String phoneNumber = txtPhoneNumber.getText();
+    private DistributorResponse getDistributorResponse() {
+        int codeCus = txtCodeDis.getText().isEmpty() ? 0 : Integer.valueOf(txtCodeDis.getText());
+        String nameCus = txtNameDis.getText();
+        String email = txtEmail.getText();
         String address = txtAddress.getText();
         String description = txtDescription.getText();
-        String sex = (rdiFemale.isSelected()) ? "Nam" : "Nữ";
-        String customerType = cbbCustomerType.getSelectedItem().toString();
-        String birthday = txtBirthday.getText();
-        CustomerResponse customerResponse = new CustomerResponse(codeCus, nameCus, birthday, sex, address, phoneNumber, customerType, description);
-        return customerResponse;
+        String phoneNumber = txtPhoneNumber.getText();
+        DistributorResponse distributorResponse = new DistributorResponse(codeCus, nameCus, address, phoneNumber, email, description);
+        return distributorResponse;
     }
 
     void changeIndexOfTableAfterSort() {
-        int selection = tblCustomer.getRowCount();
+        int selection = tblDistribute.getRowCount();
         for (int i = 0; i < selection; i++) {
-            tblCustomer.convertRowIndexToModel(i);
+            tblDistribute.convertRowIndexToModel(i);
         }
-        txtPage.setText(tblCustomer.getSelectedRow() + 1 + " / " + tblCustomer.getRowCount());
     }
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         setButtonsEnable(btnUpdate, true, btnAdd, false, btnEdit, false, btnDelete, false, btnCancel, true);
-        txtCodeCus.setText("");
-        txtNameCus.setText("");
+        txtCodeDis.setText("");
+        txtNameDis.setText("");
+        txtEmail.setText("");
         txtPhoneNumber.setText("");
-        txtBirthday.setText("");
         txtDescription.setText("");
         txtAddress.setText("");
-        rdiMale.setSelected(true);
-        cbbCustomerType.setSelectedIndex(0);
         checkButton = 2;
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -720,12 +543,16 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int choose = JOptionPane.showConfirmDialog(null,
-                "Bạn có muốn xóa khách hàng " + txtNameCus.getText(), "Chú ý", JOptionPane.YES_NO_OPTION);
+                "Bạn có muốn xóa khách hàng " + txtNameDis.getText(), "Chú ý", JOptionPane.YES_NO_OPTION);
         if (choose != 0) {
             return;
         }
-        customerController.deleteCustomer(getCustomerResponse());
-        initData();
+        CodeSystem codeSystem = distributorController.deletDistributor(getDistributorResponse());
+        if (codeSystem.equals(CodeSystem.SUCCESS)) {
+            initData();
+            return;
+        }
+        setErrorMsg(codeSystem.getDescription());
         checkButton = 4;
     }//GEN-LAST:event_btnDeleteActionPerformed
 
@@ -742,7 +569,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
             initData();
         }
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
-        tblCustomer.setRowSelectionInterval(0, 0);
+        tblDistribute.setRowSelectionInterval(0, 0);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
@@ -753,20 +580,6 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
         filter(txtSearch.getText());
     }//GEN-LAST:event_txtSearchKeyReleased
 
-    private void txtPageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPageActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPageActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-        tblCustomer.setRowSelectionInterval(indexItem + 1, indexItem + 1);
-
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        tblCustomer.setRowSelectionInterval(tblCustomer.getRowCount() - 1, tblCustomer.getRowCount() - 1);
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
@@ -775,17 +588,10 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JButton btnSearch1;
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cbbCustomerType;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -794,7 +600,6 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
@@ -806,35 +611,29 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JRadioButton rdiFemale;
-    private javax.swing.JRadioButton rdiMale;
-    private javax.swing.JTable tblCustomer;
+    private javax.swing.JTable tblDistribute;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtBirthday;
-    private javax.swing.JTextField txtCodeCus;
+    private javax.swing.JTextField txtCodeDis;
     private javax.swing.JTextArea txtDescription;
-    private javax.swing.JTextField txtNameCus;
-    private javax.swing.JTextField txtPage;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNameDis;
     private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void initData() {
-        customerResponses = customerController.getAllCustomerResponseObject();
-        Object[] obj = new Object[]{"STT", "Mã Khách Hàng", "Tên Khách Hàng", "Ngày Sinh", "Giới Tính", "Dịa Chỉ", "SDT", "Loại Khách Hàng", "Mô tả"};
+        customerResponses = distributorController.getAllDistributorResponseObject();
+        Object[] obj = new Object[]{"STT", "Mã Nhà phân phối", "Tên nhà phân phối", "Địa chỉ", "Số điện thoại", "Email", "Ghi chú"};
         tableModel = new DefaultTableModel(obj, 0);
         tableRowSorter = new TableRowSorter<>(tableModel);
-        tblCustomer.setModel(tableModel);
-        tblCustomer.setRowSorter(tableRowSorter);
+        tblDistribute.setModel(tableModel);
+        tblDistribute.setRowSorter(tableRowSorter);
         count = 0;
         tableModel.setRowCount(0);
         try {
@@ -848,19 +647,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
             exception.printStackTrace();
 
         }
-        cbbCustomerType.removeAllItems();
-        customerTypeController.getAllCustomerType().forEach(item -> cbbCustomerType.addItem(item.getNameCustomerType()));
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
-        txtPage.setText(tblCustomer.getSelectedRow() + 1 + "/" + tblCustomer.getRowCount());
-        tableModel.addTableModelListener(new TableModelListener() {
-
-            public void tableChanged(TableModelEvent tme) {
-                if (tme.getType() == TableModelEvent.UPDATE) {
-                    log.info("Cell " + tme.getFirstRow() + ", " + tme.getColumn() + " changed."
-                            + " The new value: " + tableModel.getValueAt(tme.getFirstRow(), tme.getColumn()));
-                }
-            }
-        });
     }
 
 }

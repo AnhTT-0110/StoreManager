@@ -26,14 +26,11 @@ public class Receipt implements Serializable{
     
     @Id
     @Column(name = "MaPhieuNhap")
-    private int codeDistributor;
+    private int codeReceipt;
     
     @JoinColumn(name = "MaNhanVien", referencedColumnName = "MaNhanVien")
     @ManyToOne(optional = false)
     private Staff staff;
-    
-    @Column(name = "MaNhaPhanPhoi")
-    private int codesDistributor;
     
     @Column(name = "TongTien")
     private double totalDcash;
@@ -43,5 +40,8 @@ public class Receipt implements Serializable{
     
     @Column(name = "ChuThich")
     private String description;
-       
+    
+    @ManyToOne
+    @JoinColumn(name = "MaNhaPhanPhoi", referencedColumnName = "MaNhaPhanPhoi")
+    private Distributor distributor;
 }

@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,17 +5,95 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import vn.edu.nuce.daotao.StoreManager.model.Bill;
+import vn.edu.nuce.daotao.StoreManager.model.Customer;
+import vn.edu.nuce.daotao.StoreManager.model.Staff;
+import vn.edu.nuce.daotao.StoreManager.response.BillResponse;
+import vn.edu.nuce.daotao.StoreManager.respository.BillDetailRespository;
 import vn.edu.nuce.daotao.StoreManager.respository.BillRespository;
+import vn.edu.nuce.daotao.StoreManager.respository.CustomerRespository;
+import vn.edu.nuce.daotao.StoreManager.respository.StaffRespository;
 import vn.edu.nuce.daotao.StoreManager.service.*;
+import vn.edu.nuce.daotao.StoreManager.transfomer.BillTransfomer;
 
 /**
  *
  * @author Anh
  */
-public class BillServiceImpl implements BillService{
-    
+@Service
+public class BillServiceImpl implements BillService {
+
     @Autowired
     private BillRespository billRespository;
-    
+
+    @Autowired
+    private BillTransfomer billTransfomer;
+
+    @Autowired
+    private StaffRespository staffRespository;
+
+    @Autowired
+    private CustomerRespository customerRespository;
+
+    @Autowired
+    private BillDetailRespository billDetailRespository;
+
+    @Override
+    public List<BillResponse> getAllBillResponses() {
+//        var customers = customerRespository.findAll();
+//        var staffs = staffRespository.findAll();
+//        return billRespository
+//                .findAll()
+//                .stream()
+//                .map(bill -> billTransfomer.transformToEntity(bill,customers,staffs))
+//                .collect(Collectors.toList());   
+
+        return null;
+    }
+
+    @Override
+    public List<Object[]> getAllBillResponseObjects() {
+        return billRespository
+                .findAll()
+                .stream()
+                .map(bill -> billTransfomer.transform(bill))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean updateBill(int statusBtn, BillResponse response) {
+        int checkBtn = statusBtn;
+        List<Customer> customers = customerRespository.findAll();
+        List<Staff> staffs = staffRespository.findAll();
+        Bill bill = billTransfomer.transformToEntity(response, customers, staffs);
+        switch (checkBtn) {
+            case 2:
+            case 3:
+                billRespository.save(bill);
+                return true;
+            case 4:
+                billRespository.delete(bill);
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deleteBill(BillResponse response) {
+        List<Customer> customers = customerRespository.findAll();
+        List<Staff> staffs = staffRespository.findAll();
+        Bill bill = billTransfomer.transformToEntity(response, customers, staffs);
+        boolean checkInCus = billDetailRespository.findAll().stream().anyMatch(item -> item.getBill().getCodeBill() == bill.getCodeBill());
+        if (checkInCus) {
+            return false;
+        }
+        billRespository.delete(bill);
+        return true;
+    }
+
 }

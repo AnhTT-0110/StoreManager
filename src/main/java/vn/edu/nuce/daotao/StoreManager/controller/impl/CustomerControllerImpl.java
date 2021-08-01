@@ -55,8 +55,7 @@ public class CustomerControllerImpl implements CustomerController {
 
     @Override
     public List<CustomerResponse> getAllCustomerResponse() {
-//        return customerService.getAllCustomerResponseEntity();
-        return null;
+        return customerService.getAllCustomerResponseEntity();
     }
 
 }

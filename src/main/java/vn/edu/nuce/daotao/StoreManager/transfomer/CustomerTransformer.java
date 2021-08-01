@@ -51,4 +51,17 @@ public class CustomerTransformer {
         return customer;
     }
 
+    public CustomerResponse transformToEntity(Customer customer) {
+        CustomerResponse response = new CustomerResponse();
+        response.setCodeCustomer(customer.getCodeCustomer());
+        response.setNameCustomer(customer.getNameCustomer());
+        response.setBirthday(customer.getBirthday().toString());
+        response.setSex(customer.getSex() == 0 ? "Nam" : "Nữ");
+        response.setAddress(customer.getAddress());
+        response.setPhoneNumber(customer.getPhoneNumber());
+        response.setNameCustomerType(customer.getCustomerType().getNameCustomerType());
+        response.setDescription(customer.getDescription());
+        return response;
+    }
+
 }

@@ -16,6 +16,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.controller.CustomerController;
 import vn.edu.nuce.daotao.StoreManager.controller.CustomerTypeController;
@@ -27,6 +29,7 @@ import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
  * @author Anh
  */
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Log4j2
 public class CustomerJpanel extends javax.swing.JPanel implements CommonJpanel {
 

@@ -26,6 +26,10 @@ public enum CodeSystem {
             + "1. Có độ dài từ 8-16 kí tự.\n"
             + "2. Có ít nhất 1 kí tự thường, 1 kí tự hoa và 1 chữ số\n"
             + "3. Có 1 trong những kí tự đặc biệt sau: @ # $ % ! \n"),
+    ERROR07("ERROR07", "Không thể xóa nhà phân phối này vì có phiếu nhấp"),
+    ERROR08("ERROR08", "Không thể xóa hóa đơn này vì có chi tiết hóa đơn"),
+    ERROR09("ERROR09", "Nhập sai định dạng ngày"),
+    ERROR10("ERROR09", "Nhập sai định dạng số, phải lớn hơn 0"),
     SUCCESS("SUCCESS", "Cập nhật thành công!"),
     SUCCESS02("SUCCESS02", "Đã đủ thông tin"),
     SUCCESS03("SUCCESS03", "Định dạng OK");

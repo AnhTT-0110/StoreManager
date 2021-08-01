@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Log4j2
 public class ScheduleTask {
 
-    @Scheduled(fixedRate = 30 * 1000)
+    @Scheduled(fixedRate = 60 * 1000)
     public void garbage() {
         System.gc();
         log.info("Garbage GC: ...  ");

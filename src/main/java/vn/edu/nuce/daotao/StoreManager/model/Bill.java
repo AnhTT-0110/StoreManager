@@ -6,11 +6,15 @@
 package vn.edu.nuce.daotao.StoreManager.model;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.ToString;
@@ -38,13 +42,16 @@ public class Bill implements Serializable {
     @ToString.Exclude
     private Staff staff;
  
+    @OneToMany(mappedBy = "bill")
+    private Collection<BillDetail> billDetails;
+    
     @Column(name = "NgayLapHoaDon")
-    private int date;
+    private LocalDateTime date;
     
     @Column(name = "TongTien")
-    private int totalDcash;
+    private double totalDcash;
     
     @Column(name = "GhiChu")
-    private int description;    
+    private String description;    
     
 }

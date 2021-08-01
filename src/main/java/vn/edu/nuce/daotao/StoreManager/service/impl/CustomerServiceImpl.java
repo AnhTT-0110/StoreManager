@@ -7,6 +7,7 @@ package vn.edu.nuce.daotao.StoreManager.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,24 +25,22 @@ import vn.edu.nuce.daotao.StoreManager.transfomer.CustomerTransformer;
  */
 @Component
 @Log4j2
-public class CustomerServiceImpl implements CustomerService{
-    
+public class CustomerServiceImpl implements CustomerService {
+
     @Autowired
     private CustomerRespository customerRespository;
-    
+
     @Autowired
     private CustomerTypeRespository customerTypeRespository;
-    
+
     @Autowired
     private CustomerTransformer customerTransformer;
-    
-    
 
     @Override
     public List<Object[]> getAllCustomerResponse() {
         List<Object[]> objects = new ArrayList<>();
         List<Customer> customers = customerRespository.findAll();
-         customers.forEach((customer) -> {
+        customers.forEach((customer) -> {
             objects.add(customerTransformer.transform(customer));
         });
         return objects;
@@ -53,15 +52,15 @@ public class CustomerServiceImpl implements CustomerService{
         List<CustomerType> customerTypes = customerTypeRespository.findAll();
         Customer customer = customerTransformer.transformToEntity(customerResponse, customerTypes);
         log.info("customer" + customer);
-        switch (checkBtn){
+        switch (checkBtn) {
             case 2:
-            case 3:    
+            case 3:
                 customerRespository.save(customer);
                 return true;
             case 4:
                 customerRespository.delete(customer);
                 return true;
-        } 
+        }
         return false;
     }
 
@@ -72,5 +71,14 @@ public class CustomerServiceImpl implements CustomerService{
         customerRespository.delete(customer);
         return true;
     }
-    
+
+    @Override
+    public List<CustomerResponse> getAllCustomerResponseEntity() {
+        return customerRespository
+                .findAll()
+                .stream()
+                .map(customerTransformer::transformToEntity)
+                .collect(Collectors.toList());
+    }
+
 }

@@ -16,7 +16,7 @@ public interface CustomerService{
     
     List<Object[]> getAllCustomerResponse();
     
-//    List<CustomerResponse> getAllCustomerResponseEntity();
+    List<CustomerResponse> getAllCustomerResponseEntity();
     
     boolean updateCustomer(int statusBtn, CustomerResponse customer);
     

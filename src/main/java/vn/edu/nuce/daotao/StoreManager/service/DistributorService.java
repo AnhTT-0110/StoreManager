@@ -5,13 +5,20 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+import vn.edu.nuce.daotao.StoreManager.response.DistributorResponse;
 
 /**
  *
  * @author Anh
  */
-@Service
-public interface DistributorService {
-  
+public interface DistributorService{
+    
+    List<Object[]> getAllDistributorObject();
+    
+//    List<CustomerResponse> getAllCustomerResponseEntity();
+    
+    boolean updateDistributor(int statusBtn, DistributorResponse customer);
+    
+    boolean deleteDistributor(DistributorResponse customerResponse);
 }

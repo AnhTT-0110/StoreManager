@@ -8,6 +8,10 @@ package vn.edu.nuce.daotao.StoreManager.validator;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +25,8 @@ public class Validator {
     final static String DATE_FORMAT = "yyyy-MM-dd";
     Pattern patternUser = Pattern.compile("^[a-z0-9._-]{4,15}$");
     Pattern patternPassword = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{8,16})");
+    private DateTimeFormatter dateFormatter = DateTimeFormatter.BASIC_ISO_DATE;
+    private static final String FORMAT_DATE = "yyyy-MM-dd'T'HH:mm:ss";
 
     public static boolean isDateValid(String date) {
         try {
@@ -60,4 +66,27 @@ public class Validator {
         return CodeSystem.ERROR06;
 
     }
+    
+     public CodeSystem isValidLocalDateTime(String dateStr) {
+        try {
+            LocalDateTime.parse(dateStr, DateTimeFormatter.ofPattern(FORMAT_DATE));
+        } catch (DateTimeParseException e) {
+            return CodeSystem.ERROR09;
+        }
+        return CodeSystem.SUCCESS03;
+    }
+     
+     public CodeSystem validateNumber(String number){
+            try  {
+                if (Double.parseDouble(number) >=0) {
+                     return CodeSystem.SUCCESS03; 
+                }
+                 
+               return CodeSystem.ERROR10;
+            } catch(NumberFormatException exception)
+            {
+                return CodeSystem.ERROR10;
+            }
+     }
+     
 }

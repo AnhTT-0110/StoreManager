@@ -5,7 +5,6 @@
  */
 package vn.edu.nuce.daotao.StoreManager.response;
 
-import java.sql.Date;
 import lombok.Data;
 
 /**

@@ -5,6 +5,8 @@
  */
 package vn.edu.nuce.daotao.StoreManager.view.jpanel;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -17,12 +19,14 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.controller.AccountController;
+import vn.edu.nuce.daotao.StoreManager.controller.BillController;
+import vn.edu.nuce.daotao.StoreManager.controller.CustomerController;
 import vn.edu.nuce.daotao.StoreManager.controller.PermissionController;
 import vn.edu.nuce.daotao.StoreManager.controller.PositionController;
 import vn.edu.nuce.daotao.StoreManager.controller.StaffController;
 import vn.edu.nuce.daotao.StoreManager.response.AccountResponse;
+import vn.edu.nuce.daotao.StoreManager.response.BillResponse;
 import vn.edu.nuce.daotao.StoreManager.response.PositionResponse;
-import vn.edu.nuce.daotao.StoreManager.response.StaffResponse;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 
 /**
@@ -32,8 +36,14 @@ import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Log4j2
-public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
+public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
 
+    @Autowired
+    private BillController billController;
+    
+    @Autowired
+    private CustomerController customerController;
+    
     @Autowired
     private StaffController staffController;
 
@@ -52,7 +62,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
      * 0 = default 1 = update 2 = add 3 = edit 4 = delete 5 = search 6 = cancel
      */
     static int checkButton = 0;
-    List<Object[]> customerResponses;
+    List<Object[]> billResponses;
     DefaultTableModel tableModel;
     TableRowSorter<TableModel> tableRowSorter;
 
@@ -78,7 +88,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     DefaultTableModel tableModelAccount;
     TableRowSorter<TableModel> tableRowSorterAccount;
 
-    public StaffJpanel() {
+    public BillJpanel() {
         initComponents();
     }
 
@@ -103,32 +113,25 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtCodeStaff = new javax.swing.JTextField();
+        txtCodeBill = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtNameStaff = new javax.swing.JTextField();
+        txtTime = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        txtBirthday = new javax.swing.JTextField();
+        cbbCustomer = new javax.swing.JComboBox<>();
         jPanel14 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        txtAddress = new javax.swing.JTextField();
+        cbbStaff = new javax.swing.JComboBox<>();
         jPanel6 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        txtPhoneNumber = new javax.swing.JTextField();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        rdiMale = new javax.swing.JRadioButton();
-        rdiFemale = new javax.swing.JRadioButton();
         jPanel7 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
-        cbbPosition = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        txtDCash = new javax.swing.JTextField();
         jPanel12 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -140,7 +143,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         btnDelete = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblCustomer = new javax.swing.JTable();
+        tblBill = new javax.swing.JTable();
         jPanel19 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
@@ -148,11 +151,6 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel23 = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
         jPanel25 = new javax.swing.JPanel();
-        jPanel20 = new javax.swing.JPanel();
-        jPanel22 = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        txtDateStart = new javax.swing.JTextField();
-        jPanel26 = new javax.swing.JPanel();
         jPanel27 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
         jPanel28 = new javax.swing.JPanel();
@@ -192,7 +190,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         txtCodeAccount = new javax.swing.JTextField();
         jPanel37 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        cbbStaff = new javax.swing.JComboBox<>();
+        cbbStaff1 = new javax.swing.JComboBox<>();
         jPanel38 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
@@ -237,10 +235,10 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel1.setText("Mã nhân viên:   ");
+        jLabel1.setText("Mã hóa đơn: ");
 
-        txtCodeStaff.setEditable(false);
-        txtCodeStaff.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtCodeBill.setEditable(false);
+        txtCodeBill.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -249,7 +247,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCodeStaff, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+                .addComponent(txtCodeBill, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,31 +255,47 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodeStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanel3.add(jPanel15);
 
         jLabel2.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel2.setText(" Tên nhân viên:  ");
+        jLabel2.setText("Thời gian");
+
+        txtTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimeActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jButton2.setText("Now");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNameStaff, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
+                .addComponent(txtTime, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+            .addGroup(jPanel16Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(txtNameStaff))
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -294,7 +308,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Quản lý nhân viên");
+        jLabel4.setText("Quản lý hóa đơn");
         jLabel4.setToolTipText("");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -315,136 +329,81 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel5.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel5.setText("Ngày sinh:             ");
+        jLabel5.setText("Khách hàng:  ");
 
-        txtBirthday.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtBirthday.setMargin(new java.awt.Insets(2, 2, 2, 5));
+        cbbCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbbCustomerMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addComponent(jLabel5)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBirthday, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
+                .addComponent(cbbCustomer, 0, 236, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(cbbCustomer))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.add(jPanel13);
 
         jLabel6.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel6.setText(" Địa chỉ: ");
+        jLabel6.setText("Nhân viên:");
+
+        cbbStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbbStaffMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                .addComponent(cbbStaff, 0, 258, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+            .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(txtAddress))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbbStaff))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel5.add(jPanel14);
 
         jPanel6.setLayout(new java.awt.BorderLayout());
 
-        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
-
-        jLabel11.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel11.setText("Số điện thoại: ");
-
-        txtPhoneNumber.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtPhoneNumber.setMargin(new java.awt.Insets(2, 2, 2, 5));
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPhoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jLabel11)
-                .addContainerGap(14, Short.MAX_VALUE))
-            .addComponent(txtPhoneNumber)
-        );
-
-        jPanel8.add(jPanel9);
-
-        jLabel12.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel12.setText("Giới tính: ");
-
-        buttonGroup1.add(rdiMale);
-        rdiMale.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        rdiMale.setText("Nam");
-        rdiMale.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdiMaleActionPerformed(evt);
-            }
-        });
-
-        buttonGroup1.add(rdiFemale);
-        rdiFemale.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        rdiFemale.setText("Nữ");
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(rdiMale)
-                .addGap(18, 18, 18)
-                .addComponent(rdiFemale)
-                .addContainerGap(94, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdiMale)
-                    .addComponent(rdiFemale))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel8.add(jPanel10);
-
         jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
-        cbbPosition.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbbPositionMouseClicked(evt);
-            }
-        });
-
         jLabel3.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel3.setText("Vị trí");
+        jLabel3.setText("Tổng tiền:");
+
+        txtDCash.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtDCash.setMargin(new java.awt.Insets(2, 2, 2, 5));
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -453,24 +412,24 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbPosition, 0, 220, Short.MAX_VALUE))
+                .addComponent(txtDCash, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                .addGap(1, 1, 1))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 22, Short.MAX_VALUE))
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cbbPosition)
-                .addContainerGap())
+                .addGap(4, 4, 4)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 26, Short.MAX_VALUE))
+                    .addComponent(txtDCash)))
         );
 
         jPanel7.add(jPanel11);
 
         jLabel7.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel7.setText("Mô tả: ");
+        jLabel7.setText("Ghi chú:");
 
         txtDescription.setColumns(20);
         txtDescription.setRows(5);
@@ -483,8 +442,8 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -547,8 +506,8 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         });
         jPanel17.add(btnCancel);
 
-        tblCustomer.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
-        tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
+        tblBill.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
+        tblBill.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -559,12 +518,12 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblBill.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCustomerMouseClicked(evt);
+                tblBillMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblCustomer);
+        jScrollPane2.setViewportView(tblBill);
 
         jPanel19.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -584,7 +543,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
-                .addGap(0, 158, Short.MAX_VALUE)
+                .addGap(0, 168, Short.MAX_VALUE)
                 .addComponent(btnSearch1))
         );
         jPanel24Layout.setVerticalGroup(
@@ -609,7 +568,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -624,7 +583,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel25.setLayout(jPanel25Layout);
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
+            .addGap(0, 225, Short.MAX_VALUE)
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -632,50 +591,6 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         );
 
         jPanel21.add(jPanel25);
-
-        jPanel20.setLayout(new java.awt.GridLayout(1, 0));
-
-        jLabel13.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel13.setText("Ngày vào làm:");
-
-        txtDateStart.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtDateStart.setMargin(new java.awt.Insets(2, 2, 2, 5));
-
-        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
-        jPanel22.setLayout(jPanel22Layout);
-        jPanel22Layout.setHorizontalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDateStart, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
-        );
-        jPanel22Layout.setVerticalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel13))
-                    .addComponent(txtDateStart))
-                .addContainerGap())
-        );
-
-        jPanel20.add(jPanel22);
-
-        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
-        jPanel26.setLayout(jPanel26Layout);
-        jPanel26Layout.setHorizontalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel26Layout.setVerticalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel20.add(jPanel26);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -687,14 +602,12 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(16, 16, 16))
+                        .addGap(10, 10, 10))
                     .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
                             .addComponent(jPanel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(616, 616, 616)
@@ -703,7 +616,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
@@ -712,22 +625,18 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -737,10 +646,10 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 675, Short.MAX_VALUE)
+            .addGap(0, 688, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
@@ -752,7 +661,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                     .addContainerGap()))
         );
 
-        jTabbedPane1.addTab("Nhân viên", new javax.swing.ImageIcon(getClass().getResource("/images/waiter (2).png")), jPanel1); // NOI18N
+        jTabbedPane1.addTab("Hóa đơn", new javax.swing.ImageIcon(getClass().getResource("/images/bill.png")), jPanel1); // NOI18N
 
         jPanel27.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
@@ -775,7 +684,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel29Layout.createSequentialGroup()
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCosPosition, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+                .addComponent(txtCosPosition, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
         );
         jPanel29Layout.setVerticalGroup(
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -799,7 +708,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNamePosition, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
+                .addComponent(txtNamePosition, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE))
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -859,7 +768,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addContainerGap()
                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE))
         );
         jPanel41Layout.setVerticalGroup(
             jPanel41Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -949,7 +858,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel46Layout.setHorizontalGroup(
             jPanel46Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel46Layout.createSequentialGroup()
-                .addGap(0, 158, Short.MAX_VALUE)
+                .addGap(0, 162, Short.MAX_VALUE)
                 .addComponent(btnSearch2))
         );
         jPanel46Layout.setVerticalGroup(
@@ -974,7 +883,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel47Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSearchPosition, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                .addComponent(txtSearchPosition, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
         );
         jPanel47Layout.setVerticalGroup(
             jPanel47Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -989,7 +898,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel48.setLayout(jPanel48Layout);
         jPanel48Layout.setHorizontalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
+            .addGap(0, 219, Short.MAX_VALUE)
         );
         jPanel48Layout.setVerticalGroup(
             jPanel48Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1050,10 +959,10 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel27.setLayout(jPanel27Layout);
         jPanel27Layout.setHorizontalGroup(
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 675, Short.MAX_VALUE)
+            .addGap(0, 688, Short.MAX_VALUE)
             .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel27Layout.createSequentialGroup()
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel27Layout.setVerticalGroup(
@@ -1088,7 +997,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel36Layout.createSequentialGroup()
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCodeAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                .addComponent(txtCodeAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE))
         );
         jPanel36Layout.setVerticalGroup(
             jPanel36Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1104,9 +1013,9 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jLabel15.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel15.setText("Nhân viên:");
 
-        cbbStaff.addMouseListener(new java.awt.event.MouseAdapter() {
+        cbbStaff1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbbStaffMouseClicked(evt);
+                cbbStaff1MouseClicked(evt);
             }
         });
 
@@ -1118,7 +1027,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addContainerGap()
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbStaff, 0, 230, Short.MAX_VALUE))
+                .addComponent(cbbStaff1, 0, 237, Short.MAX_VALUE))
         );
         jPanel37Layout.setVerticalGroup(
             jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1127,7 +1036,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addGroup(jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel37Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
-                        .addComponent(cbbStaff))
+                        .addComponent(cbbStaff1))
                     .addGroup(jPanel37Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1179,7 +1088,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+                .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
         );
         jPanel43Layout.setVerticalGroup(
             jPanel43Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1205,7 +1114,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addContainerGap()
                 .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE))
+                .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
         );
         jPanel49Layout.setVerticalGroup(
             jPanel49Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1240,7 +1149,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             .addGroup(jPanel55Layout.createSequentialGroup()
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbbPermission, 0, 229, Short.MAX_VALUE))
+                .addComponent(cbbPermission, 0, 236, Short.MAX_VALUE))
         );
         jPanel55Layout.setVerticalGroup(
             jPanel55Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1268,7 +1177,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addContainerGap()
                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
         );
         jPanel56Layout.setVerticalGroup(
             jPanel56Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1370,7 +1279,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel61Layout.setHorizontalGroup(
             jPanel61Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel61Layout.createSequentialGroup()
-                .addGap(0, 161, Short.MAX_VALUE)
+                .addGap(0, 165, Short.MAX_VALUE)
                 .addComponent(btnSearch3))
         );
         jPanel61Layout.setVerticalGroup(
@@ -1395,7 +1304,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             jPanel62Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel62Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSearchAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                .addComponent(txtSearchAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
         );
         jPanel62Layout.setVerticalGroup(
             jPanel62Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1410,7 +1319,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel63.setLayout(jPanel63Layout);
         jPanel63Layout.setHorizontalGroup(
             jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 218, Short.MAX_VALUE)
+            .addGap(0, 222, Short.MAX_VALUE)
         );
         jPanel63Layout.setVerticalGroup(
             jPanel63Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1431,7 +1340,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
                         .addComponent(jScrollPane6)
                         .addContainerGap())
                     .addGroup(jPanel33Layout.createSequentialGroup()
-                        .addComponent(jPanel60, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE)
+                        .addComponent(jPanel60, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel33Layout.createSequentialGroup()
                         .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1474,9 +1383,9 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel32.setLayout(jPanel32Layout);
         jPanel32Layout.setHorizontalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 675, Short.MAX_VALUE)
+            .addGap(0, 688, Short.MAX_VALUE)
             .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE))
+                .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE))
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1503,18 +1412,14 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         jTabbedPane1.getAccessibleContext().setAccessibleName("Nhân viên");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rdiMaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdiMaleActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdiMaleActionPerformed
+    private void cbbCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCustomerMouseClicked
 
-    private void cbbPositionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbPositionMouseClicked
-
-    }//GEN-LAST:event_cbbPositionMouseClicked
+    }//GEN-LAST:event_cbbCustomerMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        CodeSystem codeSystem = staffController.updateStaff(checkButton, getCustomerResponse());
+        CodeSystem codeSystem = billController.updateBill(checkButton, getBillResponse());
         if (codeSystem.equals(CodeSystem.SUCCESS)) {
-            initDataStaff();
+            initDataBill();
             return;
         }
         setErrorMsg(codeSystem.getDescription());
@@ -1522,15 +1427,12 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         setButtonsEnable(btnUpdate, true, btnAdd, false, btnEdit, false, btnDelete, false, btnCancel, true);
-        txtCodeStaff.setText("");
-        txtNameStaff.setText("");
-        txtDateStart.setText("");
-        txtBirthday.setText("");
+        txtCodeBill.setText("");
+        txtTime.setText("");
         txtDescription.setText("");
-        txtAddress.setText("");
-        rdiMale.setSelected(true);
-        cbbPosition.setSelectedIndex(0);
-        txtDateStart.setText("");
+        txtDCash.setText("");
+        cbbCustomer.setSelectedIndex(0);
+        cbbStaff.setSelectedIndex(0);
         checkButton = 2;
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -1540,48 +1442,46 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        int choose = JOptionPane.showConfirmDialog(null,
-                "Bạn có muốn xóa nhân viên " + txtNameStaff.getText(), "Chú ý", JOptionPane.YES_NO_OPTION);
+       int choose = JOptionPane.showConfirmDialog(null,
+                "Bạn có muốn xóa hóa đơn " + txtCodeBill.getText(), "Chú ý ", JOptionPane.YES_NO_OPTION);
         if (choose != 0) {
             return;
         }
-        staffController.deleteStaff(getCustomerResponse());
-        initDataStaff();
+        CodeSystem codeSystem = billController.deleteBillaa(getBillResponse());
+        if (codeSystem.equals(CodeSystem.SUCCESS)) {
+            initDataBill();
+            return;
+        }
+        setErrorMsg(codeSystem.getDescription());
         checkButton = 4;
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        initDataStaff();
+        initDataBill();
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
-        tblCustomer.setRowSelectionInterval(0, 0);
+        tblBill.setRowSelectionInterval(0, 0);
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void tblCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerMouseClicked
+    private void tblBillMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillMouseClicked
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, true, btnDelete, true, btnCancel, true);
-        indexItem = tblCustomer.getSelectedRow();
-        txtCodeStaff.setText(tblCustomer.getValueAt(indexItem, 1).toString());
-        txtNameStaff.setText(tblCustomer.getValueAt(indexItem, 2).toString());
-        txtBirthday.setText(tblCustomer.getValueAt(indexItem, 3).toString());
-        String sex = tblCustomer.getValueAt(indexItem, 4).toString();
-        if (sex.equals("Nam")) {
-            rdiMale.setSelected(true);
-            rdiFemale.setSelected(false);
-        } else {
-            rdiMale.setSelected(false);
-            rdiFemale.setSelected(true);
-        }
-        txtDateStart.setText(tblCustomer.getValueAt(indexItem, 5).toString());
-        cbbPosition.setSelectedItem(tblCustomer.getValueAt(indexItem, 6).toString());
-        txtAddress.setText(tblCustomer.getValueAt(indexItem, 7).toString());
-        txtPhoneNumber.setText(tblCustomer.getValueAt(indexItem, 8).toString());
-        txtDescription.setText(tblCustomer.getValueAt(indexItem, 9).toString());
-    }//GEN-LAST:event_tblCustomerMouseClicked
+        indexItem = tblBill.getSelectedRow();
+        txtCodeBill.setText(tblBill.getValueAt(indexItem, 1).toString());
+        String customer = tblBill.getValueAt(indexItem, 2).toString() + " _ " + tblBill.getValueAt(indexItem, 3).toString();
+        cbbCustomer.setSelectedItem(customer);
+        String staff = tblBill.getValueAt(indexItem, 4).toString() + " _ " + tblBill.getValueAt(indexItem, 5).toString();
+        cbbStaff.setSelectedItem(staff);
+        txtTime.setText(tblBill.getValueAt(indexItem, 6).toString());
+        txtDCash.setText(tblBill.getValueAt(indexItem, 7).toString());
+        txtDescription.setText(tblBill.getValueAt(indexItem, 8).toString());
+    }//GEN-LAST:event_tblBillMouseClicked
 
     private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
         // TODO add
     }//GEN-LAST:event_btnSearch1ActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        
+        log.info("tblBill2" + txtSearch.getText());
         filter(txtSearch.getText());
     }//GEN-LAST:event_txtSearchKeyReleased
 
@@ -1612,7 +1512,7 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             initDataPosition();
         }
         setButtonsEnable(btnUpdatePosition, false, btnAddPosition, true, btnEditPosition, false, btnDelete, false, btnCancelPosition, true);
-        tblCustomer.setRowSelectionInterval(0, 0);
+        tblBill.setRowSelectionInterval(0, 0);
     }//GEN-LAST:event_btnCancelPositionActionPerformed
 
     private void tblPositionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPositionMouseClicked
@@ -1645,26 +1545,26 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     }//GEN-LAST:event_btnUpdateAccountActionPerformed
 
     private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
-       cbbStaff.setEnabled(true);
+        cbbStaff1.setEnabled(true);
         setButtonsEnable(btnUpdateAccount, true, btnAddAccount, false, btnEditAccount, false, btnDeleteAccount, false, btnCancelAccount, true);
         txtCodeAccount.setText("");
         txtUsername.setText("");
         txtPassword.setText("");
         txtDescriptionAccount.setText("");
-        cbbPosition.setSelectedIndex(0);
-        cbbStaff.setSelectedIndex(0);
+        cbbCustomer.setSelectedIndex(0);
+        cbbStaff1.setSelectedIndex(0);
         checkButtonAccount = 2;
     }//GEN-LAST:event_btnAddAccountActionPerformed
 
     private void btnEditAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditAccountActionPerformed
-        cbbStaff.setEnabled(false);
+        cbbStaff1.setEnabled(false);
         setButtonsEnable(btnUpdateAccount, true, btnAddAccount, false, btnEditAccount, false, btnDeleteAccount, false, btnCancelAccount, true);
         checkButtonAccount = 3;
     }//GEN-LAST:event_btnEditAccountActionPerformed
 
     private void btnDeleteAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAccountActionPerformed
         int choose = JOptionPane.showConfirmDialog(null,
-                "Bạn có muốn xóa account " + cbbStaff.getSelectedItem().toString(), "Chú ý", JOptionPane.YES_NO_OPTION);
+                "Bạn có muốn xóa account " + cbbStaff1.getSelectedItem().toString(), "Chú ý", JOptionPane.YES_NO_OPTION);
         if (choose != 0) {
             return;
         }
@@ -1683,9 +1583,9 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         setButtonsEnable(btnUpdateAccount, false, btnAddAccount, true, btnEditAccount, true, btnDeleteAccount, true, btnCancelAccount, true);
         indexItemAccount = tblAccount.getSelectedRow();
         txtCodeAccount.setText(tblAccount.getValueAt(indexItemAccount, 1).toString());
-        String staff = tblAccount.getValueAt(indexItemAccount, 2).toString() 
+        String staff = tblAccount.getValueAt(indexItemAccount, 2).toString()
                 + " _ " + tblAccount.getValueAt(indexItemAccount, 3).toString();
-        cbbStaff.setSelectedItem(staff);
+        cbbStaff1.setSelectedItem(staff);
         txtUsername.setText(tblAccount.getValueAt(indexItemAccount, 4).toString());
         txtPassword.setText(tblAccount.getValueAt(indexItemAccount, 5).toString());
         String permission = tblAccount.getValueAt(indexItemAccount, 6).toString();
@@ -1701,9 +1601,24 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         filterAccount(txtSearchAccount.getText());
     }//GEN-LAST:event_txtSearchAccountKeyReleased
 
+    private void cbbStaff1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbStaff1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbStaff1MouseClicked
+
     private void cbbStaffMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbStaffMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbStaffMouseClicked
+
+    private void txtTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimeActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        final String FORMAT_DATE = "yyyy-MM-dd'T'HH:mm:ss";
+        DateTimeFormatter timeColonFormatter = DateTimeFormatter.ofPattern(FORMAT_DATE);
+        LocalDateTime dateTime = LocalDateTime.now();
+        txtTime.setText(timeColonFormatter.format(dateTime));
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1725,14 +1640,13 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JButton btnUpdateAccount;
     private javax.swing.JButton btnUpdatePosition;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbbCustomer;
     private javax.swing.JComboBox<String> cbbPermission;
-    private javax.swing.JComboBox<String> cbbPosition;
     private javax.swing.JComboBox<String> cbbStaff;
+    private javax.swing.JComboBox<String> cbbStaff1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1751,7 +1665,6 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -1762,13 +1675,10 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
@@ -1807,8 +1717,6 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JPanel jPanel62;
     private javax.swing.JPanel jPanel63;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1816,56 +1724,49 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JRadioButton rdiFemale;
-    private javax.swing.JRadioButton rdiMale;
     private javax.swing.JTable tblAccount;
-    private javax.swing.JTable tblCustomer;
+    private javax.swing.JTable tblBill;
     private javax.swing.JTable tblPosition;
-    private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtBirthday;
     private javax.swing.JTextField txtCodeAccount;
-    private javax.swing.JTextField txtCodeStaff;
+    private javax.swing.JTextField txtCodeBill;
     private javax.swing.JTextField txtCosPosition;
-    private javax.swing.JTextField txtDateStart;
+    private javax.swing.JTextField txtDCash;
     private javax.swing.JTextArea txtDescription;
     private javax.swing.JTextArea txtDescriptionAccount;
     private javax.swing.JTextArea txtDescriptionPosition;
     private javax.swing.JTextField txtNamePosition;
-    private javax.swing.JTextField txtNameStaff;
     private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtPhoneNumber;
     private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtSearchAccount;
     private javax.swing.JTextField txtSearchPosition;
+    private javax.swing.JTextField txtTime;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void initData() {
-        initDataStaff();
+        initDataBill();
         initDataPosition();
         initDataAccount();
 
     }
 
-    private StaffResponse getCustomerResponse() {
-        String codeStaff = txtCodeStaff.getText().isEmpty() ? String.valueOf(0) : txtCodeStaff.getText();
-        String nameStaff = txtNameStaff.getText();
-        String phoneNumber = txtPhoneNumber.getText();
-        String address = txtAddress.getText();
-        String description = txtDescription.getText();
-        String sex = (rdiFemale.isSelected()) ? "Nam" : "Nữ";
-        String namePosition = cbbPosition.getSelectedItem().toString();
-        String birthday = txtBirthday.getText();
-        String startDate = txtDateStart.getText();
-        StaffResponse staffResponse = new StaffResponse(codeStaff, nameStaff, birthday, sex, startDate, address, phoneNumber, description, namePosition);
-        return staffResponse;
+    private BillResponse getBillResponse() {
+        String[] codeStaff = cbbStaff.getSelectedItem().toString().split("_");
+        String codeStaffConvert = codeStaff[0].trim();
+        String[] codeCus = cbbCustomer.getSelectedItem().toString().split("_");
+        String codeCusConvert = codeCus[0].trim();
+        return new BillResponse(txtCodeBill.getText()
+        , codeCusConvert, codeStaffConvert
+        , txtTime.getText(), txtDCash.getText()
+        , txtDescription.getText());
     }
 
     void changeIndexOfTableAfterSort() {
-        int selection = tblCustomer.getRowCount();
+        int selection = tblBill.getRowCount();
         for (int i = 0; i < selection; i++) {
-            tblCustomer.convertRowIndexToModel(i);
+            log.info("tblBill" + i);
+            tblBill.convertRowIndexToModel(i);
         }
     }
 
@@ -1901,17 +1802,18 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     }
 
-    private void initDataStaff() {
-        customerResponses = staffController.getAllStaffResponsesObject();
-        Object[] obj = new Object[]{"STT", "Mã Nhân Viên", "Tên Nhân Viên", "Ngày Sinh", "Giới Tính", "Ngày Vào Làm", "Chức Vụ", "Dịa Chỉ", "SDT", "Chú Thích"};
+    private void initDataBill() {
+        billResponses = billController.getAllBillResponsesObject();
+        Object[] obj = new Object[]{"STT", "Mã hóa đơn", "Mã Khách hàng", "Tên khách hàng", "Mã nhân viên", "Tên nhân viên", "Thời gian", "Tổng tiền", "Mô tả"};
         tableModel = new DefaultTableModel(obj, 0);
         tableRowSorter = new TableRowSorter<>(tableModel);
-        tblCustomer.setModel(tableModel);
-        tblCustomer.setRowSorter(tableRowSorter);
+        tblBill.setModel(tableModel);
+        tblBill.setRowSorter(tableRowSorter);
         count = 0;
         tableModel.setRowCount(0);
+        indexItem =0;
         try {
-            customerResponses.forEach((Object[] item) -> {
+            billResponses.forEach((Object[] item) -> {
                 item[0] = ++count;
                 tableModel.addRow(item);
 
@@ -1921,8 +1823,10 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             exception.printStackTrace();
 
         }
-        cbbPosition.removeAllItems();
-        positionController.getAllPositionResponses().forEach(item -> cbbPosition.addItem(item.getNamePosition()));
+        cbbCustomer.removeAllItems();
+        cbbStaff.removeAll();
+        staffController.getAllStaffResponses().forEach(item -> cbbStaff.addItem(item.getCodeStaff() + " _ " + item.getNameStaff()));
+        customerController.getAllCustomerResponse().forEach(item -> cbbCustomer.addItem(item.getCodeCustomer()+ " _ " + item.getNameCustomer()));
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
     }
 
@@ -1969,11 +1873,11 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
             exception.printStackTrace();
 
         }
-        cbbStaff.removeAllItems();
+        cbbStaff1.removeAllItems();
         cbbPermission.removeAllItems();
         permissionController.getAllPermission().forEach(item -> cbbPermission.addItem(item.getNamePermission()));
-        staffController.getAllStaffResponses().forEach(item -> cbbStaff.addItem(item.getCodeStaff() + " _ " + item.getNameStaff()));
-        cbbStaff.setEnabled(true);
+//        billController.getAllStaffResponses().forEach(item -> cbbStaff1.addItem(item.getCodeStaff() + " _ " + item.getNameStaff()));
+        cbbStaff1.setEnabled(true);
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
     }
 
@@ -1984,9 +1888,9 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     private AccountResponse getAccountResponse() {
         String codeAccount = txtCodeAccount.getText().isEmpty() ? String.valueOf(0) : txtCodeAccount.getText();
-        String[] codeStaff = cbbStaff.getSelectedItem().toString().split("_");
+        String[] codeStaff = cbbStaff1.getSelectedItem().toString().split("_");
         String codeStaffConvert = codeStaff[0].trim();
-        AccountResponse accountResponse =  new AccountResponse(codeAccount, txtUsername.getText(), txtPassword.getText(), txtDescriptionAccount.getText(),
+        AccountResponse accountResponse = new AccountResponse(codeAccount, txtUsername.getText(), txtPassword.getText(), txtDescriptionAccount.getText(),
                 codeStaffConvert, cbbPermission.getSelectedItem().toString());
         log.info("accountResponse" + accountResponse);
         return accountResponse;
