@@ -5,13 +5,10 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service;
 
-import org.springframework.stereotype.Service;
-
 /**
  *
  * @author Anh
  */
-@Service
 public interface DetailInvoiceService {
-
+    
 }

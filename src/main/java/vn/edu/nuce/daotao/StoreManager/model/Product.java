@@ -5,9 +5,11 @@
  */
 package vn.edu.nuce.daotao.StoreManager.model;
 
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -51,5 +53,8 @@ public class Product {
     
     @Column(name = "ChuThich")
     private String description;
+    
+    @OneToMany(mappedBy = "product")
+    private Collection<BillDetail> billDetails;
     
 }

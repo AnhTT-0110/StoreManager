@@ -21,28 +21,27 @@ import lombok.Data;
 @Entity
 @Table(name = "chitiethoadon")
 @Data
-public class BillDetail implements Serializable{
-    
+public class BillDetail implements Serializable {
+
     @Id
     @Column(name = "MaCTHD")
     private int codeBillDetail;
-    
-    @ManyToOne
-    @JoinColumn(columnDefinition = "MaHoaDon", referencedColumnName = "MaHoaDon" )
+
+    @JoinColumn(name = "MaHoaDon", referencedColumnName = "MaHoaDon")
+    @ManyToOne(optional = false)
     private Bill bill;
-    
-    @Column(name = "MaSanPham")
-    private int codeProduct;
-    
+
+    @JoinColumn(name = "MaSanPham", referencedColumnName = "MaSanPham")
+    @ManyToOne(optional = false)
+    private Product product;
+
     @Column(name = "SoLuong")
     private int quantity;
-    
+
     @Column(name = "TongTien")
     private double totalCash;
-    
-     @Column(name = "GhiChu")
+
+    @Column(name = "GhiChu")
     private String description;
-    
-    
-    
+
 }

@@ -7,9 +7,7 @@ package vn.edu.nuce.daotao.StoreManager.transfomer;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
-import vn.edu.nuce.daotao.StoreManager.model.Distributor;
 import vn.edu.nuce.daotao.StoreManager.model.Receipt;
-import vn.edu.nuce.daotao.StoreManager.response.DistributorResponse;
 import vn.edu.nuce.daotao.StoreManager.response.ReceiptResponse;
 
 /**

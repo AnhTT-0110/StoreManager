@@ -5,13 +5,20 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+import vn.edu.nuce.daotao.StoreManager.response.BillDetailResponse;
 
-/**
+/*
  *
  * @author Anh
  */
-@Service
 public interface BillDetailService {
+
+    List<Object[]> getAllBillDetailResponseObjects();
     
+    List<Object[]> getAllBillDetailResponseObjectsByBill(String codeBill);
+
+    boolean updateBillDetail(int statusBtn, BillDetailResponse BillDetailResponse);
+
+    boolean deleteBillDetail(BillDetailResponse BillDetailResponse);
 }
