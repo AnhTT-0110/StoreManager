@@ -29,7 +29,8 @@ public enum CodeSystem {
     ERROR07("ERROR07", "Không thể xóa nhà phân phối này vì có phiếu nhấp"),
     ERROR08("ERROR08", "Không thể xóa hóa đơn này vì có chi tiết hóa đơn"),
     ERROR09("ERROR09", "Nhập sai định dạng ngày"),
-    ERROR10("ERROR09", "Nhập sai định dạng số, phải lớn hơn 0"),
+    ERROR10("ERROR10", "Nhập sai định dạng số, phải lớn hơn 0"),
+    ERROR11("ERROR11", "Không thể xóa chi tiết hóa đơn này"),
     SUCCESS("SUCCESS", "Cập nhật thành công!"),
     SUCCESS02("SUCCESS02", "Đã đủ thông tin"),
     SUCCESS03("SUCCESS03", "Định dạng OK");

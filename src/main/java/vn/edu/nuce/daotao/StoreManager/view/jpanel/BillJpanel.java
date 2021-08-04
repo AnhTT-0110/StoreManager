@@ -5,6 +5,7 @@
  */
 package vn.edu.nuce.daotao.StoreManager.view.jpanel;
 
+import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -20,11 +21,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.Application;
-import vn.edu.nuce.daotao.StoreManager.controller.AccountController;
 import vn.edu.nuce.daotao.StoreManager.controller.BillController;
 import vn.edu.nuce.daotao.StoreManager.controller.CustomerController;
-import vn.edu.nuce.daotao.StoreManager.controller.PermissionController;
-import vn.edu.nuce.daotao.StoreManager.controller.PositionController;
 import vn.edu.nuce.daotao.StoreManager.controller.StaffController;
 import vn.edu.nuce.daotao.StoreManager.response.BillResponse;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
@@ -49,7 +47,9 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
     private StaffController staffController;
 
     int count = 0;
-    int indexItem = 0;
+    public static int indexItem = -1;
+
+    public static String codeBill;
     /**
      * 0 = default 1 = update 2 = add 3 = edit 4 = delete 5 = search 6 = cancel
      */
@@ -304,6 +304,11 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
 
         txtDCash.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         txtDCash.setMargin(new java.awt.Insets(2, 2, 2, 5));
+        txtDCash.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDCashKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -649,6 +654,7 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
         txtTime.setText(tblBill.getValueAt(indexItem, 6).toString());
         txtDCash.setText(tblBill.getValueAt(indexItem, 7).toString());
         txtDescription.setText(tblBill.getValueAt(indexItem, 8).toString());
+        codeBill = txtCodeBill.getText();
     }//GEN-LAST:event_tblBillMouseClicked
 
     private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearch1ActionPerformed
@@ -678,8 +684,15 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         BillDetailJpanel billJpanel = applicationContext.getBean(BillDetailJpanel.class);
+        billJpanel.setVisible(true);
         billJpanel.init();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+   
+    
+    private void txtDCashKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDCashKeyTyped
+        checkNumber(evt,txtDCash);
+    }//GEN-LAST:event_txtDCashKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -743,9 +756,9 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
         String[] codeCus = cbbCustomer.getSelectedItem().toString().split("_");
         String codeCusConvert = codeCus[0].trim();
         return new BillResponse(txtCodeBill.getText(),
-                 codeCusConvert, codeStaffConvert,
-                 txtTime.getText(), txtDCash.getText(),
-                 txtDescription.getText());
+                codeCusConvert, codeStaffConvert,
+                txtTime.getText(), txtDCash.getText(),
+                txtDescription.getText());
     }
 
     void changeIndexOfTableAfterSort() {
@@ -754,7 +767,6 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
             tblBill.convertRowIndexToModel(i);
         }
     }
-    
 
     private void filter(String parameter) {
         tableRowSorter.setRowFilter(RowFilter.regexFilter(parameter));
@@ -771,7 +783,9 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
         tblBill.setRowSorter(tableRowSorter);
         count = 0;
         tableModel.setRowCount(0);
-        indexItem = 0;
+        tblBill.clearSelection();
+        indexItem = tblBill.getSelectedRow();
+        log.info("indexItem: " + indexItem);
         try {
             billResponses.forEach((Object[] item) -> {
                 item[0] = ++count;
@@ -789,7 +803,5 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
         customerController.getAllCustomerResponse().forEach(item -> cbbCustomer.addItem(item.getCodeCustomer() + " _ " + item.getNameCustomer()));
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
     }
-
-   
 
 }

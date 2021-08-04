@@ -5,9 +5,11 @@
  */
 package vn.edu.nuce.daotao.StoreManager.view.jpanel;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -35,5 +37,27 @@ public interface CommonJpanel {
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
     }
-    
+
+    default void checkNumber(java.awt.event.KeyEvent evt, JTextField textField) {
+
+        if (!validate(evt.getKeyChar())) { //get char or keytyped
+            evt.consume();
+        }
+        if (evt.getKeyChar() == KeyEvent.VK_DECIMAL || evt.getKeyChar() == KeyEvent.VK_PERIOD) {
+            String field = textField.getText();
+            int index = field.indexOf(".");
+            if (!(index == -1)) {
+                evt.consume();
+            }
+
+        }
+    }
+
+    static boolean validate(char ch) {
+        return Character.isDigit(ch)
+                || ch == KeyEvent.VK_BACK_SPACE
+                || ch == KeyEvent.VK_DELETE
+                || ch == KeyEvent.VK_DECIMAL
+                || ch == KeyEvent.VK_PERIOD;
+    }
 }

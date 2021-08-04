@@ -6,9 +6,11 @@
 package vn.edu.nuce.daotao.StoreManager.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -27,4 +29,7 @@ public class ProductType implements Serializable {
     
     @Column(name = "TenLoaiSanPham")
     private String nameProductType;
+    
+    @OneToMany(mappedBy = "productType")
+    private Collection<Product> products;
 }

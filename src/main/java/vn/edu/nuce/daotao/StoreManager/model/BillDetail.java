@@ -43,5 +43,8 @@ public class BillDetail implements Serializable {
 
     @Column(name = "GhiChu")
     private String description;
+    
+    @Column(name = "GiaTien")
+    private double price;
 
 }

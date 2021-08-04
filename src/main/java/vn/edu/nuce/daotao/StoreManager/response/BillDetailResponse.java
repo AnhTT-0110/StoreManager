@@ -13,7 +13,7 @@ import lombok.Data;
  */
 @Data
 public class BillDetailResponse {
-    
+
     private String codeBillDetail;
     private String billCode;
     private String productCode;
@@ -21,8 +21,9 @@ public class BillDetailResponse {
     private String quantity;
     private String totalCash;
     private String description;
+    private String price;
 
-    public BillDetailResponse(String codeBillDetail, String billCode, String productCode, String productName, String quantity, String totalCash, String description) {
+    public BillDetailResponse(String codeBillDetail, String billCode, String productCode, String productName, String quantity, String totalCash, String description, String price) {
         this.codeBillDetail = codeBillDetail;
         this.billCode = billCode;
         this.productCode = productCode;
@@ -30,6 +31,7 @@ public class BillDetailResponse {
         this.quantity = quantity;
         this.totalCash = totalCash;
         this.description = description;
+        this.price = price;
     }
 
     public BillDetailResponse(String codeBillDetail, String billCode, String productCode, String quantity, String totalCash, String description) {

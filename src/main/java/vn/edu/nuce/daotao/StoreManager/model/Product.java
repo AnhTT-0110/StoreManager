@@ -9,6 +9,8 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
@@ -30,12 +32,6 @@ public class Product {
     @Column(name = "TenSanPham")
     private String nameProduct;
     
-    @Column(name = "LoaiSanPham")
-    private String codeProductType;
-    
-    @Column(name = "HangSanXuat")
-    private String codePublisher;
-    
     @Column(name = "GiaNhap")
     private double priceInput;
     
@@ -56,5 +52,13 @@ public class Product {
     
     @OneToMany(mappedBy = "product")
     private Collection<BillDetail> billDetails;
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "LoaiSanPham", columnDefinition = "MaLoaiSanPham")
+    private ProductType productType;
+    
+     @ManyToOne(optional = false)
+    @JoinColumn(name = "HangSanXuat", columnDefinition = "MaHangSanXuat")
+    private Publisher publisher;
     
 }

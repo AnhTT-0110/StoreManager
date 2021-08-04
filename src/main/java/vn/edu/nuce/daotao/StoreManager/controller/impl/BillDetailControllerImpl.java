@@ -48,8 +48,10 @@ public class BillDetailControllerImpl implements BillDetailController {
     }
 
     @Override
-    public boolean deleteBillDetail(BillDetailResponse response) {
-        return billDetailService.deleteBillDetail(response);
+    public CodeSystem deleteBillDetail(BillDetailResponse response) {
+        if (billDetailService.deleteBillDetail(response))
+             return CodeSystem.SUCCESS;
+        return CodeSystem.ERROR11;
     }
 
     @Override

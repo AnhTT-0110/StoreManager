@@ -11,6 +11,6 @@ import vn.edu.nuce.daotao.StoreManager.service.*;
  *
  * @author Anh
  */
-public class ProductTypeServiceImpl implements ProductService {
+public class ProductTypeServiceImpl implements ProductTypeService {
 
 }

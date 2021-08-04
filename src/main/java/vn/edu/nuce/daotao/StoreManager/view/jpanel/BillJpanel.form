@@ -472,6 +472,9 @@
                               <Insets value="[2, 2, 2, 5]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDCashKeyTyped"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

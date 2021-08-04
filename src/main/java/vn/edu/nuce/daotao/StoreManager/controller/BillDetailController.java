@@ -21,5 +21,5 @@ public interface BillDetailController {
 
     CodeSystem updateBillDetail(int statusBtn, BillDetailResponse response);
 
-    boolean deleteBillDetail(BillDetailResponse response);
+    CodeSystem deleteBillDetail(BillDetailResponse response);
 }
