@@ -36,14 +36,14 @@ public class ProductControllerImpl implements ProductController {
 
     @Override
     public CodeSystem updateProduct(int statusBtn, ProductResponse response) {
-//        CodeSystem codeSystem = validator.validateRegexAndAllArgumentNotNull(response.getQuantity(), response.getProductCode(),
-//                response.getBillCode());
-//        if (!CodeSystem.SUCCESS02.equals(codeSystem)) {
-//            return codeSystem;
-//        }
-//        if (ProductService.updateProduct(statusBtn, response)) {
-//            return CodeSystem.SUCCESS;
-//        }
+        CodeSystem codeSystem = validator.validateRegexAndAllArgumentNotNull(response.getCodeProduct(),response.getNameProduct(),
+                response.getCodeProductType(),response.getPrice(),response.getPriceInput());
+        if (!CodeSystem.SUCCESS02.equals(codeSystem)) {
+            return codeSystem;
+        }
+        if (productService.updateProduct(statusBtn, response)) {
+            return CodeSystem.SUCCESS;
+        }
         return CodeSystem.ERROR03;
     }
 
@@ -51,7 +51,7 @@ public class ProductControllerImpl implements ProductController {
     public CodeSystem deleteProduct(ProductResponse response) {
         if (productService.deleteProduct(response))
              return CodeSystem.SUCCESS;
-        return CodeSystem.ERROR11;
+        return CodeSystem.ERROR12;
     }
 
     @Override

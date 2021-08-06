@@ -5,13 +5,23 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
+import vn.edu.nuce.daotao.StoreManager.response.ProductTypeResponse;
 
-/**
+/*
  *
  * @author Anh
  */
-@Service
 public interface ProductTypeService {
+
+    List<Object[]> getAllProductTypeResponseObjects();
     
+    List<ProductTypeResponse> getAllProductTypeResponse();
+
+    boolean updateProductType(int statusBtn, ProductTypeResponse productTypeResponse);
+
+    boolean deleteProductType(ProductTypeResponse productTypeResponse);
+    
+    Optional<ProductTypeResponse> getProductTypeResponse(String codeProductType);
 }

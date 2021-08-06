@@ -41,9 +41,6 @@ public class Product {
     @Column(name = "TonKho")
     private int quantity;
     
-    @Column(name = "TrangThai")
-    private String status;
-    
     @Column(name = "Image")
     private String image;
     
@@ -53,12 +50,10 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Collection<BillDetail> billDetails;
     
+    @OneToMany(mappedBy = "product")
+    private Collection<DetailInvoice> detailInvoices;
+    
     @ManyToOne(optional = false)
     @JoinColumn(name = "LoaiSanPham", columnDefinition = "MaLoaiSanPham")
-    private ProductType productType;
-    
-     @ManyToOne(optional = false)
-    @JoinColumn(name = "HangSanXuat", columnDefinition = "MaHangSanXuat")
-    private Publisher publisher;
-    
+    private ProductType productType; 
 }

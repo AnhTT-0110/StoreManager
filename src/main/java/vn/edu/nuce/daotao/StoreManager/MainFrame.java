@@ -17,6 +17,7 @@ import vn.edu.nuce.daotao.StoreManager.view.jpanel.BillJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.CustomerJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.DistributorJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.LangueJpanel;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.ProductJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.StaffJpanel;
 
 /**
@@ -233,11 +234,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btHoaDonActionPerformed
 
     private void btSanphamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSanphamActionPerformed
-//        jpanel.sanpham b = new sanpham();
-//        mainPanel.removeAll();
-//        mainPanel.add(b);
-//        mainPanel.repaint();
-//        mainPanel.revalidate();
+        ProductJpanel productJpanel = applicationContext.getBean(ProductJpanel.class);
+        productJpanel.init();
+        setValueToMainFrame(productJpanel);
     }//GEN-LAST:event_btSanphamActionPerformed
 
     private void btKhachhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btKhachhangActionPerformed

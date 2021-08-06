@@ -30,6 +30,9 @@ public class ProductType implements Serializable {
     @Column(name = "TenLoaiSanPham")
     private String nameProductType;
     
+    @Column(name = "GhiChu")
+    private String description;
+    
     @OneToMany(mappedBy = "productType")
     private Collection<Product> products;
 }

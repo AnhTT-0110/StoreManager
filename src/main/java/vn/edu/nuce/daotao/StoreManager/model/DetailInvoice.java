@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -28,8 +30,9 @@ public class DetailInvoice implements Serializable{
     @Column(name = "MaPhieuNhap")
     private int codeInvoice;
     
-    @Column(name = "MaSanPham")
-    private int codeProduct;
+    @ManyToOne
+    @JoinColumn(name = "MaSanPham", referencedColumnName = "MaSanPham")
+    private Product product;
     
     @Column(name = "SoLuong")
     private int quantity;

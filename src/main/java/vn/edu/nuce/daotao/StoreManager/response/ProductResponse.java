@@ -18,8 +18,6 @@ public class ProductResponse {
     private String nameProduct;
     private String codeProductType;
     private String nameProductType;
-    private String codePublisher;
-    private String namePublisher;
     private String priceInput;
     private String price;
     private String quantity;
@@ -30,11 +28,10 @@ public class ProductResponse {
     public ProductResponse() {
     }
 
-    public ProductResponse(String codeProduct, String nameProduct, String codeProductType, String codePublisher, String priceInput, String price, String quantity, String status, String image, String description) {
+    public ProductResponse(String codeProduct, String nameProduct, String codeProductType, String priceInput, String price, String quantity, String status, String image, String description) {
         this.codeProduct = codeProduct;
         this.nameProduct = nameProduct;
         this.codeProductType = codeProductType;
-        this.codePublisher = codePublisher;
         this.priceInput = priceInput;
         this.price = price;
         this.quantity = quantity;
