@@ -20,6 +20,6 @@ public interface PositionController {
     
     CodeSystem updatePositon(int statusBtn, PositionResponse response);
 
-    boolean deletePosition(PositionResponse positionResponse);
+    CodeSystem deletePosition(PositionResponse positionResponse);
     
 }

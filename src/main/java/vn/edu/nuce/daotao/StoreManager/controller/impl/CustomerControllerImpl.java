@@ -49,8 +49,10 @@ public class CustomerControllerImpl implements CustomerController {
     }
 
     @Override
-    public boolean deleteCustomer(CustomerResponse customerResponse) {
-        return customerService.deleteCustomer(customerResponse);
+    public CodeSystem deleteCustomer(CustomerResponse customerResponse) {
+        if (customerService.deleteCustomer(customerResponse))
+             return CodeSystem.SUCCESS;
+        return CodeSystem.ERROR17;
     }
 
     @Override

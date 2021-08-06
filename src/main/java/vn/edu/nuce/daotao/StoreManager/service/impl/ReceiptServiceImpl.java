@@ -6,11 +6,20 @@
 package vn.edu.nuce.daotao.StoreManager.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.nuce.daotao.StoreManager.model.Receipt;
+import vn.edu.nuce.daotao.StoreManager.model.Customer;
+import vn.edu.nuce.daotao.StoreManager.model.Distributor;
+import vn.edu.nuce.daotao.StoreManager.model.Staff;
 import vn.edu.nuce.daotao.StoreManager.response.ReceiptResponse;
 import vn.edu.nuce.daotao.StoreManager.respository.ReceiptRespository;
+import vn.edu.nuce.daotao.StoreManager.respository.CustomerRespository;
+import vn.edu.nuce.daotao.StoreManager.respository.DetailInvoiceRepository;
+import vn.edu.nuce.daotao.StoreManager.respository.DistributorRespository;
+import vn.edu.nuce.daotao.StoreManager.respository.StaffRespository;
 import vn.edu.nuce.daotao.StoreManager.service.*;
 import vn.edu.nuce.daotao.StoreManager.transfomer.ReceiptTransformer;
 
@@ -20,33 +29,69 @@ import vn.edu.nuce.daotao.StoreManager.transfomer.ReceiptTransformer;
  */
 @Service
 public class ReceiptServiceImpl implements ReceiptService {
-    
+
     @Autowired
     private ReceiptRespository receiptRespository;
-    
+
     @Autowired
-    private ReceiptTransformer receiptTransformer;
+    private ReceiptTransformer receiptTransfomer;
+
+    @Autowired
+    private StaffRespository staffRespository;
+
+    @Autowired
+    private DistributorRespository distributorRespository;
+
+    @Autowired
+    private DetailInvoiceRepository detailInvoiceRepository;
 
     @Override
-    public List<Object[]> getAllReceiptObject() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<ReceiptResponse> getAllReceiptResponses() {
+        return receiptRespository
+                .findAll()
+                .stream()
+                .map(receiptTransfomer::transformToResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Receipt> getAllReceiptEntity() {
-        return receiptRespository.findAll();
+    public List<Object[]> getAllReceiptResponseObjects() {
+        return receiptRespository
+                .findAll()
+                .stream()
+                .map(Receipt -> receiptTransfomer.transform(Receipt))
+                .collect(Collectors.toList());
     }
 
     @Override
     public boolean updateReceipt(int statusBtn, ReceiptResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int checkBtn = statusBtn;
+        List<Distributor> distributors = distributorRespository.findAll();
+        List<Staff> staffs = staffRespository.findAll();
+        Receipt Receipt = receiptTransfomer.transformToEntity(response, staffs, distributors);
+        switch (checkBtn) {
+            case 2:
+            case 3:
+                receiptRespository.save(Receipt);
+                return true;
+            case 4:
+                receiptRespository.delete(Receipt);
+                return true;
+        }
+        return false;
     }
 
     @Override
-    public boolean deleteReceipt(ReceiptResponse receiptResponse) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean deleteReceipt(ReceiptResponse response) {
+        List<Distributor> distributors = distributorRespository.findAll();
+        List<Staff> staffs = staffRespository.findAll();
+        Receipt receipt = receiptTransfomer.transformToEntity(response, staffs, distributors);
+        boolean checkInCus = detailInvoiceRepository.findAll().stream().anyMatch(item -> item.getReceipt().getCodeReceipt() == receipt.getCodeReceipt());
+        if (checkInCus) {
+            return false;
+        }
+        receiptRespository.delete(receipt);
+        return true;
     }
 
 }
-
-

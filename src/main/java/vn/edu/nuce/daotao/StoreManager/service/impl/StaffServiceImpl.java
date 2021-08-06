@@ -10,10 +10,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import vn.edu.nuce.daotao.StoreManager.model.Bill;
 import vn.edu.nuce.daotao.StoreManager.model.Position;
+import vn.edu.nuce.daotao.StoreManager.model.Receipt;
 import vn.edu.nuce.daotao.StoreManager.model.Staff;
 import vn.edu.nuce.daotao.StoreManager.response.StaffResponse;
+import vn.edu.nuce.daotao.StoreManager.respository.AccountRespository;
+import vn.edu.nuce.daotao.StoreManager.respository.BillRespository;
 import vn.edu.nuce.daotao.StoreManager.respository.PositionRespository;
+import vn.edu.nuce.daotao.StoreManager.respository.ReceiptRespository;
 import vn.edu.nuce.daotao.StoreManager.respository.StaffRespository;
 import vn.edu.nuce.daotao.StoreManager.service.*;
 import vn.edu.nuce.daotao.StoreManager.transfomer.StaffTransformer;
@@ -32,7 +37,16 @@ public class StaffServiceImpl implements StaffService {
     private StaffTransformer staffTransformer;
 
     @Autowired
+    private BillRespository billRespository;
+
+    @Autowired
+    private ReceiptRespository receiptRespository;
+
+    @Autowired
     private PositionRespository positionRespository;
+
+    @Autowired
+    private AccountRespository accountRespository;
 
     @Override
     public List<StaffResponse> getAllStaffResponses() {
@@ -74,6 +88,14 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public boolean deleteStaff(StaffResponse staffResponse) {
         List<Position> positions = positionRespository.findAll();
+        List<Bill> bills = billRespository.findAll();
+        List<Receipt> receipts = receiptRespository.findAll();
+        boolean checkBill = bills.stream().anyMatch(item -> item.getStaff().getCodeStaff() == Integer.valueOf(staffResponse.getCodeStaff()));
+        boolean checkReceipt = receipts.stream().anyMatch(item -> item.getStaff().getCodeStaff() == Integer.valueOf(staffResponse.getCodeStaff()));
+        boolean checkAccount = accountRespository.findAll().stream().anyMatch(item -> item.getStaff().getCodeStaff() == Integer.valueOf(staffResponse.getCodeStaff()));
+        if (checkReceipt || checkBill || checkAccount) {
+            return false;
+        }
         Staff staff = staffTransformer.transformToEntity(staffResponse, positions);
         staffRespository.delete(staff);
         return true;

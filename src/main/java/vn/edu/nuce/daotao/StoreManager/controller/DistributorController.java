@@ -16,6 +16,8 @@ import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 public interface DistributorController {
     
     List<Object[]> getAllDistributorResponseObject();
+    
+    List<DistributorResponse> getAllDistributorResponse();
    
     CodeSystem updateDistributor(int statusBtn, DistributorResponse response);
     

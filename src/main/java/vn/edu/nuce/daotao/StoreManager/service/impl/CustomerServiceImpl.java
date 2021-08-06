@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.model.Customer;
 import vn.edu.nuce.daotao.StoreManager.model.CustomerType;
 import vn.edu.nuce.daotao.StoreManager.response.CustomerResponse;
+import vn.edu.nuce.daotao.StoreManager.respository.BillRespository;
 import vn.edu.nuce.daotao.StoreManager.respository.CustomerRespository;
 import vn.edu.nuce.daotao.StoreManager.respository.CustomerTypeRespository;
 import vn.edu.nuce.daotao.StoreManager.service.*;
@@ -32,6 +33,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerTypeRespository customerTypeRespository;
+    
+    @Autowired
+    private BillRespository billRespository;
 
     @Autowired
     private CustomerTransformer customerTransformer;
@@ -67,6 +71,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public boolean deleteCustomer(CustomerResponse customerResponse) {
         List<CustomerType> customerTypes = customerTypeRespository.findAll();
+        boolean checkInCus = billRespository.findAll().stream().anyMatch(item -> item.getCustomer().getCodeCustomer() == customerResponse.getCodeCustomer());
+        if (checkInCus) {
+            return false;
+        }
         Customer customer = customerTransformer.transformToEntity(customerResponse, customerTypes);
         customerRespository.delete(customer);
         return true;

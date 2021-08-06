@@ -725,9 +725,13 @@ public class CustomerJpanel extends javax.swing.JPanel implements CommonJpanel {
         if (choose != 0) {
             return;
         }
-        customerController.deleteCustomer(getCustomerResponse());
-        initData();
-        checkButton = 4;
+        CodeSystem codeSystem = customerController.deleteCustomer(getCustomerResponse());
+        if (codeSystem.equals(CodeSystem.SUCCESS)) {
+            initData();
+            checkButton = 4;
+            return;
+        }
+        setErrorMsg(codeSystem.getDescription());
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void filter(String parameter) {

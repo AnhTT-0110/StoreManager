@@ -39,5 +39,16 @@ public class DistributorTransformer {
         distributor.setDescription(response.getDescription());
         return distributor;
     }
+    
+    public DistributorResponse transformToResponse(Distributor distributor) {
+        DistributorResponse response = new DistributorResponse();
+        response.setCodeDistributor(distributor.getCodeDistributor());
+        response.setNameDistributor(distributor.getNameDistributor());
+        response.setAddress(distributor.getAddress());
+        response.setPhoneNumber(distributor.getPhoneNumber());
+        response.setEmail(distributor.getEmail());
+        response.setDescription(distributor.getDescription());
+        return response;
+    }
 
 }

@@ -18,6 +18,7 @@ import vn.edu.nuce.daotao.StoreManager.view.jpanel.CustomerJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.DistributorJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.LangueJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.ProductJpanel;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.ReceiptJPanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.StaffJpanel;
 
 /**
@@ -48,6 +49,7 @@ public class MainFrame extends javax.swing.JFrame {
         btTTCH = new javax.swing.JButton();
         btDangxuat = new javax.swing.JButton();
         btNgonNgu = new javax.swing.JButton();
+        btHoaDon1 = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
 
@@ -164,6 +166,17 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        btHoaDon1.setBackground(new java.awt.Color(255, 255, 204));
+        btHoaDon1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btHoaDon1.setForeground(new java.awt.Color(51, 51, 255));
+        btHoaDon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hoadon.png"))); // NOI18N
+        btHoaDon1.setText("PHIẾU NHẬP");
+        btHoaDon1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btHoaDon1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -177,11 +190,14 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(btTTCH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btDangxuat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btNgonNgu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btHoaDon1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btHoaDon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btHoaDon1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btSanpham)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -198,7 +214,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btTTCH)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btNgonNgu)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
@@ -278,6 +294,12 @@ public class MainFrame extends javax.swing.JFrame {
         LangueJpanel jpanel = new LangueJpanel();
         setValueToMainFrame(jpanel);
     }//GEN-LAST:event_btNgonNguActionPerformed
+
+    private void btHoaDon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHoaDon1ActionPerformed
+        ReceiptJPanel receiptJPanel = applicationContext.getBean(ReceiptJPanel.class);
+        receiptJPanel.init();
+        setValueToMainFrame(receiptJPanel);
+    }//GEN-LAST:event_btHoaDon1ActionPerformed
 
     public void init() {
         applicationContext = Application.applicationContext;
@@ -405,6 +427,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btDoanhthu;
     private javax.swing.JButton btDoitac;
     private javax.swing.JButton btHoaDon;
+    private javax.swing.JButton btHoaDon1;
     private javax.swing.JButton btKhachhang;
     private javax.swing.JButton btNgonNgu;
     private javax.swing.JButton btNhanvien;

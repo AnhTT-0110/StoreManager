@@ -21,5 +21,5 @@ public interface CustomerController {
     
     CodeSystem updateCustomer(int statusBtn, CustomerResponse customer);
     
-    boolean deleteCustomer(CustomerResponse customerResponse);
+    CodeSystem deleteCustomer(CustomerResponse customerResponse);
 }

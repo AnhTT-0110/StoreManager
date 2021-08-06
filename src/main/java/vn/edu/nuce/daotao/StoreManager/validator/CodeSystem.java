@@ -34,6 +34,11 @@ public enum CodeSystem {
     ERROR12("ERROR12", "Không thể xóa sản phầm này."),
     ERROR13("ERROR13", "Không thể xóa loại sản phầm này."),
     ERROR14("ERROR14", "Không thể xóa nhà phân phối này!"),
+    ERROR15("ERROR15", "Không thể xóa phiếu nhập kho này!"),
+    ERROR16("ERROR16", "Không thể xóa chi tiết phiếu nhập kho này"),
+    ERROR17("ERROR17", "Không thể xóa khách hàng này"),
+    ERROR18("ERROR18", "Không thể xóa chức vụ này"),
+    ERROR19("ERROR18", "Không thể xóa nhân viên này"),
     SUCCESS("SUCCESS", "Cập nhật thành công!"),
     SUCCESS02("SUCCESS02", "Đã đủ thông tin"),
     SUCCESS03("SUCCESS03", "Định dạng OK");

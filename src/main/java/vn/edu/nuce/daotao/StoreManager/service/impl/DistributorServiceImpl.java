@@ -7,6 +7,7 @@ package vn.edu.nuce.daotao.StoreManager.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.nuce.daotao.StoreManager.model.Distributor;
@@ -66,6 +67,15 @@ public class DistributorServiceImpl implements DistributorService {
         }
         distributorRespository.delete(distributor);
         return true;
+    }
+
+    @Override
+    public List<DistributorResponse> getAllDistributorResponseEntity() {
+        return distributorRespository
+                .findAll()
+                .stream()
+                .map(bill -> distributorTransformer.transformToResponse(bill))
+                .collect(Collectors.toList());   
     }
 
 }

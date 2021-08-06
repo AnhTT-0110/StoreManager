@@ -16,7 +16,7 @@ public interface DistributorService{
     
     List<Object[]> getAllDistributorObject();
     
-//    List<CustomerResponse> getAllCustomerResponseEntity();
+    List<DistributorResponse> getAllDistributorResponseEntity();
     
     boolean updateDistributor(int statusBtn, DistributorResponse customer);
     

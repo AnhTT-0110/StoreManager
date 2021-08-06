@@ -43,8 +43,10 @@ public class PositionControllerImpl implements PositionController {
     }
 
     @Override
-    public boolean deletePosition(PositionResponse positionResponse) {
-        return positionService.deletePosition(positionResponse);
+    public CodeSystem deletePosition(PositionResponse positionResponse) {
+        if (positionService.deletePosition(positionResponse))
+             return CodeSystem.SUCCESS;
+        return CodeSystem.ERROR18;
     }
 
     @Override

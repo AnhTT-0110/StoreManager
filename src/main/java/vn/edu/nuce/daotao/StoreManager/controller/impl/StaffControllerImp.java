@@ -57,8 +57,10 @@ public class StaffControllerImp implements StaffController {
     }
 
     @Override
-    public boolean deleteStaff(StaffResponse staffResponse) {
-        return staffService.deleteStaff(staffResponse);
+    public CodeSystem deleteStaff(StaffResponse staffResponse) {
+         if (staffService.deleteStaff(staffResponse))
+             return CodeSystem.SUCCESS;
+        return CodeSystem.ERROR19;
     }
 
 }

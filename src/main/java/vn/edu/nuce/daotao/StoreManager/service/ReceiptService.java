@@ -6,7 +6,6 @@
 package vn.edu.nuce.daotao.StoreManager.service;
 
 import java.util.List;
-import vn.edu.nuce.daotao.StoreManager.model.Receipt;
 import vn.edu.nuce.daotao.StoreManager.response.ReceiptResponse;
 
 /**
@@ -14,13 +13,13 @@ import vn.edu.nuce.daotao.StoreManager.response.ReceiptResponse;
  * @author Anh
  */
 public interface ReceiptService {
-    
-   List<Object[]> getAllReceiptObject();
-    
-    List<Receipt> getAllReceiptEntity();
-    
+
+    List<ReceiptResponse> getAllReceiptResponses();
+
+    List<Object[]> getAllReceiptResponseObjects();
+
     boolean updateReceipt(int statusBtn, ReceiptResponse response);
+
+    boolean deleteReceipt(ReceiptResponse response);
     
-    boolean deleteReceipt(ReceiptResponse receiptResponse);
-       
 }

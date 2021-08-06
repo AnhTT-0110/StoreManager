@@ -6,12 +6,15 @@
 package vn.edu.nuce.daotao.StoreManager.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -36,7 +39,7 @@ public class Receipt implements Serializable{
     private double totalDcash;
     
     @Column(name = "NgayNhap")
-    private LocalDate date;
+    private LocalDateTime date;
     
     @Column(name = "ChuThich")
     private String description;
@@ -44,4 +47,7 @@ public class Receipt implements Serializable{
     @ManyToOne
     @JoinColumn(name = "MaNhaPhanPhoi", referencedColumnName = "MaNhaPhanPhoi")
     private Distributor distributor;
+    
+    @OneToMany(mappedBy = "receipt")
+    private Collection<DetailInvoice> detailInvoices;
 }

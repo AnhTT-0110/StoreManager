@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import vn.edu.nuce.daotao.StoreManager.model.Position;
 import vn.edu.nuce.daotao.StoreManager.response.PositionResponse;
 import vn.edu.nuce.daotao.StoreManager.respository.PositionRespository;
+import vn.edu.nuce.daotao.StoreManager.respository.StaffRespository;
 import vn.edu.nuce.daotao.StoreManager.service.*;
 import vn.edu.nuce.daotao.StoreManager.transfomer.PositionTransformer;
 
@@ -24,6 +25,9 @@ public class PositionServiceImpl implements PositionService {
 
     @Autowired
     private PositionRespository positionRespository;
+    
+    @Autowired
+    private StaffRespository staffRespository;
 
     @Autowired
     private PositionTransformer positionTransformer;
@@ -55,6 +59,10 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public boolean deletePosition(PositionResponse positionResponse) {
         Position position = positionTransformer.transformToEntity(positionResponse);
+        boolean checkInStaff = staffRespository.findAll().stream().anyMatch(item -> item.getPosition().getCodePosition() == Integer.valueOf(positionResponse.getCodePosition()));
+        if (checkInStaff) {
+            return false;
+        }
         positionRespository.delete(position);
         return true;
     }

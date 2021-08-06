@@ -14,23 +14,25 @@ import lombok.Data;
 @Data
 public class ReceiptResponse {
 
-    private String codeDistributor;
+    private String codeReceipt;
     private String codeStaff;
-    private double totalDcash;
+    private String nameStaff;
+    private String codeDistributor;
+    private String nameDistributor;
+    private String totalDcash;
     private String date;
     private String description;
 
-    public ReceiptResponse(String codeDistributor, String codeStaff, double totalDcash, String date, String description) {
-        this.codeDistributor = codeDistributor;
+    public ReceiptResponse() {
+    }
+
+    public ReceiptResponse(String codeReceipt, String codeStaff, String codeDistributor, String date, String totalDcash, String description) {
+        this.codeReceipt = codeReceipt;
         this.codeStaff = codeStaff;
+        this.codeDistributor = codeDistributor;
         this.totalDcash = totalDcash;
         this.date = date;
         this.description = description;
     }
 
-    public ReceiptResponse() {
-    }
-    
-    
-    
 }

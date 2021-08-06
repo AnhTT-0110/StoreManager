@@ -53,4 +53,9 @@ public class DistributorControllerImpl implements DistributorController {
         return CodeSystem.ERROR07;
     }
 
+    @Override
+    public List<DistributorResponse> getAllDistributorResponse() {
+         return distributorService.getAllDistributorResponseEntity();
+    }
+
 }

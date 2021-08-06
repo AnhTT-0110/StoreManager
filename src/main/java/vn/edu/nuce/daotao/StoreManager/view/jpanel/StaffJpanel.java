@@ -1545,9 +1545,13 @@ public class StaffJpanel extends javax.swing.JPanel implements CommonJpanel {
         if (choose != 0) {
             return;
         }
-        staffController.deleteStaff(getCustomerResponse());
-        initDataStaff();
-        checkButton = 4;
+          CodeSystem codeSystem = staffController.deleteStaff(getCustomerResponse());
+        if (codeSystem.equals(CodeSystem.SUCCESS)) {
+            initDataStaff();
+            checkButton = 4;
+            return;
+        }
+        setErrorMsg(codeSystem.getDescription());
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

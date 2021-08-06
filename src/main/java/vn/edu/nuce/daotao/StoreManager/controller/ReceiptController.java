@@ -6,20 +6,20 @@
 package vn.edu.nuce.daotao.StoreManager.controller;
 
 import java.util.List;
-import vn.edu.nuce.daotao.StoreManager.response.StaffResponse;
+import vn.edu.nuce.daotao.StoreManager.response.ReceiptResponse;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 
 /**
  *
  * @author Anh
  */
-public interface StaffController {
+public interface ReceiptController {
 
-    List<Object[]> getAllStaffResponsesObject();
+    List<Object[]> getAllReceiptResponsesObject();
 
-    List<StaffResponse> getAllStaffResponses();
+    List<ReceiptResponse> getAllReceiptResponses();
 
-    CodeSystem updateStaff(int statusBtn, StaffResponse response);
+    CodeSystem updateReceipt(int statusBtn, ReceiptResponse response);
 
-    CodeSystem deleteStaff(StaffResponse staffResponse);
+    CodeSystem deleteReceiptaa(ReceiptResponse response);
 }

@@ -27,15 +27,19 @@ public class DetailInvoice implements Serializable{
     @Column(name = "MaCTPN")
     private int codeDetailInvoice;
     
-    @Column(name = "MaPhieuNhap")
-    private int codeInvoice;
-    
     @ManyToOne
     @JoinColumn(name = "MaSanPham", referencedColumnName = "MaSanPham")
     private Product product;
     
+    @ManyToOne
+    @JoinColumn(name = "MaPhieuNhap", referencedColumnName = "MaPhieuNhap")
+    private Receipt receipt;
+    
     @Column(name = "SoLuong")
     private int quantity;
+    
+    @Column(name = "GiaTien")
+    private double price;
     
     @Column(name = "TongTien")
     private double totalDcash;
