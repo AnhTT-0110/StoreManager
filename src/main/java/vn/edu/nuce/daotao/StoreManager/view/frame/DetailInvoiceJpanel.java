@@ -28,6 +28,7 @@ import vn.edu.nuce.daotao.StoreManager.response.DetailInvoiceResponse;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.BillJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.CommonJpanel;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.ReceiptJPanel;
 
 /**
  *
@@ -680,12 +681,6 @@ public class DetailInvoiceJpanel extends javax.swing.JFrame implements CommonJpa
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        int quantity = Integer.valueOf(txtQtty.getText());
-        int amount = Integer.valueOf(txtAmout.getText());
-        if (amount - quantity < 0) {
-            setErrorMsg("Không đủ số lượng trong kho");
-            return;
-        }
         CodeSystem codeSystem = DetailInvoiceController.updateDetailInvoice(checkButton, getBilDetailResponse());
         if (codeSystem.equals(CodeSystem.SUCCESS)) {
             initDataDetailInvoice();
@@ -749,7 +744,7 @@ public class DetailInvoiceJpanel extends javax.swing.JFrame implements CommonJpa
     }//GEN-LAST:event_txtAmoutKeyTyped
 
     private void initDataDetailInvoice() {
-        String codeBill = BillJpanel.codeBill;
+        String codeBill = ReceiptJPanel.codeReceipt;
         if (codeBill.isEmpty()) {
             billResponses = DetailInvoiceController.getAllDetailInvoiceResponsesObject();
         } else {

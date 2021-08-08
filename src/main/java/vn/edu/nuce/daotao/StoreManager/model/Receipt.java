@@ -6,7 +6,6 @@
 package vn.edu.nuce.daotao.StoreManager.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import javax.persistence.Column;

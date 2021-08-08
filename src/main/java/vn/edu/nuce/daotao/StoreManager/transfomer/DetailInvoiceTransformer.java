@@ -21,16 +21,15 @@ import vn.edu.nuce.daotao.StoreManager.response.DetailInvoiceResponse;
 public class DetailInvoiceTransformer {
 
     public Object[] transform(DetailInvoice detailInvoice) {
-        Object[] item = new Object[9];
+        Object[] item = new Object[10];
         item[1] = detailInvoice.getCodeDetailInvoice();
         item[2] = detailInvoice.getReceipt().getCodeReceipt();
         item[3] = detailInvoice.getProduct().getCodeProduct();
         item[4] = detailInvoice.getProduct().getNameProduct();
-        item[5] = detailInvoice.getProduct().getQuantity();
-        item[6] = detailInvoice.getQuantity();
-        item[7] = detailInvoice.getQuantity();
-        item[8] = detailInvoice.getTotalDcash();
-        item[9] = detailInvoice.getDescription();
+        item[5] = detailInvoice.getQuantity();
+        item[6] = detailInvoice.getPrice();
+        item[7] = detailInvoice.getTotalDcash();
+        item[8] = detailInvoice.getDescription();
         return item;
     }
 
@@ -50,7 +49,6 @@ public class DetailInvoiceTransformer {
                 .findAny()
                 .ifPresent(item -> detailInvoice.setProduct(item));
         detailInvoice.setPrice(detailInvoice.getProduct().getPrice());
-        detailInvoice.setPrice(Double.valueOf(response.getPrice()));
         detailInvoice.setTotalDcash(detailInvoice.getPrice() * detailInvoice.getQuantity());
         return detailInvoice;
     }

@@ -68,7 +68,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="btHoaDon" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btHoaDon1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btHoaDon1" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btSanpham" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -85,7 +85,7 @@
                   <Component id="btTTCH" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="btNgonNgu" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="50" max="32767" attributes="0"/>
+                  <EmptySpace pref="56" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -283,9 +283,9 @@
               <Color blue="ff" green="33" red="33" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/hoadon.png"/>
+              <Image iconType="3" name="/images/receipt.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="PHI&#x1ebe;U NH&#x1eac;P"/>
+            <Property name="text" type="java.lang.String" value=" PHI&#x1ebe;U NH&#x1eac;P"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btHoaDon1ActionPerformed"/>

@@ -169,8 +169,8 @@ public class MainFrame extends javax.swing.JFrame {
         btHoaDon1.setBackground(new java.awt.Color(255, 255, 204));
         btHoaDon1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btHoaDon1.setForeground(new java.awt.Color(51, 51, 255));
-        btHoaDon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hoadon.png"))); // NOI18N
-        btHoaDon1.setText("PHIẾU NHẬP");
+        btHoaDon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/receipt.png"))); // NOI18N
+        btHoaDon1.setText(" PHIẾU NHẬP");
         btHoaDon1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btHoaDon1ActionPerformed(evt);
@@ -197,7 +197,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btHoaDon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btHoaDon1)
+                .addComponent(btHoaDon1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btSanpham)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -214,7 +214,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btTTCH)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btNgonNgu)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);

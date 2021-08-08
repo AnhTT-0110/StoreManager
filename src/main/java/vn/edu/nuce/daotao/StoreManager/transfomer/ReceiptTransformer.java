@@ -38,7 +38,7 @@ public class ReceiptTransformer {
 
     public Receipt transformToEntity(ReceiptResponse response, List<Staff> staffs, List<Distributor> distributors) {
         Receipt receipt = new Receipt();
-        receipt.setCodeReceipt(Integer.valueOf(response.getCodeDistributor()));
+        receipt.setCodeReceipt(response.getCodeReceipt().isEmpty() ? Integer.valueOf(0) : Integer.valueOf(response.getCodeReceipt()));
         receipt.setTotalDcash(Double.valueOf(response.getTotalDcash()));
         receipt.setDate(LocalDateTime.parse(response.getDate()));
         receipt.setDescription(response.getDescription());

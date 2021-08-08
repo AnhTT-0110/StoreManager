@@ -6,6 +6,7 @@
 package vn.edu.nuce.daotao.StoreManager.transfomer;
 
 import java.util.List;
+import java.util.Objects;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.model.Product;
 import vn.edu.nuce.daotao.StoreManager.model.ProductType;
@@ -27,7 +28,7 @@ public class ProductTransformer {
         item[5] = product.getPriceInput();
         item[6] = product.getPrice();
         item[7] = product.getQuantity();
-        item[8] = product.getImage();
+        item[8] = Objects.isNull(product.getImage()) ? "" : product.getImage();
         item[9] = product.getDescription();
         return item;
     }
