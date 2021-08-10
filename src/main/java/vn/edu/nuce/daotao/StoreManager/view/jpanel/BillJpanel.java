@@ -240,6 +240,11 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
 
         jButton3.setFont(new java.awt.Font("Cambria", 3, 14)); // NOI18N
         jButton3.setText("Lẻ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
@@ -702,6 +707,11 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
     private void txtDCashKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDCashKeyTyped
         checkNumber(evt,txtDCash);
     }//GEN-LAST:event_txtDCashKeyTyped
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       String customer = "100" + " _ " + "Khách lẻ";
+        cbbCustomer.setSelectedItem(customer);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

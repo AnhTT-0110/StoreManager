@@ -221,8 +221,6 @@ public class Login extends javax.swing.JFrame implements CommonJpanel {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String tenDangNhap = txtUser.getText();
         String matKhau = String.valueOf(txtPass.getPassword());
-        System.out.println("difs" + tenDangNhap);
-        System.out.println("pass" + matKhau);
         AccountResponse accountResponse = accountController.login(tenDangNhap, matKhau);
         if (Objects.isNull(accountResponse)) {
             setErrorMsg(CodeSystem.ERROR20.getDescription());

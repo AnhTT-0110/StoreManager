@@ -6,6 +6,7 @@
 package vn.edu.nuce.daotao.StoreManager;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
+import vn.edu.nuce.daotao.StoreManager.view.frame.Login;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.BillJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.CustomerJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.DistributorJpanel;
@@ -286,12 +288,15 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btDoanhthuActionPerformed
 
     private void btDangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDangxuatActionPerformed
-        // TODO add your handling code here:
-//        MainFrame mf = new MainFrame();
-//          mf.removeAll();
-//          mf.dispose();
-//          Frame.DangNhap b = new DangNhap();
-//          b.show();      
+
+        int result = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất không?", "Info",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+        if (result == JOptionPane.YES_OPTION) {
+            this.setVisible(false);
+            Login receiptJPanel = applicationContext.getBean(Login.class);
+            receiptJPanel.initData();
+        }
     }//GEN-LAST:event_btDangxuatActionPerformed
 
     private void btNgonNguActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNgonNguActionPerformed
