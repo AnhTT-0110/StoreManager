@@ -53,7 +53,7 @@ public class BillServiceImpl implements BillService {
     @Override
     public List<Object[]> getAllBillResponseObjects() {
         return billRespository
-                .findAll(Sort.by("date"))
+                .findAll(new Sort(Sort.Direction.DESC, "date"))
                 .stream()
                 .map(bill -> billTransfomer.transform(bill))
                 .collect(Collectors.toList());

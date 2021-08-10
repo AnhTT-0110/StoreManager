@@ -6,9 +6,13 @@
 package vn.edu.nuce.daotao.StoreManager.controller.impl;
 
 import java.util.List;
+import java.util.Objects;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
+import vn.edu.nuce.daotao.StoreManager.Application;
+import vn.edu.nuce.daotao.StoreManager.MainFrame;
 import vn.edu.nuce.daotao.StoreManager.controller.AccountController;
 import vn.edu.nuce.daotao.StoreManager.response.AccountResponse;
 import vn.edu.nuce.daotao.StoreManager.service.AccountService;
@@ -58,6 +62,11 @@ public class AccountControllerImpl implements AccountController {
     @Override
     public boolean deleteAccount(AccountResponse response) {
         return accountService.deleteAccount(response);
+    }
+
+    @Override
+    public AccountResponse login(String user, String password) {
+       return accountService.getAccountByUserAndPass(user, password);
     }
 
 }

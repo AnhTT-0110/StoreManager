@@ -20,4 +20,6 @@ public interface AccountController {
     CodeSystem updateAccount(int statusBtn, AccountResponse response);
 
     boolean deleteAccount(AccountResponse response);
+    
+    AccountResponse login(String user, String password);
 }

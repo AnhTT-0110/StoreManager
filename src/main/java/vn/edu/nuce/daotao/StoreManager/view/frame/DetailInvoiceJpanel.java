@@ -26,7 +26,6 @@ import vn.edu.nuce.daotao.StoreManager.controller.PositionController;
 import vn.edu.nuce.daotao.StoreManager.controller.ProductController;
 import vn.edu.nuce.daotao.StoreManager.response.DetailInvoiceResponse;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
-import vn.edu.nuce.daotao.StoreManager.view.jpanel.BillJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.CommonJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.ReceiptJPanel;
 

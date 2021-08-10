@@ -80,4 +80,18 @@ public class AccountServiceImpl implements AccountService {
         return true;
     }
 
+    @Override
+    public AccountResponse getAccountByUserAndPass(String userName, String password) {
+        List<Account> accounts = accountRespository.findByUsernameAndPassword(userName, password);
+        if (accounts.isEmpty()) {
+            return null;
+        }
+        return accounts
+                .stream()
+                .findFirst()
+                .map(account -> accountTransformer.transformToResponse(account))
+                .get();
+        }
+    
+
 }

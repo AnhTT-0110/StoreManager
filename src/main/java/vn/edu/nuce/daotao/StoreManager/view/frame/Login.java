@@ -5,18 +5,33 @@
  */
 package vn.edu.nuce.daotao.StoreManager.view.frame;
 
-import java.sql.ResultSet;
+import java.util.Objects;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import vn.edu.nuce.daotao.StoreManager.Application;
+import vn.edu.nuce.daotao.StoreManager.MainFrame;
+import vn.edu.nuce.daotao.StoreManager.controller.AccountController;
+import vn.edu.nuce.daotao.StoreManager.response.AccountResponse;
+import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.CommonJpanel;
 
 /**
  *
  * @author Trieu Anh
  */
-public class Login extends javax.swing.JFrame {
+@Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@Log4j2
+public class Login extends javax.swing.JFrame implements CommonJpanel {
 
-   
-    public Login() {
-        initComponents();
-    }
+    @Autowired
+    private AccountController accountController;
+
+    static ConfigurableApplicationContext applicationContext;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,10 +50,10 @@ public class Login extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
         btnReset = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
-        txtPassWord = new javax.swing.JPasswordField();
+        txtUser = new javax.swing.JTextField();
+        txtPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -94,12 +109,10 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon("F:\\DHXD\\2021\\Doantotnghiep\\SourceCode\\StoreManager\\StoreManager\\src\\main\\resources\\images\\Users-icon.png")); // NOI18N
         jLabel2.setText("Tên đăng nhập");
 
-        txtUsername.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-
         btnReset.setBackground(new java.awt.Color(255, 255, 153));
-        btnReset.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnReset.setIcon(new javax.swing.ImageIcon("F:\\DHXD\\2021\\Doantotnghiep\\SourceCode\\StoreManager\\StoreManager\\src\\main\\resources\\images\\reset.png")); // NOI18N
-        btnReset.setText("Reset");
+        btnReset.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        btnReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refreshing.png"))); // NOI18N
+        btnReset.setText(" Reset");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResetActionPerformed(evt);
@@ -107,7 +120,7 @@ public class Login extends javax.swing.JFrame {
         });
 
         btnLogin.setBackground(new java.awt.Color(255, 255, 153));
-        btnLogin.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnLogin.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         btnLogin.setIcon(new javax.swing.ImageIcon("F:\\DHXD\\2021\\Doantotnghiep\\SourceCode\\StoreManager\\StoreManager\\src\\main\\resources\\images\\secrecy-icon.png")); // NOI18N
         btnLogin.setText("Đăng nhập");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -115,8 +128,6 @@ public class Login extends javax.swing.JFrame {
                 btnLoginActionPerformed(evt);
             }
         });
-
-        txtPassWord.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -131,8 +142,8 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsername)
-                            .addComponent(txtPassWord)))
+                            .addComponent(txtUser)
+                            .addComponent(txtPass)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
@@ -142,13 +153,13 @@ public class Login extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPassWord))
+                    .addComponent(txtPass))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
@@ -203,83 +214,44 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-
+        txtUser.setText("");
+        txtPass.setText("");
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String tenDangNhap = txtUsername.getText().trim();
-        String matKhau;
-        matKhau = String.valueOf(txtPassWord.getPassword()).trim();
-        if(kiemTra(tenDangNhap,matKhau)){
-            try{
-                Thread.sleep(2000);
-            }
-            catch (InterruptedException ex) {
-                System.out.println(ex.toString());
-            }
-           
+        String tenDangNhap = txtUser.getText();
+        String matKhau = String.valueOf(txtPass.getPassword());
+        System.out.println("difs" + tenDangNhap);
+        System.out.println("pass" + matKhau);
+        AccountResponse accountResponse = accountController.login(tenDangNhap, matKhau);
+        if (Objects.isNull(accountResponse)) {
+            setErrorMsg(CodeSystem.ERROR20.getDescription());
+            return;
         }
-        else 
-        {
-//            Main.thongBao("Bạn nhập sai tài khoản rồi !!!", "Thông Báo", 1);
+        this.setVisible(false);
+        int permission = Integer.valueOf(accountResponse.getPermissionCode());
+        switch (permission) {
+            case 1:
+                MainFrame service = applicationContext.getBean(MainFrame.class);
+                service.init();
+                break;
+            case 2:
+                MainFrame service2 = applicationContext.getBean(MainFrame.class);
+                service2.init();
+                break;
+            case 3:
+                MainFrame service3 = applicationContext.getBean(MainFrame.class);
+                service3.init();
+                break;
+            default:
+                throw new AssertionError();
         }
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-    }
-    
-    
-    private boolean kiemTra(String tenDangNhap, String matKhau){
-//        boolean ketQua = false;
-//        String cauTruyVan = "select * from Users where TenDangNhap = '"+tenDangNhap+"' "
-//                + "and Password   = '"+matKhau+"'";
-//        ResultSet rs = Main.connect.ExcuteQueryGetTable(cauTruyVan);
-//        
-//        try{
-//            if(rs.next()){
-//                ketQua = true;
-//                
-//            }
-//        }
-//        catch (Exception e) {
-//            System.out.println("Lỗi Đăng Nhập");
-//        }
-//        return ketQua;
-return true;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
@@ -292,7 +264,17 @@ return true;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JPasswordField txtPassWord;
-    private javax.swing.JTextField txtUsername;
+    private javax.swing.JPasswordField txtPass;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void initData() {
+        applicationContext = Application.applicationContext;
+        initComponents();
+        java.awt.EventQueue.invokeLater(() -> {
+            this.setVisible(true);
+        });
+
+    }
 }

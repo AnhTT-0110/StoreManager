@@ -21,6 +21,7 @@ public class AccountResponse {
     private String codeStaff;
     private String nameStaff;
     private String permission;
+    private String permissionCode;
 
     public AccountResponse(String codeAccount, String username, String password, String description, String codeStaff, String permission) {
         this.codeAccount = codeAccount;

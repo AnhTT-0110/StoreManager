@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import vn.edu.nuce.daotao.StoreManager.view.frame.Login;
 
 /**
  *
@@ -26,8 +27,8 @@ public class Application {
         builder.headless(false);
         applicationContext = builder.run(args);
         System.out.println("MainFrame {} started.");
-        MainFrame service = applicationContext.getBean(MainFrame.class);
-        service.init();
+        Login service = applicationContext.getBean(Login.class);
+        service.initData();
 
     }
 

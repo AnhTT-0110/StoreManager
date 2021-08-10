@@ -19,4 +19,6 @@ public interface AccountService {
     boolean updateAccount(int statusBtn, AccountResponse accountResponse);
 
     boolean deleteAccount(AccountResponse accountResponse);
+    
+    AccountResponse getAccountByUserAndPass(String userName, String password);
 }

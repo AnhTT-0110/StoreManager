@@ -30,6 +30,19 @@ public class AccountTransformer {
         item[7] = account.getDescription();
         return item;
     }
+    
+    public AccountResponse transformToResponse(Account account) {
+        AccountResponse accountResponse = new AccountResponse();
+        accountResponse.setCodeAccount(String.valueOf(account.getCodeAccount()));
+        accountResponse.setCodeStaff(String.valueOf(account.getStaff().getCodeStaff()));
+        accountResponse.setNameStaff(account.getStaff().getNameStaff());
+        accountResponse.setUsername(account.getUsername());
+        accountResponse.setPassword(account.getPassword());
+        accountResponse.setPermission(account.getPermission().getNamePermission());
+        accountResponse.setPermissionCode(String.valueOf(account.getPermission().getCodePermission()));
+        accountResponse.setDescription(account.getDescription());
+        return accountResponse;
+    }
 
     public Account transformToEntity(AccountResponse accountResponse, List<Staff> staffs, List<Permission> permissions) {
         Account account = new Account();
