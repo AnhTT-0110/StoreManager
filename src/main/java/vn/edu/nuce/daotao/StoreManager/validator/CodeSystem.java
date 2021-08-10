@@ -17,7 +17,7 @@ public enum CodeSystem {
     ERROR01("ERROR01", "Nhập sai định dạng ngày: yyyy-MM-dd"),
     ERROR02("ERROR02", "Các trường phải đầy đủ thông tin"),
     ERROR03("ERROR03", "Cập nhật không thành công"),
-    ERROR04("ERROR04", "Nhân viên này đã có tài khoản rồi"),
+    ERROR04("ERROR04", "Cập nhật không thành công.\nNhân viên này đã có tài khoản rồi hoặc tên đăng nhập đã có người dùng"),
     ERROR05("ERROR05", "\n Nhập sai format user:\n"
             + "1. Có từ 4-> 15 kí tự\n"
             + "2. Gồm kí tự thường a->z"

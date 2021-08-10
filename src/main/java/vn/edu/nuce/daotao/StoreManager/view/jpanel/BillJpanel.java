@@ -97,6 +97,7 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel13 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         cbbCustomer = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         cbbStaff = new javax.swing.JComboBox<>();
@@ -237,6 +238,9 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
             }
         });
 
+        jButton3.setFont(new java.awt.Font("Cambria", 3, 14)); // NOI18N
+        jButton3.setText("Lẻ");
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -244,18 +248,23 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbCustomer, 0, 268, Short.MAX_VALUE))
+                .addComponent(cbbCustomer, 0, 185, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(cbbCustomer))
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel13Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(cbbCustomer))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel5.add(jPanel13);
@@ -707,6 +716,7 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JComboBox<String> cbbStaff;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

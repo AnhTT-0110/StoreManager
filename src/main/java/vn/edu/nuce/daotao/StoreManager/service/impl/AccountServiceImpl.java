@@ -56,10 +56,12 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountTransformer.transformToEntity(accountResponse, staffs, positions);
         switch (checkBtn) {
             case 2:
-                if (accounts.stream().anyMatch(item -> item.getStaff().getCodeStaff() == Integer.valueOf(accountResponse.getCodeStaff()))) {
+            case 3:
+                boolean checkStaff = accounts.stream().anyMatch(item -> item.getStaff().getCodeStaff() == Integer.valueOf(accountResponse.getCodeStaff()));
+                boolean checkAccount = accounts.stream().anyMatch(item -> item.getUsername().compareTo(account.getUsername()) == 0);
+                if (checkAccount || checkStaff) {
                     return false;
                 }
-            case 3:
                 accountRespository.save(account);
                 return true;
             case 4:

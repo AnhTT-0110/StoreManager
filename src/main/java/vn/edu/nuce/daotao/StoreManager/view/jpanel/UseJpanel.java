@@ -20,8 +20,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.controller.CustomerController;
 import vn.edu.nuce.daotao.StoreManager.controller.CustomerTypeController;
+import vn.edu.nuce.daotao.StoreManager.model.Account;
+import vn.edu.nuce.daotao.StoreManager.model.outputproc.doanhthutheothang;
 import vn.edu.nuce.daotao.StoreManager.response.CustomerResponse;
-import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
+import vn.edu.nuce.daotao.StoreManager.respository.AccountRespository;
+import vn.edu.nuce.daotao.StoreManager.respository.BillRespository;
 
 /**
  *
@@ -37,6 +40,14 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     @Autowired
     private CustomerTypeController customerTypeController;
+
+    @Autowired
+    private BillRespository billRespository;
+
+    @Autowired
+    private AccountRespository accountRespository;
+//    @Autowired
+//    private doanhthu userInfoRepository;
 
     int count = 0;
     int indexItem = 0;
@@ -670,12 +681,31 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
     }//GEN-LAST:event_tblCustomerMouseClicked
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        CodeSystem codeSystem = customerController.updateCustomer(checkButton, getCustomerResponse());
-        if (codeSystem.equals(CodeSystem.SUCCESS)) {
-            initData();
-            return;
-        }
-        setErrorMsg(codeSystem.getDescription());
+//        CodeSystem codeSystem = customerController.updateCustomer(checkButton, getCustomerResponse());
+//        if (codeSystem.equals(CodeSystem.SUCCESS)) {
+//            initData();
+//            return;
+//        }
+//        setErrorMsg(codeSystem.getDescription());
+//        Object[]  list = billRespository.getDoanhThu("2021");
+//        
+//        log.info("getvalue" + list.length);
+//        log.info("getvalue" + list[0]);
+//        
+//  
+        List<Object> objectList = billRespository.getDoanhThu("2021");
+        log.info("getvalue" + objectList.toString() +"count" + objectList.size() );
+         for (int i = 0; i< objectList.size(); i++) {
+          doanhthutheothang currAccount = new doanhthutheothang ((Object[]) objectList.get(i));
+//          tmpList.add(currAccount);
+          log.info("currAccount : " + currAccount.toString()); 
+         }
+         
+         List<Account> account = accountRespository.findByUsernameAndPassword("admin", "Admin1234!");
+    account.stream().forEach(item-> log.info("getvalue" + item));
+//        List<doanhthutheothang> list = userInfoRepository.getUerInfo();
+//         log.info("getvalue" + list.toString());
+//         list.stream().forEach(item-> log.info("getvalue" + item));
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private CustomerResponse getCustomerResponse() {

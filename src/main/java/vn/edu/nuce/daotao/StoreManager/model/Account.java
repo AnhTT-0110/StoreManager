@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  *
@@ -38,7 +39,9 @@ public class Account implements Serializable {
     private String description;
     
     @JoinColumn(name = "MaNhanVien", referencedColumnName = "MaNhanVien")
+    @ToString.Exclude
     @OneToOne(optional = false)
+   
     private Staff staff;
     
     @JoinColumn(name = "Quyen", referencedColumnName = "MaQuyen")

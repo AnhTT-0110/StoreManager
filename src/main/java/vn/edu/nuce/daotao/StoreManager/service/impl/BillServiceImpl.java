@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vn.edu.nuce.daotao.StoreManager.model.Bill;
 import vn.edu.nuce.daotao.StoreManager.model.Customer;
@@ -45,13 +46,6 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public List<BillResponse> getAllBillResponses() {
-//        var customers = customerRespository.findAll();
-//        var staffs = staffRespository.findAll();
-//        return billRespository
-//                .findAll()
-//                .stream()
-//                .map(bill -> billTransfomer.transformToEntity(bill,customers,staffs))
-//                .collect(Collectors.toList());   
 
         return null;
     }
@@ -59,7 +53,7 @@ public class BillServiceImpl implements BillService {
     @Override
     public List<Object[]> getAllBillResponseObjects() {
         return billRespository
-                .findAll()
+                .findAll(Sort.by("date"))
                 .stream()
                 .map(bill -> billTransfomer.transform(bill))
                 .collect(Collectors.toList());

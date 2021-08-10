@@ -5,6 +5,7 @@
  */
 package vn.edu.nuce.daotao.StoreManager.respository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import vn.edu.nuce.daotao.StoreManager.model.Account;
@@ -16,4 +17,6 @@ import vn.edu.nuce.daotao.StoreManager.model.Account;
 @Repository
 public interface AccountRespository extends JpaRepository<Account, Long> {
     
+     List<Account> findByUsernameAndPassword(String userName,String password);
+     
 }

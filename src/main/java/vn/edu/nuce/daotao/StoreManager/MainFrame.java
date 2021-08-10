@@ -20,6 +20,7 @@ import vn.edu.nuce.daotao.StoreManager.view.jpanel.LangueJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.ProductJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.ReceiptJPanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.StaffJpanel;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.UseJpanel;
 
 /**
  *
@@ -241,6 +242,9 @@ public class MainFrame extends javax.swing.JFrame {
 //        mainPanel.add(b);
 //        mainPanel.repaint();
 //        mainPanel.revalidate();
+        UseJpanel jpanel = applicationContext.getBean(UseJpanel.class);
+        jpanel.init();
+        setValueToMainFrame(jpanel);
     }//GEN-LAST:event_btTTCHActionPerformed
 
     private void btHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHoaDonActionPerformed
