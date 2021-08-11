@@ -129,6 +129,10 @@ public class Login extends javax.swing.JFrame implements CommonJpanel {
             }
         });
 
+        txtUser.setText("admin");
+
+        txtPass.setText("Admin1234!");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(

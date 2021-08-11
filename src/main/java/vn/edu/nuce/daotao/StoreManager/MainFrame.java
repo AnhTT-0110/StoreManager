@@ -6,18 +6,17 @@
 package vn.edu.nuce.daotao.StoreManager;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.view.frame.Login;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.BillJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.CustomerJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.DistributorJpanel;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.DoashBoardJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.LangueJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.ProductJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.ReceiptJPanel;
@@ -161,8 +160,8 @@ public class MainFrame extends javax.swing.JFrame {
         btNgonNgu.setBackground(new java.awt.Color(255, 255, 204));
         btNgonNgu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btNgonNgu.setForeground(new java.awt.Color(51, 51, 255));
-        btNgonNgu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/language.png"))); // NOI18N
-        btNgonNgu.setText("NGÔN NGỮ");
+        btNgonNgu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard (1).png"))); // NOI18N
+        btNgonNgu.setText("DASHBOARD");
         btNgonNgu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btNgonNguActionPerformed(evt);
@@ -198,6 +197,8 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btNgonNgu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btHoaDon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btHoaDon1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,9 +216,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(btDangxuat)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btTTCH)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btNgonNgu)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(63, 63, 63))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.LINE_START);
@@ -300,8 +299,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btDangxuatActionPerformed
 
     private void btNgonNguActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNgonNguActionPerformed
-        LangueJpanel jpanel = new LangueJpanel();
-        setValueToMainFrame(jpanel);
+         DoashBoardJpanel boardJpanel = applicationContext.getBean(DoashBoardJpanel.class);
+        boardJpanel.init();
+        setValueToMainFrame(boardJpanel);
     }//GEN-LAST:event_btNgonNguActionPerformed
 
     private void btHoaDon1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHoaDon1ActionPerformed
@@ -317,6 +317,9 @@ public class MainFrame extends javax.swing.JFrame {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             this.setVisible(true);
         });
+         DoashBoardJpanel boardJpanel = applicationContext.getBean(DoashBoardJpanel.class);
+        boardJpanel.init();
+        setValueToMainFrame(boardJpanel);
 
     }
 
