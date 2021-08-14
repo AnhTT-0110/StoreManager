@@ -49,4 +49,7 @@ public class Receipt implements Serializable{
     
     @OneToMany(mappedBy = "receipt")
     private Collection<DetailInvoice> detailInvoices;
+    
+   @Column(name = "NgayNhap_string")
+    private String dateString;
 }

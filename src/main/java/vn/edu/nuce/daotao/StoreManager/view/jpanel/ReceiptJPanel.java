@@ -5,15 +5,24 @@
  */
 package vn.edu.nuce.daotao.StoreManager.view.jpanel;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import lombok.extern.log4j.Log4j2;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -120,10 +129,11 @@ public class ReceiptJPanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel21 = new javax.swing.JPanel();
         jPanel24 = new javax.swing.JPanel();
         btnSearch1 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         jPanel23 = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
         jPanel25 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jTabbedPane1.setFont(new java.awt.Font("Cambria", 3, 14)); // NOI18N
 
@@ -442,18 +452,30 @@ public class ReceiptJPanel extends javax.swing.JPanel implements CommonJpanel {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/printer.png"))); // NOI18N
+        jButton1.setText("In phiếu nhập");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
         jPanel24.setLayout(jPanel24Layout);
         jPanel24Layout.setHorizontalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
-                .addGap(0, 190, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSearch1))
         );
         jPanel24Layout.setVerticalGroup(
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel24Layout.createSequentialGroup()
-                .addComponent(btnSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel24Layout.createSequentialGroup()
+                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSearch1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -483,12 +505,12 @@ public class ReceiptJPanel extends javax.swing.JPanel implements CommonJpanel {
 
         jPanel21.add(jPanel23);
 
-        jButton1.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/information.png"))); // NOI18N
-        jButton1.setText("Chi tiết hóa đơn");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/information.png"))); // NOI18N
+        jButton3.setText("Chi tiết phiếu nhập");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -497,12 +519,13 @@ public class ReceiptJPanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel25Layout.setHorizontalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel25Layout.createSequentialGroup()
-                .addGap(0, 86, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addComponent(jButton3)
+                .addContainerGap())
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel21.add(jPanel25);
@@ -682,16 +705,39 @@ public class ReceiptJPanel extends javax.swing.JPanel implements CommonJpanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (txtCodeReceipt.getText().equals("")) {
+            setErrorMsg("Bạn phải chọn phiếu nhập");
+            return;
+        }
+        try {
+            String hostName = "localhost";
+            String dbName = "QuanLySanPham";
+            String userName = "root";
+            String password = "admin123";
+            Class.forName("com.mysql.jdbc.Driver");
+            String connectionURL = "jdbc:mysql://" + hostName + ":3306/" + dbName + "?autoReconnect=true&useSSL=false";
+            Connection conn = DriverManager.getConnection(connectionURL, userName, password);
+            String jasperDesign = ("F:\\DHXD\\2021\\Doantotnghiep\\SourceCode\\StoreManager\\StoreManager\\src\\main\\java\\vn\\edu\\nuce\\daotao\\StoreManager\\report\\reportNhapKho.jrxml");
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            Map<String, Object> parameters = new HashMap();
+            parameters.put("billCode", Integer.valueOf(txtCodeReceipt.getText()));
+            JasperPrint print = JasperFillManager.fillReport(jasperReport, parameters, conn);
+            JasperViewer.viewReport(print, false);
+        } catch (Exception exception) {
+            log.error(exception.toString());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+
+    private void txtDCashKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDCashKeyTyped
+        checkNumber(evt, txtDCash);
+    }//GEN-LAST:event_txtDCashKeyTyped
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         DetailInvoiceJpanel ReceiptJpanel = applicationContext.getBean(DetailInvoiceJpanel.class);
         ReceiptJpanel.setVisible(true);
         ReceiptJpanel.init();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-   
-    
-    private void txtDCashKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDCashKeyTyped
-        checkNumber(evt,txtDCash);
-    }//GEN-LAST:event_txtDCashKeyTyped
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -706,6 +752,7 @@ public class ReceiptJPanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JComboBox<String> cbbStaff;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -798,7 +845,7 @@ public class ReceiptJPanel extends javax.swing.JPanel implements CommonJpanel {
         cbbDistribute.removeAllItems();
         cbbStaff.removeAll();
         staffController.getAllStaffResponses().forEach(item -> cbbStaff.addItem(item.getCodeStaff() + " _ " + item.getNameStaff()));
-        distributerController.getAllDistributorResponse().forEach(item -> cbbDistribute.addItem(item.getCodeDistributor()+ " _ " + item.getNameDistributor()));
+        distributerController.getAllDistributorResponse().forEach(item -> cbbDistribute.addItem(item.getCodeDistributor() + " _ " + item.getNameDistributor()));
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
     }
 

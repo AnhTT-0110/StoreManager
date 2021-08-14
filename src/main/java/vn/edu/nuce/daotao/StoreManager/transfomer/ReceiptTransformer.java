@@ -41,6 +41,7 @@ public class ReceiptTransformer {
         receipt.setCodeReceipt(response.getCodeReceipt().isEmpty() ? Integer.valueOf(0) : Integer.valueOf(response.getCodeReceipt()));
         receipt.setTotalDcash(Double.valueOf(response.getTotalDcash()));
         receipt.setDate(LocalDateTime.parse(response.getDate()));
+        receipt.setDateString(response.getDate());
         receipt.setDescription(response.getDescription());
         staffs
                 .stream()

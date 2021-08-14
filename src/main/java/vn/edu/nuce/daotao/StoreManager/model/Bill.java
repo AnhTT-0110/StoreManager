@@ -54,4 +54,7 @@ public class Bill implements Serializable {
     @Column(name = "GhiChu")
     private String description;    
     
+    @Column(name = "ngaylaphoadon_string")
+    private String date_string;
+    
 }

@@ -41,6 +41,7 @@ public class BillTransfomer {
         bill.setDate(LocalDateTime.parse(billResponse.getDate()));
         bill.setTotalDcash(Double.valueOf(billResponse.getTotalDcash()));
         bill.setDescription(billResponse.getDescription());
+        bill.setDate_string(billResponse.getDate());
         customers
                 .stream()
                 .filter(type -> type.getCodeCustomer() == Integer.valueOf(billResponse.getCustomerCode()))
