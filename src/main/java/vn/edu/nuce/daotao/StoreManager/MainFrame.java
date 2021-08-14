@@ -17,6 +17,7 @@ import vn.edu.nuce.daotao.StoreManager.view.jpanel.BillJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.CustomerJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.DistributorJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.DoashBoardJpanel;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.InfoStore;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.LangueJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.ProductJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.ReceiptJPanel;
@@ -238,12 +239,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btTTCHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTTCHActionPerformed
-//        jpanel.thongtin b = new thongtin();
-//        mainPanel.removeAll();
-//        mainPanel.add(b);
-//        mainPanel.repaint();
-//        mainPanel.revalidate();
-        UseJpanel jpanel = applicationContext.getBean(UseJpanel.class);
+        InfoStore jpanel = applicationContext.getBean(InfoStore.class);
         jpanel.init();
         setValueToMainFrame(jpanel);
     }//GEN-LAST:event_btTTCHActionPerformed

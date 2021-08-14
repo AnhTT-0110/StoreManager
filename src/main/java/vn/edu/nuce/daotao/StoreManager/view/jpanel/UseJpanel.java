@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.controller.CustomerController;
 import vn.edu.nuce.daotao.StoreManager.controller.CustomerTypeController;
 import vn.edu.nuce.daotao.StoreManager.model.Account;
-import vn.edu.nuce.daotao.StoreManager.model.outputproc.doanhthutheothang;
 import vn.edu.nuce.daotao.StoreManager.response.CustomerResponse;
 import vn.edu.nuce.daotao.StoreManager.respository.AccountRespository;
 import vn.edu.nuce.daotao.StoreManager.respository.BillRespository;
@@ -692,17 +691,7 @@ public class UseJpanel extends javax.swing.JPanel implements CommonJpanel {
 //        log.info("getvalue" + list.length);
 //        log.info("getvalue" + list[0]);
 //        
-//  
-        List<Object> objectList = billRespository.getDoanhThu("2021");
-        log.info("getvalue" + objectList.toString() +"count" + objectList.size() );
-         for (int i = 0; i< objectList.size(); i++) {
-          doanhthutheothang currAccount = new doanhthutheothang ((Object[]) objectList.get(i));
-//          tmpList.add(currAccount);
-          log.info("currAccount : " + currAccount.toString()); 
-         }
-         
-         List<Account> account = accountRespository.findByUsernameAndPassword("admin", "Admin1234!");
-    account.stream().forEach(item-> log.info("getvalue" + item));
+
 //        List<doanhthutheothang> list = userInfoRepository.getUerInfo();
 //         log.info("getvalue" + list.toString());
 //         list.stream().forEach(item-> log.info("getvalue" + item));
