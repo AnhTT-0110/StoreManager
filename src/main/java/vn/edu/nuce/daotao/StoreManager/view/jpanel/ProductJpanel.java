@@ -1303,7 +1303,7 @@ public class ProductJpanel extends javax.swing.JPanel implements CommonJpanel {
 //        item[7] = product.getQuantity();
 //        item[8] = product.getImage();
 //        item[9] = product.getDescription();
-        Object[] obj = new Object[]{"STT", "Mã sản phẩm", "Tên sản phẩm", "Mã loại", "Tên loại", "Giá nhập", "Giá bán", "Số lượng", "Ảnh", "Ghi chú"};
+        Object[] obj = new Object[]{"STT", "Mã sản phẩm", "Tên sản phẩm", "Mã loại", "Tên loại", "Giá nhập", "Giá bán", "Số lượng", "Ảnh", "Ghi chú","Hình ảnh"};
         tableModel = new DefaultTableModel(obj, 0);
         tableRowSorter = new TableRowSorter<>(tableModel);
         tblProduct.setModel(tableModel);

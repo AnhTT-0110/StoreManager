@@ -83,4 +83,14 @@ public class BillDetailServiceImpl implements BillDetailService {
                 .map(BillDetail -> billDetailTransformer.transform(BillDetail))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public  List<BillDetailResponse> getAllBillDetailResponsesObjectForSell(String codeBill) {
+         return billDetailRespository
+                .findAll()
+                .stream()
+                .filter(item -> item.getBill().getCodeBill() == Integer.valueOf(codeBill))
+                .map(BillDetail -> billDetailTransformer.transformForSell(BillDetail))
+                .collect(Collectors.toList());
+    }
 }

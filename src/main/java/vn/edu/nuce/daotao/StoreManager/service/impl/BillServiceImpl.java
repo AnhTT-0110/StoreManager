@@ -90,4 +90,23 @@ public class BillServiceImpl implements BillService {
         return true;
     }
 
+    @Override
+    public Object[] getBillCreated() {
+        return billRespository
+                .findAll(new Sort(Sort.Direction.DESC, "date"))
+                .stream()
+                .map(bill -> billTransfomer.transform(bill))
+                .findFirst().get();
+    }
+
+    @Override
+    public BillResponse getBillResponseById(String id) {
+        return billRespository
+                .findAll()
+                .stream()
+                .filter(item -> item.getCodeBill() == Integer.valueOf(id))
+                .map(bill -> billTransfomer.transformToReponse(bill))
+                .findFirst().get();
+    }
+
 }

@@ -55,23 +55,14 @@ public class BillTransfomer {
         return bill;
     }
     
-//    public BillResponse transformToEntity(BillResponse billResponse, List<Customer> customers, List<Staff> staffs) {
-//        Bill bill = new Bill();
-//        bill.setCodeBill(Integer.valueOf(billResponse.getCodeBill()));
-//        bill.setDate(LocalDateTime.parse(billResponse.getDate()));
-//        bill.setTotalDcash(Double.valueOf(billResponse.getTotalDcash()));
-//        bill.setDescription(billResponse.getDescription());
-//        customers
-//                .stream()
-//                .filter(type -> type.getCodeCustomer() == Integer.valueOf(billResponse.getCustomerCode()))
-//                .findAny()
-//                .ifPresent(item -> bill.setCustomer(item));
-//        staffs
-//                .stream()
-//                .filter(type -> type.getCodeStaff() == Integer.valueOf(billResponse.getStaffCode()))
-//                .findAny()
-//                .ifPresent(item -> bill.setStaff(item));
-//        return bill;
-//    }
+    public BillResponse transformToReponse(Bill bill) {
+        BillResponse billResponse = new BillResponse();
+        billResponse.setCodeBill(String.valueOf(bill.getCodeBill()));
+        billResponse.setDate(String.valueOf(bill.getDate()));
+        billResponse.setTotalDcash(String.format("%,.2f",bill.getTotalDcash()));
+        billResponse.setDescription(bill.getDescription());
+        
+        return billResponse;
+    }
 
 }

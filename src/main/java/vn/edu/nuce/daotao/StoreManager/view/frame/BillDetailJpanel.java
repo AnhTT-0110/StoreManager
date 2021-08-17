@@ -756,7 +756,7 @@ public class BillDetailJpanel extends javax.swing.JFrame implements CommonJpanel
             billResponses = billDetailController.getAllBillDetailResponseObjectsByBill(String.valueOf(codeBill));
             txtBill.setText(codeBill);
         }
-        Object[] obj = new Object[]{"STT", "Mã chi tiết hóa đơn", "Mã hóa đơn", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá", "Tổng", "Mô tả"};
+        Object[] obj = new Object[]{"STT", "Mã chi tiết hóa đơn", "Mã hóa đơn", "Mã sản phẩm", "Tên sản phẩm", "Ảnh", "Số lượng", "Giá", "Tổng", "Mô tả"};
         tableModel = new DefaultTableModel(obj, 0);
         tableRowSorter = new TableRowSorter<>(tableModel);
         tblBill.setModel(tableModel);

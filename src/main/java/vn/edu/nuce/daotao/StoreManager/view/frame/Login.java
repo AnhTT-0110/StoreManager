@@ -32,6 +32,8 @@ public class Login extends javax.swing.JFrame implements CommonJpanel {
     private AccountController accountController;
 
     static ConfigurableApplicationContext applicationContext;
+    
+    public static String nameStaff = "";
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,9 +131,19 @@ public class Login extends javax.swing.JFrame implements CommonJpanel {
             }
         });
 
-        txtUser.setText("admin");
+        txtUser.setText("anhnv");
+        txtUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserActionPerformed(evt);
+            }
+        });
 
-        txtPass.setText("Admin1234!");
+        txtPass.setText("anhnvAB!1");
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -231,6 +243,7 @@ public class Login extends javax.swing.JFrame implements CommonJpanel {
             setErrorMsg(CodeSystem.ERROR20.getDescription());
             return;
         }
+        nameStaff  = accountResponse.getCodeStaff() + " _ "+accountResponse.getNameStaff();
         this.setVisible(false);
         int permission = Integer.valueOf(accountResponse.getPermissionCode());
         switch (permission) {
@@ -239,8 +252,8 @@ public class Login extends javax.swing.JFrame implements CommonJpanel {
                 service.init();
                 break;
             case 2:
-                MainFrame service2 = applicationContext.getBean(MainFrame.class);
-                service2.init();
+                SaleScrean saleScrean = applicationContext.getBean(SaleScrean.class);
+                saleScrean.init();
                 break;
             case 3:
                 MainFrame service3 = applicationContext.getBean(MainFrame.class);
@@ -251,6 +264,14 @@ public class Login extends javax.swing.JFrame implements CommonJpanel {
         }
 
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserActionPerformed
+
+    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassActionPerformed
 
     /**
      * @param args the command line arguments

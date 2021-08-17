@@ -66,4 +66,14 @@ public class BillControllerImpl implements BillController {
         return CodeSystem.ERROR08;
     }
 
+    @Override
+    public Object[] getBillCreated() {
+        return billService.getBillCreated();
+    }
+
+    @Override
+    public BillResponse getBillResponseById(String id) {
+        return billService.getBillResponseById(id);
+    }
+
 }

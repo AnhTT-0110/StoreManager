@@ -22,4 +22,8 @@ public interface BillService {
 
     boolean deleteBill(BillResponse response);
     
+    Object[] getBillCreated();
+    
+    BillResponse getBillResponseById(String id);
+    
 }

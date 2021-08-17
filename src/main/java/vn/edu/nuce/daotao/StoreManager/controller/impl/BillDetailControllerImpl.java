@@ -49,14 +49,20 @@ public class BillDetailControllerImpl implements BillDetailController {
 
     @Override
     public CodeSystem deleteBillDetail(BillDetailResponse response) {
-        if (billDetailService.deleteBillDetail(response))
-             return CodeSystem.SUCCESS;
+        if (billDetailService.deleteBillDetail(response)) {
+            return CodeSystem.SUCCESS;
+        }
         return CodeSystem.ERROR11;
     }
 
     @Override
     public List<Object[]> getAllBillDetailResponseObjectsByBill(String bill) {
         return billDetailService.getAllBillDetailResponseObjectsByBill(bill);
+    }
+
+    @Override
+    public List<BillDetailResponse> getAllBillDetailResponsesObjectForSell(String bill) {
+        return billDetailService.getAllBillDetailResponsesObjectForSell(bill);
     }
 
 }

@@ -22,4 +22,6 @@ public interface BillDetailController {
     CodeSystem updateBillDetail(int statusBtn, BillDetailResponse response);
 
     CodeSystem deleteBillDetail(BillDetailResponse response);
+    
+    List<BillDetailResponse> getAllBillDetailResponsesObjectForSell(String bill);
 }

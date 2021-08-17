@@ -17,6 +17,8 @@ public interface BillDetailService {
     List<Object[]> getAllBillDetailResponseObjects();
     
     List<Object[]> getAllBillDetailResponseObjectsByBill(String codeBill);
+    
+    List<BillDetailResponse> getAllBillDetailResponsesObjectForSell(String codeBill);
 
     boolean updateBillDetail(int statusBtn, BillDetailResponse BillDetailResponse);
 

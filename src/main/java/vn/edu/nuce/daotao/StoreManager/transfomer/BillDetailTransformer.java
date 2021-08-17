@@ -5,8 +5,12 @@
  */
 package vn.edu.nuce.daotao.StoreManager.transfomer;
 
+import java.awt.Image;
 import java.util.List;
+import javax.swing.ImageIcon;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import vn.edu.nuce.daotao.StoreManager.model.Bill;
 import vn.edu.nuce.daotao.StoreManager.model.BillDetail;
 import vn.edu.nuce.daotao.StoreManager.model.Product;
@@ -17,6 +21,7 @@ import vn.edu.nuce.daotao.StoreManager.response.BillDetailResponse;
  * @author Anh
  */
 @Component
+@Log4j2
 public class BillDetailTransformer {
 
     public Object[] transform(BillDetail billDetail) {
@@ -26,9 +31,22 @@ public class BillDetailTransformer {
         item[3] = billDetail.getProduct().getCodeProduct();
         item[4] = billDetail.getProduct().getNameProduct();
         item[5] = billDetail.getQuantity();
-        item[6] = billDetail.getPrice();
-        item[7] = billDetail.getTotalCash();
+        item[6] = String.format("%,.2f",billDetail.getPrice());
+        item[7] = String.format("%,.2f",billDetail.getTotalCash());
         item[8] = billDetail.getDescription();
+        return item;
+    }
+
+    public BillDetailResponse transformForSell(BillDetail billDetail) {
+        BillDetailResponse item = new BillDetailResponse();
+        item.setCodeBillDetail(String.valueOf(billDetail.getCodeBillDetail()));
+       item.setProductCode(String.valueOf(billDetail.getProduct().getCodeProduct()));
+        item.setProductName(billDetail.getProduct().getNameProduct());
+        item.setImage(billDetail.getProduct().getImage());
+        item.setQuantity(String.valueOf(billDetail.getQuantity()));
+        item.setPrice(String.valueOf(billDetail.getPrice()));
+        item.setTotalCash(String.valueOf(billDetail.getTotalCash()));
+        item.setDescription(billDetail.getDescription());
         return item;
     }
 

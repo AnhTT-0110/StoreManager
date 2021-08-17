@@ -7,6 +7,7 @@ package vn.edu.nuce.daotao.StoreManager.transfomer;
 
 import java.util.List;
 import java.util.Objects;
+import javax.swing.ImageIcon;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.model.Product;
 import vn.edu.nuce.daotao.StoreManager.model.ProductType;
@@ -20,7 +21,7 @@ import vn.edu.nuce.daotao.StoreManager.response.ProductResponse;
 public class ProductTransformer {
     
     public Object[] transformToObject(Product product) {
-        Object[] item = new Object[10];
+        Object[] item = new Object[11];
         item[1] = product.getCodeProduct();
         item[2] = product.getNameProduct();
         item[3] = product.getProductType().getCodeProductType();
@@ -28,8 +29,13 @@ public class ProductTransformer {
         item[5] = product.getPriceInput();
         item[6] = product.getPrice();
         item[7] = product.getQuantity();
-        item[8] = Objects.isNull(product.getImage()) ? "" : product.getImage();
+        String image = product.getImage();
+        item[8] = Objects.isNull(image) ? "" : product.getImage();
         item[9] = product.getDescription();
+        if (!Objects.isNull(image)) {
+            image = image.replaceAll("/", "\\");
+            item[10] = new ImageIcon(image);
+        }
         return item;
     }
     
@@ -55,7 +61,7 @@ public class ProductTransformer {
         response.setCodeProduct(String.valueOf(product.getCodeProduct()));
         response.setNameProduct(product.getNameProduct());
         response.setPriceInput(String.valueOf(product.getPriceInput()));
-        response.setPrice(String.valueOf(product.getPrice()));
+        response.setPrice(String.format("%,.2f",product.getPrice()));
         response.setQuantity(String.valueOf(product.getQuantity()));
         response.setImage(product.getImage());
         response.setDescription(product.getDescription());

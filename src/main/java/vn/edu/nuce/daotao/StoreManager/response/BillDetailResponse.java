@@ -22,6 +22,7 @@ public class BillDetailResponse {
     private String totalCash;
     private String description;
     private String price;
+    private String image;
 
     public BillDetailResponse(String codeBillDetail, String billCode, String productCode, String productName, String quantity, String totalCash, String description, String price) {
         this.codeBillDetail = codeBillDetail;
