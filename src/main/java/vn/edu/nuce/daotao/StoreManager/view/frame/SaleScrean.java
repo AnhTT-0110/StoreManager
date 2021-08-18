@@ -8,6 +8,7 @@ package vn.edu.nuce.daotao.StoreManager.view.frame;
 import java.awt.event.ItemEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -18,6 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.NumberFormatter;
 import lombok.extern.log4j.Log4j2;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -91,9 +94,8 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         jLabel8 = new javax.swing.JLabel();
         txtDcashBill = new javax.swing.JTextField();
         btnPrint = new javax.swing.JButton();
-        txtTime4 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtTime5 = new javax.swing.JTextField();
+        txtMoney = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -143,6 +145,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         btnAddBill = new javax.swing.JButton();
         txtNhanVien = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -189,7 +192,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         jLabel8.setText("Tổng tiền");
 
         txtDcashBill.setFont(new java.awt.Font("Cambria", 1, 25)); // NOI18N
-        txtDcashBill.setText("dfsf");
+        txtDcashBill.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtDcashBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDcashBillActionPerformed(evt);
@@ -205,20 +208,14 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             }
         });
 
-        txtTime4.setFont(new java.awt.Font("Cambria", 1, 25)); // NOI18N
-        txtTime4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTime4ActionPerformed(evt);
-            }
-        });
-
         jLabel10.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel10.setText("Khách đưa");
 
-        txtTime5.setFont(new java.awt.Font("Cambria", 1, 25)); // NOI18N
-        txtTime5.addActionListener(new java.awt.event.ActionListener() {
+        txtMoney.setFont(new java.awt.Font("Cambria", 1, 25)); // NOI18N
+        txtMoney.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtMoney.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTime5ActionPerformed(evt);
+                txtMoneyActionPerformed(evt);
             }
         });
 
@@ -285,7 +282,6 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         lblCodeBill2.setText("Mã CT:");
 
         lblCodeBil.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        lblCodeBil.setText("HĐ");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -665,6 +661,23 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         jLabel18.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel18.setText("Tiền thừa");
 
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jFormattedTextField1.setFont(new java.awt.Font("Cambria", 1, 25)); // NOI18N
+        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField1ActionPerformed(evt);
+            }
+        });
+        jFormattedTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jFormattedTextField1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextField1KeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -676,13 +689,13 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTime4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnPrint)
-                            .addComponent(txtTime5, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -692,19 +705,22 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
-                            .addComponent(btnAddBill)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtTime1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(cbbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))))
+                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnAddBill)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addContainerGap())))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -735,11 +751,12 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTime4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTime5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -779,10 +796,13 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
     private void btnAddBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBillActionPerformed
         checkButton = 2;
         CodeSystem codeSystem = billController.updateBill(checkButton, getBillResponse());
-        
+
         if (codeSystem.equals(CodeSystem.SUCCESS)) {
             Object[] billCreated = billController.getBillCreated();
             lblCodeBil.setText(String.valueOf((Integer) billCreated[1]));
+            txtDcashBill.setText("");
+            txtMoney.setText("");
+            jFormattedTextField1.setText("");
             initDataBillDetail();
             return;
         }
@@ -811,7 +831,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int choose = JOptionPane.showConfirmDialog(null,
-            "Bạn có muốn xóa hóa đơn " + lblCodeBillDetail.getText(), "Chú ý ", JOptionPane.YES_NO_OPTION);
+                "Bạn có muốn xóa hóa đơn " + lblCodeBillDetail.getText(), "Chú ý ", JOptionPane.YES_NO_OPTION);
         if (choose != 0) {
             return;
         }
@@ -851,6 +871,10 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             String dCash = billController.getBillResponseById(lblCodeBil.getText()).getTotalDcash();
             log.info("BIll: " + billController.getBillResponseById(lblCodeBil.getText()));
             txtDcashBill.setText(dCash);
+            if (!jFormattedTextField1.getText().isEmpty()) {
+                Double dcash = Double.valueOf(jFormattedTextField1.getText().replaceAll(",", "")) - Double.valueOf(txtDcashBill.getText().replaceAll(",", ""));
+                txtMoney.setText(String.format("%,.2f", dcash));
+            }
             return;
         }
         setErrorMsg(codeSystem.getDescription());
@@ -895,13 +919,9 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         }
     }//GEN-LAST:event_cbbProductItemStateChanged
 
-    private void txtTime5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTime5ActionPerformed
+    private void txtMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMoneyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTime5ActionPerformed
-
-    private void txtTime4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTime4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTime4ActionPerformed
+    }//GEN-LAST:event_txtMoneyActionPerformed
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         if (lblCodeBil.getText().equals("")) {
@@ -951,6 +971,26 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
 
     }//GEN-LAST:event_cbbCustomerMouseClicked
 
+    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
+
+    private void jFormattedTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            return;
+        }
+    }//GEN-LAST:event_jFormattedTextField1KeyTyped
+
+    private void jFormattedTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyReleased
+        if (!jFormattedTextField1.getText().isEmpty()) {
+            Double dcash = Double.valueOf(jFormattedTextField1.getText().replaceAll(",", "")) - Double.valueOf(txtDcashBill.getText().replaceAll(",", ""));
+            txtMoney.setText(String.format("%,.2f", dcash));
+        }
+    }//GEN-LAST:event_jFormattedTextField1KeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -984,6 +1024,17 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
                 new SaleScrean().setVisible(true);
             }
         });
+
+//        char c = evt.getKeyChar();
+//        if (!Character.isDigit(c)) {
+//            evt.consume();
+//            return;
+//        }
+//        
+//        if (!txtCashCus.getText().isEmpty()) {
+//            Double dcash = Double.valueOf(txtCashCus.getText()) - Double.valueOf(txtDcashBill.getText().replaceAll(",", ""));
+//            txtMoney.setText(String.format("%,.2f", dcash));
+//        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -998,6 +1049,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
     private javax.swing.JComboBox<String> cbbProduct;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1044,12 +1096,11 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
     private javax.swing.JTextField txtDcash;
     private javax.swing.JTextField txtDcashBill;
     private javax.swing.JTextArea txtDescription;
+    private javax.swing.JTextField txtMoney;
     private javax.swing.JTextField txtNhanVien;
     private javax.swing.JTextField txtPrice;
     private javax.swing.JTextField txtQtty;
     private javax.swing.JTextField txtTime1;
-    private javax.swing.JTextField txtTime4;
-    private javax.swing.JTextField txtTime5;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -1061,6 +1112,10 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
     public void init() {
         initComponents();
         initData();
+        DecimalFormat df = new DecimalFormat(); // And here..
+        NumberFormatter dnff = new NumberFormatter(df);
+        DefaultFormatterFactory factory2 = new DefaultFormatterFactory(dnff);
+        jFormattedTextField1.setFormatterFactory(factory2);
         java.awt.EventQueue.invokeLater(() -> {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             this.setVisible(true);
