@@ -267,7 +267,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="txtUser">
               <Properties>
-                <Property name="text" type="java.lang.String" value="anhnv"/>
+                <Property name="text" type="java.lang.String" value="admin3"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUserActionPerformed"/>
@@ -275,7 +275,7 @@
             </Component>
             <Component class="javax.swing.JPasswordField" name="txtPass">
               <Properties>
-                <Property name="text" type="java.lang.String" value="anhnvAB!1"/>
+                <Property name="text" type="java.lang.String" value="Nhan1212@"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPassActionPerformed"/>

@@ -22,4 +22,8 @@ public interface ReceiptService {
 
     boolean deleteReceipt(ReceiptResponse response);
     
+    Object[] getReceiptCreated();
+    
+    ReceiptResponse getReceiptResponseById(String id);
+    
 }

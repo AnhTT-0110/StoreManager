@@ -131,14 +131,14 @@ public class Login extends javax.swing.JFrame implements CommonJpanel {
             }
         });
 
-        txtUser.setText("anhnv");
+        txtUser.setText("admin3");
         txtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUserActionPerformed(evt);
             }
         });
 
-        txtPass.setText("anhnvAB!1");
+        txtPass.setText("Nhan1212@");
         txtPass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPassActionPerformed(evt);
@@ -256,8 +256,8 @@ public class Login extends javax.swing.JFrame implements CommonJpanel {
                 saleScrean.init();
                 break;
             case 3:
-                MainFrame service3 = applicationContext.getBean(MainFrame.class);
-                service3.init();
+                ReceiptorScrean receiptorScrean = applicationContext.getBean(ReceiptorScrean.class);
+                receiptorScrean.init();
                 break;
             default:
                 throw new AssertionError();

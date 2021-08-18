@@ -33,13 +33,15 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.Application;
-import vn.edu.nuce.daotao.StoreManager.controller.BillController;
-import vn.edu.nuce.daotao.StoreManager.controller.BillDetailController;
-import vn.edu.nuce.daotao.StoreManager.controller.CustomerController;
+import vn.edu.nuce.daotao.StoreManager.controller.DetailInvoiceController;
+import vn.edu.nuce.daotao.StoreManager.controller.DistributorController;
 import vn.edu.nuce.daotao.StoreManager.controller.ProductController;
-import vn.edu.nuce.daotao.StoreManager.response.BillDetailResponse;
+import vn.edu.nuce.daotao.StoreManager.controller.ReceiptController;
 import vn.edu.nuce.daotao.StoreManager.response.BillResponse;
+import vn.edu.nuce.daotao.StoreManager.response.DetailInvoiceResponse;
+import vn.edu.nuce.daotao.StoreManager.response.ReceiptResponse;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
+import static vn.edu.nuce.daotao.StoreManager.view.frame.SaleScrean.applicationContext;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.CommonJpanel;
 
 /**
@@ -49,19 +51,19 @@ import vn.edu.nuce.daotao.StoreManager.view.jpanel.CommonJpanel;
 @Log4j2
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
+public class ReceiptorScrean extends javax.swing.JFrame implements CommonJpanel {
 
     @Autowired
-    private BillDetailController billDetailController;
+    private DetailInvoiceController detailInvoiceController;
 
     @Autowired
     private ProductController productController;
 
     @Autowired
-    private CustomerController customerController;
+    private DistributorController distributorController;
 
     @Autowired
-    private BillController billController;
+    private ReceiptController receiptController;
     
     static ConfigurableApplicationContext applicationContext;
 
@@ -91,15 +93,12 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         cbbCustomer = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtTime1 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtDcashBill = new javax.swing.JTextField();
         btnPrint = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        txtMoney = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -127,7 +126,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        txtPrice = new javax.swing.JTextField();
+        txtPrice = new javax.swing.JFormattedTextField();
         jPanel17 = new javax.swing.JPanel();
         btnUpdate = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
@@ -148,31 +147,21 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         txtDcash = new javax.swing.JTextField();
         btnAddBill = new javax.swing.JButton();
         txtNhanVien = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         btDangxuat = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("HÓA ĐƠN");
+        jLabel1.setText("Phiếu nhập");
         jLabel1.setToolTipText("");
 
         jLabel5.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel5.setText("Khách hàng:  ");
+        jLabel5.setText("Nhà PP");
 
         cbbCustomer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbbCustomerMouseClicked(evt);
-            }
-        });
-
-        jButton3.setFont(new java.awt.Font("Cambria", 3, 14)); // NOI18N
-        jButton3.setText("Lẻ");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
             }
         });
 
@@ -213,17 +202,6 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel10.setText("Khách đưa");
-
-        txtMoney.setFont(new java.awt.Font("Cambria", 1, 25)); // NOI18N
-        txtMoney.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtMoney.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMoneyActionPerformed(evt);
-            }
-        });
-
         jLabel12.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel12.setText("Nhân viên");
 
@@ -256,7 +234,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbbProduct, 0, 545, Short.MAX_VALUE))
+                .addComponent(cbbProduct, 0, 529, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,14 +255,14 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         jPanel6.setBackground(new java.awt.Color(102, 255, 153));
 
         jLabel16.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel16.setText("Mã HĐ:");
+        jLabel16.setText("Mã PN");
 
         lblCodeBill.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
         lblCodeBillDetail.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
         lblCodeBill2.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        lblCodeBill2.setText("Mã CT:");
+        lblCodeBill2.setText("Mã PN");
 
         lblCodeBil.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
@@ -344,7 +322,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAmout, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))
+                .addComponent(txtAmout, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,9 +357,9 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtQtty, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtQtty, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,7 +382,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
+            .addGap(0, 324, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,9 +394,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         jLabel13.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel13.setText("Giá:");
 
-        txtPrice.setEditable(false);
-        txtPrice.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtPrice.setMargin(new java.awt.Insets(2, 2, 2, 5));
+        txtPrice.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -428,18 +404,17 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
                 .addContainerGap()
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE))
+                .addComponent(txtPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPrice, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 15, Short.MAX_VALUE))
-                    .addComponent(txtPrice))
-                .addContainerGap())
+                        .addContainerGap(26, Short.MAX_VALUE))))
         );
 
         jPanel9.add(jPanel12);
@@ -533,7 +508,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             .addGroup(jPanel20Layout.createSequentialGroup()
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
         );
         jPanel20Layout.setVerticalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -562,7 +537,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
                 .addContainerGap()
                 .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDcash, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
+                .addComponent(txtDcash, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -620,21 +595,21 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Chi tiết hóa đơn", new javax.swing.ImageIcon(getClass().getResource("/images/bill.png")), jPanel3); // NOI18N
+        jTabbedPane1.addTab("Chi tiết phiếu nhập", new javax.swing.ImageIcon(getClass().getResource("/images/bill.png")), jPanel3); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -663,26 +638,6 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             }
         });
 
-        jLabel18.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel18.setText("Tiền thừa");
-
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-        jFormattedTextField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jFormattedTextField1.setFont(new java.awt.Font("Cambria", 1, 25)); // NOI18N
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
-            }
-        });
-        jFormattedTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jFormattedTextField1KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jFormattedTextField1KeyTyped(evt);
-            }
-        });
-
         btDangxuat.setBackground(new java.awt.Color(255, 255, 204));
         btDangxuat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btDangxuat.setForeground(new java.awt.Color(51, 51, 255));
@@ -700,90 +655,75 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(btnPrint)
-                            .addComponent(txtMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDcashBill, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGap(105, 105, 105))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtDcashBill, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(txtTime1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(btnAddBill)
+                                            .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addContainerGap())))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(cbbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtTime1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cbbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btDangxuat, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnAddBill)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addContainerGap())))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btDangxuat)
-                            .addComponent(txtNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                                .addComponent(txtNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                                .addContainerGap())))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTime1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTime1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAddBill)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDcashBill, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMoney, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnPrint)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btDangxuat))
+                .addComponent(btDangxuat)
+                .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -793,14 +733,15 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -812,14 +753,12 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
 
     private void btnAddBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBillActionPerformed
         checkButton = 2;
-        CodeSystem codeSystem = billController.updateBill(checkButton, getBillResponse());
+        CodeSystem codeSystem = receiptController.updateReceipt(checkButton, getBillResponse());
 
         if (codeSystem.equals(CodeSystem.SUCCESS)) {
-            Object[] billCreated = billController.getBillCreated();
+            Object[] billCreated = receiptController.getReceiptCreated();
             lblCodeBil.setText(String.valueOf((Integer) billCreated[1]));
             txtDcashBill.setText("");
-            txtMoney.setText("");
-            jFormattedTextField1.setText("");
             initDataBillDetail();
             return;
         }
@@ -848,15 +787,15 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int choose = JOptionPane.showConfirmDialog(null,
-                "Bạn có muốn xóa hóa đơn " + lblCodeBillDetail.getText(), "Chú ý ", JOptionPane.YES_NO_OPTION);
+            "Bạn có muốn xóa hóa đơn " + lblCodeBillDetail.getText(), "Chú ý ", JOptionPane.YES_NO_OPTION);
         if (choose != 0) {
             return;
         }
-        CodeSystem codeSystem = billDetailController.deleteBillDetail(getBilDetailResponse());
+        CodeSystem codeSystem = detailInvoiceController.deleteDetailInvoice(getBilDetailResponse());
         if (codeSystem.equals(CodeSystem.SUCCESS)) {
             initDataBillDetail();
-            String dCash = billController.getBillResponseById(lblCodeBil.getText()).getTotalDcash();
-            log.info("BIll: " + billController.getBillResponseById(lblCodeBil.getText()));
+            String dCash = receiptController.getReceiptResponseById(lblCodeBil.getText()).getTotalDcash();
+            log.info("BIll: " + receiptController.getReceiptResponseById(lblCodeBil.getText()));
             txtDcashBill.setText(dCash);
             return;
         }
@@ -876,22 +815,11 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        int quantity = Integer.valueOf(txtQtty.getText());
-        int amount = Integer.valueOf(txtAmout.getText());
-        if (amount - quantity < 0) {
-            setErrorMsg("Không đủ số lượng trong kho");
-            return;
-        }
-        CodeSystem codeSystem = billDetailController.updateBillDetail(checkButton, getBilDetailResponse());
+        CodeSystem codeSystem = detailInvoiceController.updateDetailInvoice(checkButton, getBilDetailResponse());
         if (codeSystem.equals(CodeSystem.SUCCESS)) {
             initDataBillDetail();
-            String dCash = billController.getBillResponseById(lblCodeBil.getText()).getTotalDcash();
-            log.info("BIll: " + billController.getBillResponseById(lblCodeBil.getText()));
+            String dCash = receiptController.getReceiptResponseById(lblCodeBil.getText()).getTotalDcash();
             txtDcashBill.setText(dCash);
-            if (!jFormattedTextField1.getText().isEmpty()) {
-                Double dcash = Double.valueOf(jFormattedTextField1.getText().replaceAll(",", "")) - Double.valueOf(txtDcashBill.getText().replaceAll(",", ""));
-                txtMoney.setText(String.format("%,.2f", dcash));
-            }
             return;
         }
         setErrorMsg(codeSystem.getDescription());
@@ -936,13 +864,9 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         }
     }//GEN-LAST:event_cbbProductItemStateChanged
 
-    private void txtMoneyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMoneyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMoneyActionPerformed
-
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         if (lblCodeBil.getText().equals("")) {
-            setErrorMsg("Hóa đơn chưa được tạo");
+            setErrorMsg("Phiếu nhập chưa được tạo");
             return;
         }
         try {
@@ -953,7 +877,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
             Class.forName("com.mysql.jdbc.Driver");
             String connectionURL = "jdbc:mysql://" + hostName + ":3306/" + dbName + "?autoReconnect=true&useSSL=false";
             Connection conn = DriverManager.getConnection(connectionURL, userName, password);
-            String jasperDesign = ("F:\\DHXD\\2021\\Doantotnghiep\\SourceCode\\StoreManager\\StoreManager\\src\\main\\java\\vn\\edu\\nuce\\daotao\\StoreManager\\report\\report1.jrxml");
+            String jasperDesign = ("F:\\DHXD\\2021\\Doantotnghiep\\SourceCode\\StoreManager\\StoreManager\\src\\main\\java\\vn\\edu\\nuce\\daotao\\StoreManager\\report\\reportNhapKho.jrxml");
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
             Map<String, Object> parameters = new HashMap();
             parameters.put("billCode", Integer.valueOf(lblCodeBil.getText()));
@@ -979,39 +903,14 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         txtTime1.setText(timeColonFormatter.format(dateTime));
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        String customer = "100" + " _ " + "Khách lẻ";
-        cbbCustomer.setSelectedItem(customer);
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void cbbCustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCustomerMouseClicked
 
     }//GEN-LAST:event_cbbCustomerMouseClicked
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
-
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
-
-    private void jFormattedTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyTyped
-        char c = evt.getKeyChar();
-        if (!Character.isDigit(c)) {
-            evt.consume();
-            return;
-        }
-    }//GEN-LAST:event_jFormattedTextField1KeyTyped
-
-    private void jFormattedTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyReleased
-        if (!jFormattedTextField1.getText().isEmpty()) {
-            Double dcash = Double.valueOf(jFormattedTextField1.getText().replaceAll(",", "")) - Double.valueOf(txtDcashBill.getText().replaceAll(",", ""));
-            txtMoney.setText(String.format("%,.2f", dcash));
-        }
-    }//GEN-LAST:event_jFormattedTextField1KeyReleased
-
     private void btDangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDangxuatActionPerformed
         int result = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất không?", "Info",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE);
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
         if (result == JOptionPane.YES_OPTION) {
             this.setVisible(false);
             Login receiptJPanel = applicationContext.getBean(Login.class);
@@ -1036,20 +935,21 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SaleScrean.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReceiptorScrean.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SaleScrean.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReceiptorScrean.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SaleScrean.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReceiptorScrean.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SaleScrean.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReceiptorScrean.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SaleScrean().setVisible(true);
+                new ReceiptorScrean().setVisible(true);
             }
         });
 
@@ -1077,17 +977,13 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
     private javax.swing.JComboBox<String> cbbCustomer;
     private javax.swing.JComboBox<String> cbbProduct;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1125,9 +1021,8 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
     private javax.swing.JTextField txtDcash;
     private javax.swing.JTextField txtDcashBill;
     private javax.swing.JTextArea txtDescription;
-    private javax.swing.JTextField txtMoney;
     private javax.swing.JTextField txtNhanVien;
-    private javax.swing.JTextField txtPrice;
+    private javax.swing.JFormattedTextField txtPrice;
     private javax.swing.JTextField txtQtty;
     private javax.swing.JTextField txtTime1;
     // End of variables declaration//GEN-END:variables
@@ -1135,7 +1030,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
     @Override
     public void initData() {
         txtNhanVien.setText(Login.nameStaff);
-        customerController.getAllCustomerResponse().forEach(item -> cbbCustomer.addItem(item.getCodeCustomer() + " _ " + item.getNameCustomer()));
+        distributorController.getAllDistributorResponse().forEach(item -> cbbCustomer.addItem(item.getCodeDistributor() + " _ " + item.getNameDistributor()));
     }
 
     public void init() {
@@ -1145,7 +1040,6 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         DecimalFormat df = new DecimalFormat(); // And here..
         NumberFormatter dnff = new NumberFormatter(df);
         DefaultFormatterFactory factory2 = new DefaultFormatterFactory(dnff);
-        jFormattedTextField1.setFormatterFactory(factory2);
         java.awt.EventQueue.invokeLater(() -> {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             this.setVisible(true);
@@ -1155,26 +1049,28 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
     private void setValuePriceAndAmount() {
         String[] productSelected = cbbProduct.getSelectedItem().toString().split("_");
         String codeCusConvert = productSelected[0].trim();
-        String price = productController.getProductResponseById(codeCusConvert).getPrice();
+        String price = productController.getProductResponseById(codeCusConvert).getPriceInput();
         String amount = productController.getProductResponseById(codeCusConvert).getQuantity();
         txtAmout.setText(amount);
-        txtPrice.setText(price);
+        log.info("price " + price);
+        txtPrice.setText(String.format("%,.2f", Double.valueOf(price)));
     }
 
-    private BillDetailResponse getBilDetailResponse() {
+    private DetailInvoiceResponse getBilDetailResponse() {
         String[] product = cbbProduct.getSelectedItem().toString().split("_");
         String codeCusConvert = product[0].trim();
-        return new BillDetailResponse(lblCodeBillDetail.getText(), lblCodeBil.getText(),
+        return new DetailInvoiceResponse(lblCodeBillDetail.getText(), lblCodeBil.getText(),
                 codeCusConvert, txtQtty.getText(),
+                txtPrice.getText().replaceAll(",", ""),
                 txtDcash.getText(),
                 txtDescription.getText());
     }
 
     private void initDataBillDetail() {
         String codeBill = lblCodeBil.getText();
-        billResponses = billDetailController.getAllBillDetailResponseObjectsByBill(String.valueOf(codeBill));
+        billResponses = detailInvoiceController.getAllDetailInvoiceResponseObjectsByReceipt(String.valueOf(codeBill));
         lblCodeBil.setText(codeBill);
-        Object[] obj = new Object[]{"STT", "Mã chi tiết hóa đơn", "Mã hóa đơn", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá", "Tổng", "Mô tả"};
+        Object[] obj = new Object[]{"STT", "Mã chi tiết PN", "Mã PN", "Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Giá", "Tổng", "Mô tả"};
         tableModel = new DefaultTableModel(obj, 0);
         tableRowSorter = new TableRowSorter<>(tableModel);
         tblBill.setModel(tableModel);
@@ -1199,13 +1095,13 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
         setButtonsEnable(btnUpdate, false, btnAdd, true, btnEdit, false, btnDelete, false, btnCancel, true);
     }
 
-    private BillResponse getBillResponse() {
+    private ReceiptResponse getBillResponse() {
         String[] codeStaff = txtNhanVien.getText().split("_");
         String codeStaffConvert = codeStaff[0].trim();
         String[] codeCus = cbbCustomer.getSelectedItem().toString().split("_");
         String codeCusConvert = codeCus[0].trim();
-        return new BillResponse(String.valueOf(0),
-                codeCusConvert, codeStaffConvert,
+        return new ReceiptResponse(String.valueOf(0),
+                codeStaffConvert, codeCusConvert,
                 txtTime1.getText(), String.valueOf(0),
                 txtDescription.getText());
     }

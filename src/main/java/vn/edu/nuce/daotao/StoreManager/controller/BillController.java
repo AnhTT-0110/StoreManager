@@ -18,13 +18,13 @@ public interface BillController {
     List<Object[]> getAllBillResponsesObject();
 
     List<BillResponse> getAllBillResponses();
-    
-    BillResponse getBillResponseById(String id);
 
     CodeSystem updateBill(int statusBtn, BillResponse response);
 
     CodeSystem deleteBillaa(BillResponse response);
-    
+
     Object[] getBillCreated();
-    
+
+    BillResponse getBillResponseById(String id);
+
 }

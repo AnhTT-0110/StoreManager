@@ -36,4 +36,14 @@ public class DetailInvoiceResponse implements Serializable {
         this.description = description;
     }
     
+    public DetailInvoiceResponse(String codeDetailInvoice, String receiptCode, String productCode, String quantity,String price, String totalDcash, String description) {
+        this.codeDetailInvoice = codeDetailInvoice;
+        this.receiptCode = receiptCode;
+        this.productCode = productCode;
+        this.quantity = quantity;
+        this.price = price;
+        this.totalDcash = totalDcash;
+        this.description = description;
+    }
+    
 }

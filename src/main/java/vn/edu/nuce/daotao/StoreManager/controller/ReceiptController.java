@@ -22,4 +22,9 @@ public interface ReceiptController {
     CodeSystem updateReceipt(int statusBtn, ReceiptResponse response);
 
     CodeSystem deleteReceiptaa(ReceiptResponse response);
+    
+    Object[] getReceiptCreated();
+
+    ReceiptResponse getReceiptResponseById(String id);
+
 }

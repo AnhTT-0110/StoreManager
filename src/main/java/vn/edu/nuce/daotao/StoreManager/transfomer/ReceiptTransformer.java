@@ -63,7 +63,7 @@ public class ReceiptTransformer {
         response.setCodeStaff(String.valueOf(receipt.getStaff().getCodeStaff()));
         response.setNameStaff(receipt.getStaff().getNameStaff());
         response.setNameDistributor(receipt.getDistributor().getNameDistributor());
-        response.setTotalDcash(String.valueOf(receipt.getTotalDcash()));
+        response.setTotalDcash(String.format("%,.2f",receipt.getTotalDcash()));
         response.setDate(receipt.getDate().toString());
         response.setDescription(receipt.getDescription());
         return response;

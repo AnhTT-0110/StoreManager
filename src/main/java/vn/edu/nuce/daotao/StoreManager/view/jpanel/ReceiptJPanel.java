@@ -633,7 +633,7 @@ public class ReceiptJPanel extends javax.swing.JPanel implements CommonJpanel {
         txtCodeReceipt.setText("");
         txtTime.setText("");
         txtDescription.setText("");
-        txtDCash.setText("");
+        txtDCash.setText("0");
         cbbDistribute.setSelectedIndex(0);
         cbbStaff.setSelectedIndex(0);
         checkButton = 2;

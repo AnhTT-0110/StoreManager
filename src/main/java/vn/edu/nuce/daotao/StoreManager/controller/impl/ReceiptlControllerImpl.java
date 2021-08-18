@@ -65,5 +65,15 @@ public class ReceiptlControllerImpl implements ReceiptController {
              return CodeSystem.SUCCESS;
         return CodeSystem.ERROR15;
     }
+    
+     @Override
+    public Object[] getReceiptCreated() {
+        return receiptService.getReceiptCreated();
+    }
+
+    @Override
+    public ReceiptResponse getReceiptResponseById(String id) {
+        return receiptService.getReceiptResponseById(id);
+    }
 
 }

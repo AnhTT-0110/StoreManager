@@ -27,8 +27,8 @@ public class DetailInvoiceTransformer {
         item[3] = detailInvoice.getProduct().getCodeProduct();
         item[4] = detailInvoice.getProduct().getNameProduct();
         item[5] = detailInvoice.getQuantity();
-        item[6] = detailInvoice.getPrice();
-        item[7] = detailInvoice.getTotalDcash();
+        item[6] = String.format("%,.2f",detailInvoice.getPrice());
+        item[7] = String.format("%,.2f",detailInvoice.getTotalDcash());
         item[8] = detailInvoice.getDescription();
         return item;
     }
@@ -48,7 +48,7 @@ public class DetailInvoiceTransformer {
                 .filter(product -> product.getCodeProduct() == Integer.valueOf(response.getProductCode()))
                 .findAny()
                 .ifPresent(item -> detailInvoice.setProduct(item));
-        detailInvoice.setPrice(detailInvoice.getProduct().getPrice());
+        detailInvoice.setPrice(Double.valueOf(response.getPrice()));
         detailInvoice.setTotalDcash(detailInvoice.getPrice() * detailInvoice.getQuantity());
         return detailInvoice;
     }

@@ -290,7 +290,7 @@ WHERE
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{chitiethoadon_SoLuong}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="#,###;">
 				<reportElement x="395" y="11" width="131" height="20" />
 				<textFieldExpression><![CDATA[$F{chitiethoadon_TongTien}]]></textFieldExpression>
 			</textField>
@@ -301,7 +301,7 @@ WHERE
 			<line>
 				<reportElement x="18" y="53" width="526" height="1" />
 			</line>
-			<textField>
+			<textField pattern="#,###;">
 				<reportElement x="276" y="11" width="96" height="20" />
 				<textElement textAlignment="Center"/>
 				<textFieldExpression><![CDATA[$F{chitiethoadon_GiaTien}]]></textFieldExpression>
@@ -351,7 +351,7 @@ WHERE
 			<line>
 				<reportElement x="543" y="0" width="1" height="62" />
 			</line>
-			<textField>
+			<textField pattern="#,###;">
 				<reportElement x="394" y="1" width="131" height="29" />
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{hoadon_TongTien}]]></textFieldExpression>

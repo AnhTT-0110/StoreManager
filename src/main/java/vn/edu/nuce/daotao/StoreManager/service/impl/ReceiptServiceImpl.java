@@ -7,16 +7,15 @@ package vn.edu.nuce.daotao.StoreManager.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import vn.edu.nuce.daotao.StoreManager.model.Receipt;
-import vn.edu.nuce.daotao.StoreManager.model.Customer;
 import vn.edu.nuce.daotao.StoreManager.model.Distributor;
 import vn.edu.nuce.daotao.StoreManager.model.Staff;
+import vn.edu.nuce.daotao.StoreManager.response.BillResponse;
 import vn.edu.nuce.daotao.StoreManager.response.ReceiptResponse;
 import vn.edu.nuce.daotao.StoreManager.respository.ReceiptRespository;
-import vn.edu.nuce.daotao.StoreManager.respository.CustomerRespository;
 import vn.edu.nuce.daotao.StoreManager.respository.DetailInvoiceRepository;
 import vn.edu.nuce.daotao.StoreManager.respository.DistributorRespository;
 import vn.edu.nuce.daotao.StoreManager.respository.StaffRespository;
@@ -92,6 +91,25 @@ public class ReceiptServiceImpl implements ReceiptService {
         }
         receiptRespository.delete(receipt);
         return true;
+    }
+    
+    @Override
+    public Object[] getReceiptCreated() {
+        return receiptRespository
+                .findAll(new Sort(Sort.Direction.DESC, "date"))
+                .stream()
+                .map(bill -> receiptTransfomer.transform(bill))
+                .findFirst().get();
+    }
+
+    @Override
+    public ReceiptResponse getReceiptResponseById(String id) {
+        return receiptRespository
+                .findAll()
+                .stream()
+                .filter(item -> item.getCodeReceipt()== Integer.valueOf(id))
+                .map(bill -> receiptTransfomer.transformToResponse(bill))
+                .findFirst().get();
     }
 
 }
