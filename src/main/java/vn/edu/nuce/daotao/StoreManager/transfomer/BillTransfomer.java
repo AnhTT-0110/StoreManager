@@ -34,6 +34,19 @@ public class BillTransfomer {
         item[8] = bill.getDescription();
         return item;
     }
+    
+    public Object[] transformReport(Bill bill) {
+        Object[] item = new Object[9];
+        item[1] = bill.getCodeBill();
+        item[2] = bill.getCustomer().getCodeCustomer();
+        item[3] = bill.getCustomer().getNameCustomer();
+        item[4] = bill.getStaff().getCodeStaff();
+        item[5] = bill.getStaff().getNameStaff();
+        item[6] = bill.getDate().toString();
+        item[7] = String.valueOf(bill.getTotalDcash());
+        item[8] = bill.getDescription();
+        return item;
+    }
 
     public Bill transformToEntity(BillResponse billResponse, List<Customer> customers, List<Staff> staffs) {
         Bill bill = new Bill();

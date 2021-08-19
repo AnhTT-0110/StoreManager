@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import vn.edu.nuce.daotao.StoreManager.controller.BillController;
 import vn.edu.nuce.daotao.StoreManager.response.BillResponse;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportBill;
 import vn.edu.nuce.daotao.StoreManager.service.BillService;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 import vn.edu.nuce.daotao.StoreManager.validator.Validator;
@@ -31,7 +32,7 @@ public class BillControllerImpl implements BillController {
 
     @Override
     public List<Object[]> getAllBillResponsesObject() {
-       return billService.getAllBillResponseObjects();
+        return billService.getAllBillResponseObjects();
     }
 
     @Override
@@ -41,7 +42,7 @@ public class BillControllerImpl implements BillController {
 
     @Override
     public CodeSystem updateBill(int statusBtn, BillResponse response) {
-         CodeSystem codeSystem = validator.validateRegexAndAllArgumentNotNull(response.getTotalDcash());
+        CodeSystem codeSystem = validator.validateRegexAndAllArgumentNotNull(response.getTotalDcash());
         if (!CodeSystem.SUCCESS02.equals(codeSystem)) {
             return codeSystem;
         }
@@ -61,8 +62,9 @@ public class BillControllerImpl implements BillController {
 
     @Override
     public CodeSystem deleteBillaa(BillResponse response) {
-       if (billService.deleteBill(response))
-             return CodeSystem.SUCCESS;
+        if (billService.deleteBill(response)) {
+            return CodeSystem.SUCCESS;
+        }
         return CodeSystem.ERROR08;
     }
 
@@ -74,6 +76,28 @@ public class BillControllerImpl implements BillController {
     @Override
     public BillResponse getBillResponseById(String id) {
         return billService.getBillResponseById(id);
+    }
+
+    @Override
+    public List<ProcedureReportBill> getReportBill(String billCode, String nameCus, String nameStaff, String startDate, String endDate) {
+        return billService.getReportBill(billCode, nameCus, nameStaff, startDate, endDate);
+    }
+
+    @Override
+    public String getReportBillQtty(String billCode, String nameCus, String nameStaff, String startDate, String endDate) {
+        return billService.getReportBillQtty(billCode, nameCus, nameStaff, startDate, endDate);
+
+    }
+
+    @Override
+    public String getReportBillSum(String billCode, String nameCus, String nameStaff, String startDate, String endDate) {
+        return billService.getReportBillSum(billCode, nameCus, nameStaff, startDate, endDate);
+
+    }
+
+    @Override
+    public List<Object[]> getReportBillObject(String billCode, String nameCus, String nameStaff, String startDate, String endDate) {
+       return billService.getReportBillObject(billCode, nameCus, nameStaff, startDate, endDate);
     }
 
 }

@@ -18,11 +18,10 @@ import vn.edu.nuce.daotao.StoreManager.view.jpanel.CustomerJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.DistributorJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.DoashBoardJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.InfoStore;
-import vn.edu.nuce.daotao.StoreManager.view.jpanel.LangueJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.ProductJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.ReceiptJPanel;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.ReportJpanel;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.StaffJpanel;
-import vn.edu.nuce.daotao.StoreManager.view.jpanel.UseJpanel;
 
 /**
  *
@@ -129,7 +128,7 @@ public class MainFrame extends javax.swing.JFrame {
         btDoanhthu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btDoanhthu.setForeground(new java.awt.Color(51, 51, 255));
         btDoanhthu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/doanhthu.png"))); // NOI18N
-        btDoanhthu.setText("DOANH THU");
+        btDoanhthu.setText("THỐNG KÊ");
         btDoanhthu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btDoanhthuActionPerformed(evt);
@@ -275,11 +274,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btDoitacActionPerformed
 
     private void btDoanhthuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDoanhthuActionPerformed
-//        jpanel.doanhthu b = new doanhthu();
-//        mainPanel.removeAll();
-//        mainPanel.add(b);
-//        mainPanel.repaint();
-//        mainPanel.revalidate();
+        ReportJpanel distributorJpanel = applicationContext.getBean(ReportJpanel.class);
+        distributorJpanel.init();
+        setValueToMainFrame(distributorJpanel);
     }//GEN-LAST:event_btDoanhthuActionPerformed
 
     private void btDangxuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDangxuatActionPerformed
@@ -295,7 +292,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btDangxuatActionPerformed
 
     private void btNgonNguActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNgonNguActionPerformed
-         DoashBoardJpanel boardJpanel = applicationContext.getBean(DoashBoardJpanel.class);
+        DoashBoardJpanel boardJpanel = applicationContext.getBean(DoashBoardJpanel.class);
         boardJpanel.init();
         setValueToMainFrame(boardJpanel);
     }//GEN-LAST:event_btNgonNguActionPerformed
@@ -313,7 +310,7 @@ public class MainFrame extends javax.swing.JFrame {
             this.setExtendedState(JFrame.MAXIMIZED_BOTH);
             this.setVisible(true);
         });
-         DoashBoardJpanel boardJpanel = applicationContext.getBean(DoashBoardJpanel.class);
+        DoashBoardJpanel boardJpanel = applicationContext.getBean(DoashBoardJpanel.class);
         boardJpanel.init();
         setValueToMainFrame(boardJpanel);
 
