@@ -37,6 +37,13 @@ public interface CommonJpanel {
         dialog.setAlwaysOnTop(true);
         dialog.setVisible(true);
     }
+    
+    default void setSuccessMsg(String text) {
+        JOptionPane optionPane = new JOptionPane(text, JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Info");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+    }
 
     default void checkNumber(java.awt.event.KeyEvent evt, JTextField textField) {
 

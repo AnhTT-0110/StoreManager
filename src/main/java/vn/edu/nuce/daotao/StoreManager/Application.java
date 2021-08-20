@@ -31,7 +31,6 @@ public class Application {
         log.info("MainFrame {} started.");
         Login service = applicationContext.getBean(Login.class);
         service.initData();
-
     }
 
 }

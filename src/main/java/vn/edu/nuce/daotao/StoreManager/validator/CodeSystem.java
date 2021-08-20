@@ -40,10 +40,12 @@ public enum CodeSystem {
     ERROR18("ERROR18", "Không thể xóa chức vụ này"),
     ERROR19("ERROR18", "Không thể xóa nhân viên này"),
     ERROR20("ERROR20", "Tên đăng nhập hoặc mật khẩu không đúng"),
+    ERROR21("ERROR21", "Xuất file exel không thành công"),
     SUCCESS("SUCCESS", "Cập nhật thành công!"),
     SUCCESS02("SUCCESS02", "Đã đủ thông tin"),
     SUCCESS03("SUCCESS03", "Định dạng OK"),
-    SUCCESS04("SUCCESS04", "Đăng nhập thành công");
+    SUCCESS04("SUCCESS04", "Đăng nhập thành công"),
+    SUCCESS05("SUCCESS05", "Xuất file exel thành công");
 
     private final String code;
     private final String description;

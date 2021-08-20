@@ -34,5 +34,7 @@ public interface BillService {
     String getReportBillQtty(String billCode, String nameCus, String nameStaff, String startDate, String endDate);
 
     String getReportBillSum(String billCode, String nameCus, String nameStaff, String startDate, String endDate);
+    
+    void writerReport(String billCode, String nameCus, String nameStaff, String startDate, String endDate);
 
 }

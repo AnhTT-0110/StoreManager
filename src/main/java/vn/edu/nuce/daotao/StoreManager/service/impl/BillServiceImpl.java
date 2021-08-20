@@ -182,4 +182,11 @@ public class BillServiceImpl implements BillService {
         return earnByTimes;
     }
 
+    @Override
+    public void writerReport(String billCode, String nameCus, String nameStaff, String startDate, String endDate) {
+        
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
