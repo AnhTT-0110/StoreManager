@@ -25,7 +25,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jTabbedPane1" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -60,7 +63,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel18" pref="679" max="32767" attributes="0"/>
+                          <Component id="jPanel18" max="32767" attributes="0"/>
                           <Component id="jPanel2" max="32767" attributes="0"/>
                           <Component id="jScrollPane7" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -75,8 +78,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jScrollPane7" pref="276" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -107,7 +110,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel19" min="-2" pref="102" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="txtEnđate" pref="205" max="32767" attributes="0"/>
+                                      <Component id="txtEnđate" pref="236" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel17" min="-2" pref="102" max="-2" attributes="0"/>
@@ -264,7 +267,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtQttyBill" pref="234" max="32767" attributes="0"/>
+                                  <Component id="txtQttyBill" pref="265" max="32767" attributes="0"/>
                                   <Component id="txtDCashBill" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -428,26 +431,16 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="699" max="32767" attributes="0"/>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel3" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="717" max="32767" attributes="0"/>
-                  <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="jPanel3" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -460,11 +453,11 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jPanel19" alignment="0" pref="679" max="32767" attributes="0"/>
+                              <Component id="jPanel19" alignment="0" max="32767" attributes="0"/>
                               <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
                               <Component id="jScrollPane8" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -475,8 +468,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane8" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jScrollPane8" pref="276" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -503,30 +496,20 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jLabel29" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="jLabel28" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jLabel26" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="jLabel25" max="32767" attributes="0"/>
+                                      <Component id="jLabel27" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel27" min="-2" pref="102" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="txtEnđate1" pref="205" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel25" min="-2" pref="102" max="-2" attributes="0"/>
-                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="txtFromDate1" max="32767" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="jLabel29" alignment="1" max="32767" attributes="0"/>
-                                              <Component id="jLabel28" alignment="0" pref="102" max="32767" attributes="0"/>
-                                              <Component id="jLabel26" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="txtCodeBill1" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txtCusName1" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="txtStaffName1" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
+                                      <Component id="txtFromDateReceipt" pref="215" max="32767" attributes="0"/>
+                                      <Component id="txtRecieptCode" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtDistributorName" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtStaffNameReceipt" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtEndDateReceipt" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -536,28 +519,28 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtCodeBill1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="txtRecieptCode" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                       <Component id="jLabel26" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtCusName1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="txtDistributorName" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                       <Component id="jLabel28" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtStaffName1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="txtStaffNameReceipt" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                       <Component id="jLabel29" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel25" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtFromDate1" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="txtFromDateReceipt" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="jLabel27" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtEnđate1" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="txtEndDateReceipt" alignment="0" min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                               </Group>
@@ -573,7 +556,7 @@
                             <Property name="text" type="java.lang.String" value="T&#x1eeb; ng&#xe0;y"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtCodeBill1">
+                        <Component class="javax.swing.JTextField" name="txtRecieptCode">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Cambria" size="14" style="0"/>
@@ -585,10 +568,10 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Cambria" size="14" style="0"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="M&#xe3; h&#xf3;a &#x111;&#x1a1;n"/>
+                            <Property name="text" type="java.lang.String" value="M&#xe3; phi&#x1ebf;u nh&#x1ead;p"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JFormattedTextField" name="txtFromDate1">
+                        <Component class="javax.swing.JFormattedTextField" name="txtFromDateReceipt">
                           <Properties>
                             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                               <Format format="yyyy-MM-dd" subtype="-1" type="1"/>
@@ -603,14 +586,14 @@
                             <Property name="text" type="java.lang.String" value="&#x110;&#x1ebf;n ng&#xe0;y"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JFormattedTextField" name="txtEn&#x111;ate1">
+                        <Component class="javax.swing.JFormattedTextField" name="txtEndDateReceipt">
                           <Properties>
                             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                               <Format format="yyyy-MM-dd" subtype="-1" type="1"/>
                             </Property>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtCusName1">
+                        <Component class="javax.swing.JTextField" name="txtDistributorName">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Cambria" size="14" style="0"/>
@@ -622,7 +605,7 @@
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Cambria" size="14" style="0"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="T&#xea;n kh&#xe1;ch h&#xe0;ng"/>
+                            <Property name="text" type="java.lang.String" value="T&#xea;n nh&#xe0; ph&#xe2;n ph&#x1ed1;i"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel29">
@@ -633,7 +616,7 @@
                             <Property name="text" type="java.lang.String" value="T&#xea;n nh&#xe2;n vi&#xea;n"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtStaffName1">
+                        <Component class="javax.swing.JTextField" name="txtStaffNameReceipt">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Cambria" size="14" style="0"/>
@@ -661,8 +644,8 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtQttyBill1" alignment="0" pref="234" max="32767" attributes="0"/>
-                                      <Component id="txtDCashBill1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtQttyBillReceipt" alignment="0" pref="255" max="32767" attributes="0"/>
+                                      <Component id="txtDCashReceipt" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -672,7 +655,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="txtQttyBill1" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                                      <Component id="txtQttyBillReceipt" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                       <Component id="jLabel30" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -681,7 +664,7 @@
                                           <Component id="jLabel31" min="-2" pref="31" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="txtDCashBill1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtDCashReceipt" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -697,7 +680,7 @@
                             <Property name="text" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtQttyBill1">
+                        <Component class="javax.swing.JTextField" name="txtQttyBillReceipt">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Cambria" size="14" style="0"/>
@@ -705,7 +688,7 @@
                             <Property name="horizontalAlignment" type="int" value="4"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="txtDCashBill1">
+                        <Component class="javax.swing.JTextField" name="txtDCashReceipt">
                           <Properties>
                             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                               <Font name="Cambria" size="27" style="1"/>

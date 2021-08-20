@@ -5,16 +5,24 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service.impl;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import vn.edu.nuce.daotao.StoreManager.model.Receipt;
 import vn.edu.nuce.daotao.StoreManager.model.Distributor;
 import vn.edu.nuce.daotao.StoreManager.model.Staff;
-import vn.edu.nuce.daotao.StoreManager.response.BillResponse;
 import vn.edu.nuce.daotao.StoreManager.response.ReceiptResponse;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportBill;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureResponseBigDecimal;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureResponseBigInteger;
 import vn.edu.nuce.daotao.StoreManager.respository.ReceiptRespository;
 import vn.edu.nuce.daotao.StoreManager.respository.DetailInvoiceRepository;
 import vn.edu.nuce.daotao.StoreManager.respository.DistributorRespository;
@@ -98,7 +106,7 @@ public class ReceiptServiceImpl implements ReceiptService {
         return receiptRespository
                 .findAll(new Sort(Sort.Direction.DESC, "date"))
                 .stream()
-                .map(bill -> receiptTransfomer.transform(bill))
+                .map(Receipt -> receiptTransfomer.transform(Receipt))
                 .findFirst().get();
     }
 
@@ -108,8 +116,77 @@ public class ReceiptServiceImpl implements ReceiptService {
                 .findAll()
                 .stream()
                 .filter(item -> item.getCodeReceipt()== Integer.valueOf(id))
-                .map(bill -> receiptTransfomer.transformToResponse(bill))
+                .map(Receipt -> receiptTransfomer.transformToResponse(Receipt))
                 .findFirst().get();
+    }
+   @Override
+    public List<ProcedureReportBill> getReportReceipt(String ReceiptCode, String nameCus, String nameStaff, String startDate, String endDate) {
+        List<Object> objects = null;
+        if (StringUtils.isEmpty(startDate) && StringUtils.isEmpty(endDate)) {
+            startDate = "2021-01-01";
+            objects = receiptRespository.getReport(ReceiptCode, nameCus, nameStaff, Date.valueOf(startDate), Date.valueOf(LocalDate.now()));
+        } else {
+            objects = receiptRespository.getReport(ReceiptCode, nameCus, nameStaff, Date.valueOf(startDate), Date.valueOf(endDate));
+        }
+        List<ProcedureReportBill> earnByTimes = new ArrayList<>();
+        for (int i = 0; i < objects.size(); i++) {
+            earnByTimes.add(new ProcedureReportBill((Object[]) objects.get(i)));
+        }
+        return earnByTimes;
+    }
+
+    @Override
+    public String getReportReceiptQtty(String ReceiptCode, String nameCus, String nameStaff, String startDate, String endDate) {
+        List<Object> objects = null;
+        ProcedureResponseBigInteger responseBigInteger = null;
+        if (StringUtils.isEmpty(startDate) && StringUtils.isEmpty(endDate)) {
+            startDate = "2021-01-01";
+            objects = receiptRespository.getReportCount(ReceiptCode, nameCus, nameStaff, Date.valueOf(startDate), Date.valueOf(LocalDate.now()));
+        } else {
+            objects = receiptRespository.getReportCount(ReceiptCode, nameCus, nameStaff, Date.valueOf(startDate), Date.valueOf(endDate));
+        }
+
+        for (int i = 0; i < objects.size(); i++) {
+            responseBigInteger = new ProcedureResponseBigInteger((BigInteger) objects.get(i));
+        }
+        return responseBigInteger.getValueInteger();
+    }
+
+    @Override
+    public String getReportReceiptSum(String ReceiptCode, String nameCus, String nameStaff, String startDate, String endDate) {
+        List<Object> objects = null;
+        ProcedureResponseBigDecimal responseBigInteger = null;
+        if (StringUtils.isEmpty(startDate) && StringUtils.isEmpty(endDate)) {
+            startDate = "2021-01-01";
+            objects = receiptRespository.getReportSum(ReceiptCode, nameCus, nameStaff, Date.valueOf(startDate), Date.valueOf(LocalDate.now()));
+        } else {
+            objects = receiptRespository.getReportSum(ReceiptCode, nameCus, nameStaff, Date.valueOf(startDate), Date.valueOf(endDate));
+        }
+        for (int i = 0; i < objects.size(); i++) {
+            responseBigInteger = new ProcedureResponseBigDecimal((BigDecimal) objects.get(i));
+        }
+        return responseBigInteger.getValueConcurrent();
+    }
+
+    @Override
+    public List<Object[]> getReportReceiptObject(String ReceiptCode, String nameCus, String nameStaff, String startDate, String endDate) {
+       List<Object> objects = null;
+        if (StringUtils.isEmpty(startDate) && StringUtils.isEmpty(endDate)) {
+            startDate = "2021-01-01";
+            objects = receiptRespository.getReport(ReceiptCode, nameCus, nameStaff, Date.valueOf(startDate), Date.valueOf(LocalDate.now()));
+        } else {
+            objects = receiptRespository.getReport(ReceiptCode, nameCus, nameStaff, Date.valueOf(startDate), Date.valueOf(endDate));
+        }
+        List<Object[]> earnByTimes = new ArrayList<>();
+        for (int i = 0; i < objects.size(); i++) {
+            earnByTimes.add((Object[]) objects.get(i));
+        }
+        return earnByTimes;
+    }
+
+    @Override
+    public void writerReport(String ReceiptCode, String nameCus, String nameStaff, String startDate, String endDate) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

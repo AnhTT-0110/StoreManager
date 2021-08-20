@@ -6,8 +6,6 @@
 package vn.edu.nuce.daotao.StoreManager.view.jpanel;
 
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -18,9 +16,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.controller.BillController;
 import vn.edu.nuce.daotao.StoreManager.controller.ProductTypeController;
-import vn.edu.nuce.daotao.StoreManager.response.ProductTypeResponse;
+import vn.edu.nuce.daotao.StoreManager.controller.ReceiptController;
 import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportBill;
 import vn.edu.nuce.daotao.StoreManager.service.impl.WriteReportBill;
+import vn.edu.nuce.daotao.StoreManager.service.impl.WriteReportReceipt;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 
 /**
@@ -36,7 +35,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
     private BillController billController;
 
     @Autowired
-    private ProductTypeController productTypeController;
+    private ReceiptController receiptController;
 
     int count = 0;
     int indexItem = 0;
@@ -58,6 +57,15 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
     List<Object[]> productTypeResponses;
     DefaultTableModel tableModelProductType;
     TableRowSorter<TableModel> tableRowSorterProductType;
+
+    static int checkButton_receipt = 0;
+    List<Object[]> customerResponsesReceipt;
+    DefaultTableModel tableModelReceipt;
+    TableRowSorter<TableModel> tableRowSorterReceipt;
+
+    List<Object[]> productTypeResponsesReceipt;
+    DefaultTableModel tableModelProductTypeReceipt;
+    TableRowSorter<TableModel> tableRowSorterProductTypeReceipt;
 
     public ReportJpanel() {
         initComponents();
@@ -108,19 +116,19 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel19 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
-        txtCodeBill1 = new javax.swing.JTextField();
+        txtRecieptCode = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        txtFromDate1 = new javax.swing.JFormattedTextField();
+        txtFromDateReceipt = new javax.swing.JFormattedTextField();
         jLabel27 = new javax.swing.JLabel();
-        txtEnđate1 = new javax.swing.JFormattedTextField();
-        txtCusName1 = new javax.swing.JTextField();
+        txtEndDateReceipt = new javax.swing.JFormattedTextField();
+        txtDistributorName = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        txtStaffName1 = new javax.swing.JTextField();
+        txtStaffNameReceipt = new javax.swing.JTextField();
         jPanel23 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
-        txtQttyBill1 = new javax.swing.JTextField();
-        txtDCashBill1 = new javax.swing.JTextField();
+        txtQttyBillReceipt = new javax.swing.JTextField();
+        txtDCashReceipt = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
@@ -170,7 +178,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtEnđate, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                        .addComponent(txtEnđate, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
                     .addGroup(jPanel20Layout.createSequentialGroup()
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -238,7 +246,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtQttyBill, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                    .addComponent(txtQttyBill, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
                     .addComponent(txtDCashBill)))
         );
         jPanel22Layout.setVerticalGroup(
@@ -316,7 +324,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane7))
                 .addContainerGap())
@@ -328,8 +336,8 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Hóa đơn", new javax.swing.ImageIcon(getClass().getResource("/images/waiter (2).png")), jPanel1); // NOI18N
@@ -343,27 +351,27 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         jLabel25.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel25.setText("Từ ngày");
 
-        txtCodeBill1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtRecieptCode.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
         jLabel26.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel26.setText("Mã hóa đơn");
+        jLabel26.setText("Mã phiếu nhập");
 
-        txtFromDate1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtFromDateReceipt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
 
         jLabel27.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel27.setText("Đến ngày");
 
-        txtEnđate1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtEndDateReceipt.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
 
-        txtCusName1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtDistributorName.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
         jLabel28.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jLabel28.setText("Tên khách hàng");
+        jLabel28.setText("Tên nhà phân phối");
 
         jLabel29.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel29.setText("Tên nhân viên");
 
-        txtStaffName1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtStaffNameReceipt.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
@@ -371,49 +379,43 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtEnđate1, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFromDate1))
-                    .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodeBill1)
-                            .addComponent(txtCusName1)
-                            .addComponent(txtStaffName1)))))
+                    .addComponent(txtFromDateReceipt, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                    .addComponent(txtRecieptCode)
+                    .addComponent(txtDistributorName)
+                    .addComponent(txtStaffNameReceipt)
+                    .addComponent(txtEndDateReceipt, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodeBill1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRecieptCode, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCusName1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDistributorName, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtStaffName1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStaffNameReceipt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFromDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFromDateReceipt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtEnđate1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEndDateReceipt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -424,11 +426,11 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         jLabel30.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel30.setText("Số lượng");
 
-        txtQttyBill1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtQttyBill1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtQttyBillReceipt.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtQttyBillReceipt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
-        txtDCashBill1.setFont(new java.awt.Font("Cambria", 1, 27)); // NOI18N
-        txtDCashBill1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtDCashReceipt.setFont(new java.awt.Font("Cambria", 1, 27)); // NOI18N
+        txtDCashReceipt.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel31.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel31.setText("Tổng tiền");
@@ -443,22 +445,22 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
                     .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtQttyBill1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                    .addComponent(txtDCashBill1)))
+                    .addComponent(txtQttyBillReceipt, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                    .addComponent(txtDCashReceipt)))
         );
         jPanel23Layout.setVerticalGroup(
             jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel23Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtQttyBill1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQttyBillReceipt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel23Layout.createSequentialGroup()
                         .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtDCashBill1))
+                    .addComponent(txtDCashReceipt))
                 .addContainerGap())
         );
 
@@ -520,7 +522,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                    .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane8))
                 .addContainerGap())
@@ -532,29 +534,22 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel32Layout = new javax.swing.GroupLayout(jPanel32);
         jPanel32.setLayout(jPanel32Layout);
         jPanel32Layout.setHorizontalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 699, Short.MAX_VALUE)
-            .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel32Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel32Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 717, Short.MAX_VALUE)
-            .addGroup(jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel32Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Phiếu nhập", new javax.swing.ImageIcon(getClass().getResource("/images/insurance.png")), jPanel32); // NOI18N
@@ -567,7 +562,9 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Nhân viên");
@@ -618,15 +615,40 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        txtRecieptCode.setText("");
+        txtDistributorName.setText("");
+        txtStaffNameReceipt.setText("");
+        txtFromDateReceipt.setText("");
+        txtEndDateReceipt.setText("");
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        boolean checkEndate = txtFromDateReceipt.getText().isEmpty() & txtEndDateReceipt.getText().isEmpty();
+        boolean checkStart = !txtFromDateReceipt.getText().isEmpty() & !txtEndDateReceipt.getText().isEmpty();
+        if (checkEndate || checkStart) {
+            initDataReceipt();
+            return;
+        }
+        setErrorMsg("Bạn phải nhập cả 2 ngày, hoặc không");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        boolean checkEndate = txtFromDateReceipt.getText().isEmpty() & txtEndDateReceipt.getText().isEmpty();
+        boolean checkStart = !txtFromDateReceipt.getText().isEmpty() & !txtEndDateReceipt.getText().isEmpty();
+        if (checkEndate || checkStart) {
+            WriteReportReceipt excelExample = new WriteReportReceipt();
+            final List<ProcedureReportBill> books = receiptController.getReportReceipt(txtRecieptCode.getText(), txtDistributorName.getText(), txtStaffNameReceipt.getText(), txtFromDateReceipt.getText(), txtEndDateReceipt.getText());
+            final String excelFilePath = "F:\\DHXD\\2021\\Doantotnghiep\\SourceCode\\StoreManager\\StoreManager\\src\\main\\resources\\file\\ReportReceipt";
+            CodeSystem codeSystem = excelExample.writeExcel(books, excelFilePath);
+            if (codeSystem.equals(CodeSystem.SUCCESS05)) {
+                setSuccessMsg(codeSystem.getDescription());
+
+            } else {
+                setErrorMsg(codeSystem.getDescription());
+            }
+            return;
+        }
+        setErrorMsg("Bạn phải nhập cả 2 ngày, hoặc không");
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void tblReceiptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReceiptMouseClicked
@@ -673,25 +695,25 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JTable tblBillReport;
     private javax.swing.JTable tblReceipt;
     private javax.swing.JTextField txtCodeBill;
-    private javax.swing.JTextField txtCodeBill1;
     private javax.swing.JTextField txtCusName;
-    private javax.swing.JTextField txtCusName1;
     private javax.swing.JTextField txtDCashBill;
-    private javax.swing.JTextField txtDCashBill1;
+    private javax.swing.JTextField txtDCashReceipt;
+    private javax.swing.JTextField txtDistributorName;
+    private javax.swing.JFormattedTextField txtEndDateReceipt;
     private javax.swing.JFormattedTextField txtEnđate;
-    private javax.swing.JFormattedTextField txtEnđate1;
     private javax.swing.JFormattedTextField txtFromDate;
-    private javax.swing.JFormattedTextField txtFromDate1;
+    private javax.swing.JFormattedTextField txtFromDateReceipt;
     private javax.swing.JTextField txtQttyBill;
-    private javax.swing.JTextField txtQttyBill1;
+    private javax.swing.JTextField txtQttyBillReceipt;
+    private javax.swing.JTextField txtRecieptCode;
     private javax.swing.JTextField txtStaffName;
-    private javax.swing.JTextField txtStaffName1;
+    private javax.swing.JTextField txtStaffNameReceipt;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void initData() {
         initDataBillReport();
-        initDataProductType();
+        initDataReceipt();
 
     }
 
@@ -718,26 +740,25 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         txtDCashBill.setText(billController.getReportBillSum(txtCodeBill.getText(), txtCusName.getText(), txtStaffName.getText(), txtFromDate.getText(), txtEnđate.getText()));
     }
 
-    private void initDataProductType() {
-        productTypeResponses = productTypeController.getAllProductTypeResponsesObject();
-        Object[] obj = new Object[]{"STT", "Mã loại sản phẩm", "Tên loại sản phẩm", "Mô tả"};
-        tableModelProductType = new DefaultTableModel(obj, 0);
-        tableRowSorterProductType = new TableRowSorter<>(tableModelProductType);
-        tblReceipt.setModel(tableModelProductType);
-        tblReceipt.setRowSorter(tableRowSorterProductType);
-        countProductType = 0;
-        tableModelProductType.setRowCount(0);
+    private void initDataReceipt() {
+        customerResponsesReceipt = receiptController.getReportReceiptObject(txtRecieptCode.getText(), txtDistributorName.getText(), txtStaffNameReceipt.getText(), txtFromDateReceipt.getText(), txtEndDateReceipt.getText());
+        Object[] obj = new Object[]{"Mã phiếu nhập", "Mã nhà phân phối", "Tên nhà phân phối", "Tổng tiền", "Tên nhân viên", "Mô tả"};
+        tableModelReceipt = new DefaultTableModel(obj, 0);
+        tableRowSorterProductTypeReceipt = new TableRowSorter<>(tableModelReceipt);
+        tblReceipt.setModel(tableModelReceipt);
+        tblReceipt.setRowSorter(tableRowSorterProductTypeReceipt);
+        tableModelReceipt.setRowCount(0);
         try {
-            productTypeResponses.forEach((Object[] item) -> {
-                item[0] = ++countProductType;
-                tableModelProductType.addRow(item);
-
+            customerResponsesReceipt.forEach((Object[] item) -> {
+                tableModelReceipt.addRow(item);
             });
         } catch (Exception exception) {
-            log.error("Can't add row to table model Position");
+            log.error("Can't add row to table model ");
             exception.printStackTrace();
 
         }
+        txtQttyBillReceipt.setText(receiptController.getReportReceiptQtty(txtRecieptCode.getText(), txtDistributorName.getText(), txtStaffNameReceipt.getText(), txtFromDateReceipt.getText(), txtEndDateReceipt.getText()));
+        txtDCashReceipt.setText(receiptController.getReportReceiptSum(txtRecieptCode.getText(), txtDistributorName.getText(), txtStaffNameReceipt.getText(), txtFromDateReceipt.getText(), txtEndDateReceipt.getText()));
     }
 
 }
