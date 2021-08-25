@@ -30,7 +30,8 @@ public class ReceiptTransformer {
         item[3] = receipt.getDistributor().getNameDistributor();
         item[4] = receipt.getStaff().getCodeStaff();
         item[5] = receipt.getStaff().getNameStaff();
-        item[6] = receipt.getTotalDcash();
+//        item[6] = receipt.getTotalDcash();
+        item[6] = String.format("%,.2f",receipt.getTotalDcash());
         item[7] = receipt.getDate();
         item[8] = receipt.getDescription();
         return item;

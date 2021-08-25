@@ -822,7 +822,7 @@ public class ReceiptJPanel extends javax.swing.JPanel implements CommonJpanel {
 
     private void initDataReceipt() {
         receiptResponses = receiptController.getAllReceiptResponsesObject();
-        Object[] obj = new Object[]{"STT", "Mã phiếu nhập", "Mã nhà phân phối", "Tên nhà phân phối", "Mã nhân viên", "Tên nhân viên", "Thời gian", "Tổng tiền", "Mô tả"};
+        Object[] obj = new Object[]{"STT", "Mã phiếu nhập", "Mã nhà phân phối", "Tên nhà phân phối", "Mã nhân viên", "Tên nhân viên", "Tổng tiền", "Thời gian", "Mô tả"};
         tableModel = new DefaultTableModel(obj, 0);
         tableRowSorter = new TableRowSorter<>(tableModel);
         tblReceipt.setModel(tableModel);

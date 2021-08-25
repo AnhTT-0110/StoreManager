@@ -719,7 +719,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     private void initDataBillReport() {
         customerResponses = billController.getReportBillObject(txtCodeBill.getText(), txtCusName.getText(), txtStaffName.getText(), txtFromDate.getText(), txtEnđate.getText());
-        Object[] obj = new Object[]{"Mã hóa đơn", "Mã khách hàng", "Tên khách hàng", "Tổng tiền", "Tên nhân viên", "Mô tả"};
+        Object[] obj = new Object[]{"Mã hóa đơn", "Mã khách hàng", "Tên khách hàng", "Thời gian","Tổng tiền", "Tên nhân viên", "Mô tả"};
         tableModel = new DefaultTableModel(obj, 0);
         tableRowSorter = new TableRowSorter<>(tableModel);
         tblBillReport.setModel(tableModel);
@@ -742,7 +742,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     private void initDataReceipt() {
         customerResponsesReceipt = receiptController.getReportReceiptObject(txtRecieptCode.getText(), txtDistributorName.getText(), txtStaffNameReceipt.getText(), txtFromDateReceipt.getText(), txtEndDateReceipt.getText());
-        Object[] obj = new Object[]{"Mã phiếu nhập", "Mã nhà phân phối", "Tên nhà phân phối", "Tổng tiền", "Tên nhân viên", "Mô tả"};
+        Object[] obj = new Object[]{"Mã phiếu nhập", "Mã nhà phân phối", "Tên nhà phân phối","Thời gian", "Tổng tiền", "Tên nhân viên", "Mô tả"};
         tableModelReceipt = new DefaultTableModel(obj, 0);
         tableRowSorterProductTypeReceipt = new TableRowSorter<>(tableModelReceipt);
         tblReceipt.setModel(tableModelReceipt);

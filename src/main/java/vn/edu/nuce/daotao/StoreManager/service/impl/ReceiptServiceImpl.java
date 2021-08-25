@@ -64,7 +64,7 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Override
     public List<Object[]> getAllReceiptResponseObjects() {
         return receiptRespository
-                .findAll()
+                .findAll(new Sort(Sort.Direction.DESC, "date"))
                 .stream()
                 .map(Receipt -> receiptTransfomer.transform(Receipt))
                 .collect(Collectors.toList());

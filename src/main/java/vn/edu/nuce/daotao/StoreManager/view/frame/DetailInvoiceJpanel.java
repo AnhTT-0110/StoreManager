@@ -243,7 +243,7 @@ public class DetailInvoiceJpanel extends javax.swing.JFrame implements CommonJpa
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Chi tiết hóa đơn");
+        jLabel4.setText("Chi tiết phiếu nhập");
         jLabel4.setToolTipText("");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -375,7 +375,6 @@ public class DetailInvoiceJpanel extends javax.swing.JFrame implements CommonJpa
         jLabel3.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel3.setText("Giá:");
 
-        txtPrice.setEditable(false);
         txtPrice.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         txtPrice.setMargin(new java.awt.Insets(2, 2, 2, 5));
 
@@ -729,7 +728,7 @@ public class DetailInvoiceJpanel extends javax.swing.JFrame implements CommonJpa
 
     private void txtQttyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQttyKeyReleased
         if (!txtQtty.getText().isEmpty()) {
-            Double dcash = Double.valueOf(txtPrice.getText()) * Integer.valueOf(txtQtty.getText());
+            Double dcash = Double.valueOf(txtPrice.getText().replaceAll(",", "")) * Integer.valueOf(txtQtty.getText());
             txtDcash.setText(String.format("%,.2f", dcash));
         }
     }//GEN-LAST:event_txtQttyKeyReleased
@@ -780,6 +779,7 @@ public class DetailInvoiceJpanel extends javax.swing.JFrame implements CommonJpa
         String codeCusConvert = product[0].trim();
         return new DetailInvoiceResponse(txtCodeDetailInvoice.getText(), txtReceipt.getText(),
                 codeCusConvert, txtQtty.getText(),
+                txtPrice.getText().replaceAll(",", ""),
                 txtDcash.getText(),
                 txtDescription.getText());
     }
