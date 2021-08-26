@@ -5,16 +5,23 @@
  */
 package vn.edu.nuce.daotao.StoreManager.service.impl;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import vn.edu.nuce.daotao.StoreManager.model.BillDetail;
 import vn.edu.nuce.daotao.StoreManager.model.DetailInvoice;
 import vn.edu.nuce.daotao.StoreManager.model.Product;
 import vn.edu.nuce.daotao.StoreManager.model.ProductType;
 import vn.edu.nuce.daotao.StoreManager.response.ProductResponse;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportBill;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportProduct;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportProductInventory;
 import vn.edu.nuce.daotao.StoreManager.respository.BillDetailRespository;
 import vn.edu.nuce.daotao.StoreManager.respository.DetailInvoiceRepository;
 import vn.edu.nuce.daotao.StoreManager.respository.ProductRespository;
@@ -102,6 +109,70 @@ public class ProductServiceImpl implements ProductService {
                 .filter(product -> product.getCodeProduct() == Integer.valueOf(codeProduct))
                 .map(product -> productTransformer.transform(product))
                 .findFirst();
+    }
+
+    @Override
+    public List<ProcedureReportProduct> getReportProduct(String startDate, String endDate) {
+        List<Object> objects = null;
+        if (StringUtils.isEmpty(startDate) && StringUtils.isEmpty(endDate)) {
+            startDate = "2021-01-01";
+            objects = productRespository.getProducts(Date.valueOf(startDate), Date.valueOf(LocalDate.now()));
+        } else {
+            objects = productRespository.getProducts(Date.valueOf(startDate), Date.valueOf(endDate));
+        }
+        List<ProcedureReportProduct> earnByTimes = new ArrayList<>();
+        for (int i = 0; i < objects.size(); i++) {
+            earnByTimes.add(new ProcedureReportProduct((Object[]) objects.get(i)));
+        }
+        return earnByTimes;
+    }
+
+    @Override
+    public List<ProcedureReportProductInventory> getReportProductInventory(String startDate, String endDate) {
+        List<Object> objects = null;
+        if (StringUtils.isEmpty(startDate) && StringUtils.isEmpty(endDate)) {
+            startDate = "2021-01-01";
+            objects = productRespository.getProductsInventory(Date.valueOf(startDate), Date.valueOf(LocalDate.now()));
+        } else {
+            objects = productRespository.getProductsInventory(Date.valueOf(startDate), Date.valueOf(endDate));
+        }
+        List<ProcedureReportProductInventory> earnByTimes = new ArrayList<>();
+        for (int i = 0; i < objects.size(); i++) {
+            earnByTimes.add(new ProcedureReportProductInventory((Object[]) objects.get(i)));
+        }
+        return earnByTimes;
+    }
+
+    @Override
+    public List<Object[]> getReportProductObject(String startDate, String endDate) {
+        List<Object> objects = null;
+        if (StringUtils.isEmpty(startDate) && StringUtils.isEmpty(endDate)) {
+            startDate = "2021-01-01";
+            objects = productRespository.getProducts(Date.valueOf(startDate), Date.valueOf(LocalDate.now()));
+        } else {
+            objects = productRespository.getProducts(Date.valueOf(startDate), Date.valueOf(endDate));
+        }
+        List<Object[]> earnByTimes = new ArrayList<>();
+        for (int i = 0; i < objects.size(); i++) {
+            earnByTimes.add((Object[]) objects.get(i));
+        }
+        return earnByTimes;
+    }
+
+    @Override
+    public List<Object[]> getReportProductInventoryObject(String startDate, String endDate) {
+        List<Object> objects = null;
+        if (StringUtils.isEmpty(startDate) && StringUtils.isEmpty(endDate)) {
+            startDate = "2021-01-01";
+            objects = productRespository.getProductsInventory(Date.valueOf(startDate), Date.valueOf(LocalDate.now()));
+        } else {
+            objects = productRespository.getProductsInventory(Date.valueOf(startDate), Date.valueOf(endDate));
+        }
+        List<Object[]> earnByTimes = new ArrayList<>();
+        for (int i = 0; i < objects.size(); i++) {
+            earnByTimes.add((Object[]) objects.get(i));
+        }
+        return earnByTimes;
     }
 
 }

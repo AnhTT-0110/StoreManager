@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import vn.edu.nuce.daotao.StoreManager.controller.ProductController;
 import vn.edu.nuce.daotao.StoreManager.response.ProductResponse;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportProduct;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportProductInventory;
 import vn.edu.nuce.daotao.StoreManager.service.ProductService;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 import vn.edu.nuce.daotao.StoreManager.validator.Validator;
@@ -36,8 +38,8 @@ public class ProductControllerImpl implements ProductController {
 
     @Override
     public CodeSystem updateProduct(int statusBtn, ProductResponse response) {
-        CodeSystem codeSystem = validator.validateRegexAndAllArgumentNotNull(response.getCodeProduct(),response.getNameProduct(),
-                response.getCodeProductType(),response.getPrice(),response.getPriceInput());
+        CodeSystem codeSystem = validator.validateRegexAndAllArgumentNotNull(response.getCodeProduct(), response.getNameProduct(),
+                response.getCodeProductType(), response.getPrice(), response.getPriceInput());
         if (!CodeSystem.SUCCESS02.equals(codeSystem)) {
             return codeSystem;
         }
@@ -49,8 +51,9 @@ public class ProductControllerImpl implements ProductController {
 
     @Override
     public CodeSystem deleteProduct(ProductResponse response) {
-        if (productService.deleteProduct(response))
-             return CodeSystem.SUCCESS;
+        if (productService.deleteProduct(response)) {
+            return CodeSystem.SUCCESS;
+        }
         return CodeSystem.ERROR12;
     }
 
@@ -62,5 +65,25 @@ public class ProductControllerImpl implements ProductController {
     @Override
     public ProductResponse getProductResponseById(String productCode) {
         return !productService.getProductResponse(productCode).isPresent() ? null : productService.getProductResponse(productCode).get();
+    }
+
+    @Override
+    public List<ProcedureReportProduct> getReportProduct(String startDate, String endDate) {
+        return productService.getReportProduct(startDate, endDate);
+    }
+
+    @Override
+    public List<ProcedureReportProductInventory> getReportProductInventory(String startDate, String endDate) {
+        return productService.getReportProductInventory(startDate, endDate);
+    }
+
+    @Override
+    public List<Object[]> getReportProductObject(String startDate, String endDate) {
+        return productService.getReportProductObject(startDate, endDate);
+    }
+
+    @Override
+    public List<Object[]> getReportProductInventoryObject(String startDate, String endDate) {
+        return productService.getReportProductInventoryObject(startDate, endDate);
     }
 }

@@ -724,7 +724,7 @@ public class BillDetailJpanel extends javax.swing.JFrame implements CommonJpanel
     private void txtQttyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQttyKeyReleased
         if (!txtQtty.getText().isEmpty()) {
             Double dcash = Double.valueOf(txtPrice.getText().replaceAll(",", "")) * Integer.valueOf(txtQtty.getText());
-            txtDcash.setText(String.format("%,.2f", dcash));
+            txtDcash.setText(String.format("%,.0f", dcash));
         }
     }//GEN-LAST:event_txtQttyKeyReleased
 

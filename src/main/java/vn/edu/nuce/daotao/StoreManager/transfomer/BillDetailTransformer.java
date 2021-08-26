@@ -31,8 +31,8 @@ public class BillDetailTransformer {
         item[3] = billDetail.getProduct().getCodeProduct();
         item[4] = billDetail.getProduct().getNameProduct();
         item[5] = billDetail.getQuantity();
-        item[6] = String.format("%,.2f",billDetail.getPrice());
-        item[7] = String.format("%,.2f",billDetail.getTotalCash());
+        item[6] = String.format("%,.0f",billDetail.getPrice());
+        item[7] = String.format("%,.0f",billDetail.getTotalCash());
         item[8] = billDetail.getDescription();
         return item;
     }

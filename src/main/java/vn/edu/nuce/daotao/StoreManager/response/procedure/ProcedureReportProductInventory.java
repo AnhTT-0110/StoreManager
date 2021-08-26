@@ -13,17 +13,19 @@ import lombok.Data;
  * @author Anh
  */
 @Data
-public class ProcedureReportProduct {
+public class ProcedureReportProductInventory {
 
     private Integer productCode;
     private String productName;
-    private BigDecimal quantity;
+    private BigDecimal price;
+    private Integer quantity;
     private BigDecimal total;
 
-    public ProcedureReportProduct(Object[] objects) {
+    public ProcedureReportProductInventory(Object[] objects) {
         this.productCode = (Integer) objects[0];
         this.productName = (String) objects[1];
-        this.quantity = (BigDecimal) objects[2];
-        this.total = (BigDecimal) objects[3];
+        this.price = (BigDecimal) objects[2];
+        this.quantity = (Integer) objects[3];
+        this.total = (BigDecimal) objects[4];
     }
 }

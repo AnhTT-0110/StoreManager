@@ -5,6 +5,9 @@
  */
 package vn.edu.nuce.daotao.StoreManager.view.jpanel;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -15,10 +18,15 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import vn.edu.nuce.daotao.StoreManager.controller.BillController;
+import vn.edu.nuce.daotao.StoreManager.controller.ProductController;
 import vn.edu.nuce.daotao.StoreManager.controller.ProductTypeController;
 import vn.edu.nuce.daotao.StoreManager.controller.ReceiptController;
 import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportBill;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportProduct;
+import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureReportProductInventory;
 import vn.edu.nuce.daotao.StoreManager.service.impl.WriteReportBill;
+import vn.edu.nuce.daotao.StoreManager.service.impl.WriteReportProduct;
+import vn.edu.nuce.daotao.StoreManager.service.impl.WriteReportProductInventory;
 import vn.edu.nuce.daotao.StoreManager.service.impl.WriteReportReceipt;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 
@@ -36,6 +44,9 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     @Autowired
     private ReceiptController receiptController;
+
+    @Autowired
+    private ProductController productController;
 
     int count = 0;
     int indexItem = 0;
@@ -66,6 +77,12 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
     List<Object[]> productTypeResponsesReceipt;
     DefaultTableModel tableModelProductTypeReceipt;
     TableRowSorter<TableModel> tableRowSorterProductTypeReceipt;
+
+    List<Object[]> customerResponsesProduct;
+    List<Object[]> customerResponsesProductInventory;
+
+    DefaultTableModel tableModelProduct;
+    DefaultTableModel tableModelProductInventory;
 
     public ReportJpanel() {
         initComponents();
@@ -142,21 +159,21 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         jPanel25 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
-        txtFromDateReceipt1 = new javax.swing.JFormattedTextField();
+        txtFromDateProduct = new javax.swing.JFormattedTextField();
         jLabel34 = new javax.swing.JLabel();
-        txtEndDateReceipt1 = new javax.swing.JFormattedTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        txtEndDateProduct = new javax.swing.JFormattedTextField();
+        cbbType = new javax.swing.JComboBox<>();
         jPanel26 = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        txtQttyBillReceipt1 = new javax.swing.JTextField();
-        txtDCashReceipt1 = new javax.swing.JTextField();
+        txtQttyProduct = new javax.swing.JTextField();
+        txtDCashProduct = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnFillProduct = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jScrollPane9 = new javax.swing.JScrollPane();
-        tblReceipt1 = new javax.swing.JTable();
+        tblProduct = new javax.swing.JTable();
 
         jTabbedPane1.setFont(new java.awt.Font("Cambria", 3, 14)); // NOI18N
 
@@ -575,7 +592,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
 
         jTabbedPane1.addTab("Phiếu nhập", new javax.swing.ImageIcon(getClass().getResource("/images/insurance.png")), jPanel32); // NOI18N
 
-        jPanel24.setLayout(new java.awt.GridLayout());
+        jPanel24.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder("Thông tin"));
 
@@ -585,17 +602,17 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         jLabel33.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel33.setText("Thể loại");
 
-        txtFromDateReceipt1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtFromDateProduct.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
 
         jLabel34.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel34.setText("Đến ngày");
 
-        txtEndDateReceipt1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtEndDateProduct.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hàng tồn kho", "Hàng bán chạy" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbbType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hàng bán chạy", "Hàng tồn kho", " " }));
+        cbbType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cbbTypeActionPerformed(evt);
             }
         });
 
@@ -611,9 +628,9 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
                     .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtFromDateReceipt1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-                    .addComponent(txtEndDateReceipt1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(txtFromDateProduct, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                    .addComponent(txtEndDateProduct, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbbType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel25Layout.setVerticalGroup(
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -621,15 +638,15 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
                 .addContainerGap()
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(cbbType, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFromDateReceipt1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFromDateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtEndDateReceipt1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEndDateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -640,11 +657,11 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         jLabel37.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel37.setText("Số lượng");
 
-        txtQttyBillReceipt1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtQttyBillReceipt1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtQttyProduct.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtQttyProduct.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
-        txtDCashReceipt1.setFont(new java.awt.Font("Cambria", 1, 27)); // NOI18N
-        txtDCashReceipt1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtDCashProduct.setFont(new java.awt.Font("Cambria", 1, 27)); // NOI18N
+        txtDCashProduct.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
         jLabel38.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jLabel38.setText("Tổng tiền");
@@ -659,22 +676,22 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
                     .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtQttyBillReceipt1)
-                    .addComponent(txtDCashReceipt1)))
+                    .addComponent(txtQttyProduct)
+                    .addComponent(txtDCashProduct)))
         );
         jPanel26Layout.setVerticalGroup(
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtQttyBillReceipt1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQttyProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel26Layout.createSequentialGroup()
                         .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtDCashReceipt1))
+                    .addComponent(txtDCashProduct))
                 .addContainerGap())
         );
 
@@ -690,15 +707,15 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         });
         jPanel7.add(jButton7);
 
-        jButton8.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/selection.png"))); // NOI18N
-        jButton8.setText("Lọc");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnFillProduct.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        btnFillProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/selection.png"))); // NOI18N
+        btnFillProduct.setText("Lọc");
+        btnFillProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnFillProductActionPerformed(evt);
             }
         });
-        jPanel7.add(jButton8);
+        jPanel7.add(btnFillProduct);
 
         jButton9.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excel.png"))); // NOI18N
@@ -710,8 +727,8 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         });
         jPanel7.add(jButton9);
 
-        tblReceipt1.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
-        tblReceipt1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProduct.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
+        tblProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -722,12 +739,12 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblReceipt1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblReceipt1MouseClicked(evt);
+                tblProductMouseClicked(evt);
             }
         });
-        jScrollPane9.setViewportView(tblReceipt1);
+        jScrollPane9.setViewportView(tblProduct);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -870,28 +887,70 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
     }//GEN-LAST:event_tblReceiptMouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        cbbType.setSelectedIndex(0);
+        txtFromDateProduct.setText("");
+        txtEndDateProduct.setText("");
+        txtQttyProduct.setText("");
+        txtDCashProduct.setText("");
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void btnFillProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFillProductActionPerformed
+        boolean checkEndate = txtFromDateProduct.getText().isEmpty() & txtEndDateProduct.getText().isEmpty();
+        boolean checkStart = !txtFromDateProduct.getText().isEmpty() & !txtEndDateProduct.getText().isEmpty();
+        if (checkEndate || checkStart) {
+
+            if (cbbType.getSelectedIndex() != 0) {
+                initDataProductInventory();
+            } else {
+                initDataProduct();
+            }
+            return;
+        }
+        setErrorMsg("Bạn phải nhập cả 2 ngày, hoặc không");
+    }//GEN-LAST:event_btnFillProductActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        boolean checkEndate = txtFromDateProduct.getText().isEmpty() & txtEndDateProduct.getText().isEmpty();
+        boolean checkStart = !txtFromDateProduct.getText().isEmpty() & !txtEndDateProduct.getText().isEmpty();
+        if (checkEndate || checkStart) {
+
+            CodeSystem codeSystem = null;
+            if (cbbType.getSelectedIndex() != 0) {
+                WriteReportProductInventory excelExample = new WriteReportProductInventory();
+                final List<ProcedureReportProductInventory> books = productController.getReportProductInventory(txtFromDateProduct.getText(), txtEndDateProduct.getText());
+                final String excelFilePath = "F:\\DHXD\\2021\\Doantotnghiep\\SourceCode\\StoreManager\\StoreManager\\src\\main\\resources\\file\\ReportProductInventory";
+                codeSystem = excelExample.writeExcel(books, excelFilePath);
+            } else {
+                WriteReportProduct excelExample = new WriteReportProduct();
+                final List<ProcedureReportProduct> books = productController.getReportProduct(txtFromDateProduct.getText(), txtEndDateProduct.getText());
+                final String excelFilePath = "F:\\DHXD\\2021\\Doantotnghiep\\SourceCode\\StoreManager\\StoreManager\\src\\main\\resources\\file\\ReportProduct";
+                codeSystem = excelExample.writeExcel(books, excelFilePath);
+            }
+
+            if (codeSystem.equals(CodeSystem.SUCCESS05)) {
+                setSuccessMsg(codeSystem.getDescription());
+
+            } else {
+                setErrorMsg(codeSystem.getDescription());
+            }
+            return;
+        }
+        setErrorMsg("Bạn phải nhập cả 2 ngày, hoặc không");
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void tblReceipt1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblReceipt1MouseClicked
+    private void tblProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_tblReceipt1MouseClicked
+    }//GEN-LAST:event_tblProductMouseClicked
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void cbbTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_cbbTypeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFillProduct;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbbType;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -899,9 +958,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -943,23 +1000,23 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tblBillReport;
+    private javax.swing.JTable tblProduct;
     private javax.swing.JTable tblReceipt;
-    private javax.swing.JTable tblReceipt1;
     private javax.swing.JTextField txtCodeBill;
     private javax.swing.JTextField txtCusName;
     private javax.swing.JTextField txtDCashBill;
+    private javax.swing.JTextField txtDCashProduct;
     private javax.swing.JTextField txtDCashReceipt;
-    private javax.swing.JTextField txtDCashReceipt1;
     private javax.swing.JTextField txtDistributorName;
+    private javax.swing.JFormattedTextField txtEndDateProduct;
     private javax.swing.JFormattedTextField txtEndDateReceipt;
-    private javax.swing.JFormattedTextField txtEndDateReceipt1;
     private javax.swing.JFormattedTextField txtEnđate;
     private javax.swing.JFormattedTextField txtFromDate;
+    private javax.swing.JFormattedTextField txtFromDateProduct;
     private javax.swing.JFormattedTextField txtFromDateReceipt;
-    private javax.swing.JFormattedTextField txtFromDateReceipt1;
     private javax.swing.JTextField txtQttyBill;
     private javax.swing.JTextField txtQttyBillReceipt;
-    private javax.swing.JTextField txtQttyBillReceipt1;
+    private javax.swing.JTextField txtQttyProduct;
     private javax.swing.JTextField txtRecieptCode;
     private javax.swing.JTextField txtStaffName;
     private javax.swing.JTextField txtStaffNameReceipt;
@@ -969,12 +1026,12 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
     public void initData() {
         initDataBillReport();
         initDataReceipt();
-
+        initDataProduct();
     }
 
     private void initDataBillReport() {
         customerResponses = billController.getReportBillObject(txtCodeBill.getText(), txtCusName.getText(), txtStaffName.getText(), txtFromDate.getText(), txtEnđate.getText());
-        Object[] obj = new Object[]{"Mã hóa đơn", "Mã khách hàng", "Tên khách hàng", "Thời gian","Tổng tiền", "Tên nhân viên", "Mô tả"};
+        Object[] obj = new Object[]{"Mã hóa đơn", "Mã khách hàng", "Tên khách hàng", "Thời gian", "Tổng tiền", "Tên nhân viên", "Mô tả"};
         tableModel = new DefaultTableModel(obj, 0);
         tableRowSorter = new TableRowSorter<>(tableModel);
         tblBillReport.setModel(tableModel);
@@ -997,7 +1054,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
 
     private void initDataReceipt() {
         customerResponsesReceipt = receiptController.getReportReceiptObject(txtRecieptCode.getText(), txtDistributorName.getText(), txtStaffNameReceipt.getText(), txtFromDateReceipt.getText(), txtEndDateReceipt.getText());
-        Object[] obj = new Object[]{"Mã phiếu nhập", "Mã nhà phân phối", "Tên nhà phân phối","Thời gian", "Tổng tiền", "Tên nhân viên", "Mô tả"};
+        Object[] obj = new Object[]{"Mã phiếu nhập", "Mã nhà phân phối", "Tên nhà phân phối", "Thời gian", "Tổng tiền", "Tên nhân viên", "Mô tả"};
         tableModelReceipt = new DefaultTableModel(obj, 0);
         tableRowSorterProductTypeReceipt = new TableRowSorter<>(tableModelReceipt);
         tblReceipt.setModel(tableModelReceipt);
@@ -1014,6 +1071,47 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         }
         txtQttyBillReceipt.setText(receiptController.getReportReceiptQtty(txtRecieptCode.getText(), txtDistributorName.getText(), txtStaffNameReceipt.getText(), txtFromDateReceipt.getText(), txtEndDateReceipt.getText()));
         txtDCashReceipt.setText(receiptController.getReportReceiptSum(txtRecieptCode.getText(), txtDistributorName.getText(), txtStaffNameReceipt.getText(), txtFromDateReceipt.getText(), txtEndDateReceipt.getText()));
+    }
+
+    private void initDataProduct() {
+        customerResponsesProduct = productController.getReportProductObject(txtFromDateProduct.getText(), txtEndDateProduct.getText());
+        Object[] obj = new Object[]{"Mã sản phẩm", "Tên sản phẩm", "Số lượng", "Tổng tiền"};
+        tableModelProduct = new DefaultTableModel(obj, 0);
+        tblProduct.setModel(tableModelProduct);
+        tableModelProduct.setRowCount(0);
+        BigDecimal quantity = new BigDecimal(BigInteger.ZERO);
+        BigDecimal dcash = new BigDecimal(BigInteger.ZERO);
+        for (Iterator<Object[]> iterator = customerResponsesProduct.iterator(); iterator.hasNext();) {
+            Object[] next = iterator.next();
+            quantity = quantity.add((BigDecimal) next[2]);
+            dcash = dcash.add((BigDecimal) next[3]);
+            next[3] = String.format("%,.0f", next[3]);
+            tableModelProduct.addRow(next);
+
+        }
+        txtQttyProduct.setText(String.valueOf(quantity));
+        txtDCashProduct.setText(String.format("%,.0f", dcash));
+    }
+
+    private void initDataProductInventory() {
+        customerResponsesProduct = productController.getReportProductInventoryObject(txtFromDateProduct.getText(), txtEndDateProduct.getText());
+        Object[] obj = new Object[]{"Mã sản phẩm", "Tên sản phẩm", "Giá nhập", "Số lượng", "Tổng tiền"};
+        tableModelProductInventory = new DefaultTableModel(obj, 0);
+        tblProduct.setModel(tableModelProductInventory);
+        tableModelProductInventory.setRowCount(0);
+        Integer quantity = 0;
+        BigDecimal dcash = new BigDecimal(BigInteger.ZERO);
+        for (Iterator<Object[]> iterator = customerResponsesProduct.iterator(); iterator.hasNext();) {
+            Object[] next = iterator.next();
+            quantity = (Integer) next[3];
+            dcash = dcash.add((BigDecimal) next[4]);
+            next[4] = String.format("%,.0f", next[4]);
+            next[2] = String.format("%,.0f", next[2]);
+            tableModelProductInventory.addRow(next);
+        }
+
+        txtQttyProduct.setText(String.valueOf(quantity));
+        txtDCashProduct.setText(String.format("%,.0f", dcash));
     }
 
 }

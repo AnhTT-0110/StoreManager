@@ -61,7 +61,7 @@ public class ProductTransformer {
         response.setCodeProduct(String.valueOf(product.getCodeProduct()));
         response.setNameProduct(product.getNameProduct());
         response.setPriceInput(String.valueOf(product.getPriceInput()));
-        response.setPrice(String.format("%,.2f",product.getPrice()));
+        response.setPrice(String.format("%,.0f",product.getPrice()));
         response.setQuantity(String.valueOf(product.getQuantity()));
         response.setImage(product.getImage());
         response.setDescription(product.getDescription());
