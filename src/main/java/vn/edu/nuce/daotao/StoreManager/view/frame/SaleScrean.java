@@ -41,6 +41,7 @@ import vn.edu.nuce.daotao.StoreManager.response.BillDetailResponse;
 import vn.edu.nuce.daotao.StoreManager.response.BillResponse;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.CommonJpanel;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.CustomerJpanel;
 
 /**
  *
@@ -62,7 +63,7 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
 
     @Autowired
     private BillController billController;
-    
+
     static ConfigurableApplicationContext applicationContext;
 
     int count = 0;
@@ -1032,8 +1033,10 @@ public class SaleScrean extends javax.swing.JFrame implements CommonJpanel {
     }//GEN-LAST:event_btDangxuatActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       BlankJFrame blankJFrame = applicationContext.getBean(BlankJFrame.class);
-       blankJFrame.init();
+        CustomerJpanel customerJpanel = applicationContext.getBean(CustomerJpanel.class);
+        customerJpanel.init();
+        BlankJFrame blankJFrame = applicationContext.getBean(BlankJFrame.class);
+        blankJFrame.init(customerJpanel);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

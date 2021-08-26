@@ -30,7 +30,7 @@ public class BillTransfomer {
         item[4] = bill.getStaff().getCodeStaff();
         item[5] = bill.getStaff().getNameStaff();
         item[6] = bill.getDate().toString();
-        item[7] = String.valueOf(bill.getTotalDcash());
+        item[7] = String.format("%,.2f",bill.getTotalDcash());
         item[8] = bill.getDescription();
         return item;
     }

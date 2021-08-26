@@ -826,7 +826,7 @@ public class BillJpanel extends javax.swing.JPanel implements CommonJpanel {
         String codeCusConvert = codeCus[0].trim();
         return new BillResponse(txtCodeBill.getText(),
                 codeCusConvert, codeStaffConvert,
-                txtTime.getText(), txtDCash.getText(),
+                txtTime.getText(), txtDCash.getText().replaceAll(",", ""),
                 txtDescription.getText());
     }
 

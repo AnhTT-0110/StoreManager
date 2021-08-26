@@ -43,6 +43,7 @@ import vn.edu.nuce.daotao.StoreManager.response.ReceiptResponse;
 import vn.edu.nuce.daotao.StoreManager.validator.CodeSystem;
 import static vn.edu.nuce.daotao.StoreManager.view.frame.SaleScrean.applicationContext;
 import vn.edu.nuce.daotao.StoreManager.view.jpanel.CommonJpanel;
+import vn.edu.nuce.daotao.StoreManager.view.jpanel.ProductJpanel;
 
 /**
  *
@@ -148,6 +149,10 @@ public class ReceiptorScrean extends javax.swing.JFrame implements CommonJpanel 
         btnAddBill = new javax.swing.JButton();
         txtNhanVien = new javax.swing.JTextField();
         btDangxuat = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        btnAddBill1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -649,6 +654,39 @@ public class ReceiptorScrean extends javax.swing.JFrame implements CommonJpanel 
             }
         });
 
+        jButton4.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jButton4.setText("Thêm KH");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jButton5.setText("Thêm KH");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        jButton6.setText("Thêm KH");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        btnAddBill1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnAddBill1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/box (1).png"))); // NOI18N
+        btnAddBill1.setText("Thêm SP");
+        btnAddBill1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddBill1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -678,7 +716,8 @@ public class ReceiptorScrean extends javax.swing.JFrame implements CommonJpanel 
                                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(btnAddBill)
-                                            .addGap(0, 0, Short.MAX_VALUE)))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnAddBill1)))
                                     .addContainerGap())))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -694,6 +733,21 @@ public class ReceiptorScrean extends javax.swing.JFrame implements CommonJpanel 
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtNhanVien, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                                 .addContainerGap())))))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(435, 435, 435)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(436, 436, 436)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(445, 445, 445)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(426, 426, 426)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(455, 455, 455)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGap(416, 416, 416)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -710,7 +764,9 @@ public class ReceiptorScrean extends javax.swing.JFrame implements CommonJpanel 
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddBill)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAddBill1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddBill, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -725,6 +781,21 @@ public class ReceiptorScrean extends javax.swing.JFrame implements CommonJpanel 
                 .addComponent(btDangxuat)
                 .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(248, 248, 248)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(249, Short.MAX_VALUE)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(258, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(239, 239, 239)))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addContainerGap(268, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(229, 229, 229)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -918,6 +989,25 @@ public class ReceiptorScrean extends javax.swing.JFrame implements CommonJpanel 
         }
     }//GEN-LAST:event_btDangxuatActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btnAddBill1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddBill1ActionPerformed
+        ProductJpanel productJpanel = applicationContext.getBean(ProductJpanel.class);
+        productJpanel.init();
+        BlankJFrame blankJFrame = applicationContext.getBean(BlankJFrame.class);
+        blankJFrame.init(productJpanel);
+    }//GEN-LAST:event_btnAddBill1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -969,6 +1059,7 @@ public class ReceiptorScrean extends javax.swing.JFrame implements CommonJpanel 
     private javax.swing.JButton btDangxuat;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnAddBill;
+    private javax.swing.JButton btnAddBill1;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
@@ -977,6 +1068,9 @@ public class ReceiptorScrean extends javax.swing.JFrame implements CommonJpanel 
     private javax.swing.JComboBox<String> cbbCustomer;
     private javax.swing.JComboBox<String> cbbProduct;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
