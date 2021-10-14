@@ -1103,7 +1103,7 @@ public class ReportJpanel extends javax.swing.JPanel implements CommonJpanel {
         BigDecimal dcash = new BigDecimal(BigInteger.ZERO);
         for (Iterator<Object[]> iterator = customerResponsesProduct.iterator(); iterator.hasNext();) {
             Object[] next = iterator.next();
-            quantity = (Integer) next[3];
+            quantity = quantity + (Integer) next[3];
             dcash = dcash.add((BigDecimal) next[4]);
             next[4] = String.format("%,.0f", next[4]);
             next[2] = String.format("%,.0f", next[2]);

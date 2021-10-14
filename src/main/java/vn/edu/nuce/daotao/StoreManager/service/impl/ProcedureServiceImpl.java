@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import vn.edu.nuce.daotao.StoreManager.response.procedure.ProcedureResponseBigDecimal;
@@ -32,6 +33,9 @@ public class ProcedureServiceImpl implements ProcedureService {
         List<Object> objects = procedure.sumDCashInMounth();
         ProcedureResponseBigDecimal commonProcedureResponse = null;
         for (int i = 0; i < objects.size(); i++) {
+            if (Objects.isNull(objects.get(i))) {
+                return "0";
+            }
             commonProcedureResponse = new ProcedureResponseBigDecimal((BigDecimal) objects.get(i));
         }
         return commonProcedureResponse.getValueConcurrent();
@@ -42,6 +46,9 @@ public class ProcedureServiceImpl implements ProcedureService {
         List<Object> objects = procedure.countBillInMount();
         ProcedureResponseBigInteger responseBigInteger = null;
         for (int i = 0; i < objects.size(); i++) {
+            if (Objects.isNull(objects.get(i))) {
+                return "0";
+            }
             responseBigInteger = new ProcedureResponseBigInteger((BigInteger) objects.get(i));
         }
         return responseBigInteger.getValueInteger();
@@ -52,6 +59,9 @@ public class ProcedureServiceImpl implements ProcedureService {
         List<Object> objects = procedure.countProductInMount();
         ProcedureResponseBigDecimal commonProcedureResponse = null;
         for (int i = 0; i < objects.size(); i++) {
+            if (Objects.isNull(objects.get(i))) {
+                return "0";
+            }
             commonProcedureResponse = new ProcedureResponseBigDecimal((BigDecimal) objects.get(i));
         }
         return commonProcedureResponse.getValueInteger();
@@ -62,6 +72,9 @@ public class ProcedureServiceImpl implements ProcedureService {
         List<Object> objects = procedure.countReceiptInMount();
         ProcedureResponseBigInteger responseBigInteger = null;
         for (int i = 0; i < objects.size(); i++) {
+            if (Objects.isNull(objects.get(i))) {
+                return "0";
+            }
             responseBigInteger = new ProcedureResponseBigInteger((BigInteger) objects.get(i));
         }
         return responseBigInteger.getValueInteger();

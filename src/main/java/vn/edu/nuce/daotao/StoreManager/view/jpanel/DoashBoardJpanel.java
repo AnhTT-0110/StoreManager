@@ -135,7 +135,7 @@ public class DoashBoardJpanel extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
-        jLabel1.setText(" DashBoard");
+        jLabel1.setText(" Tổng quan cửa hàng theo tháng");
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 204));
         jPanel6.setAlignmentX(10.0F);

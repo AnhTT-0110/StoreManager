@@ -803,7 +803,7 @@ public class ReceiptJPanel extends javax.swing.JPanel implements CommonJpanel {
         String codeCusConvert = codeDistributor[0].trim();
         return new ReceiptResponse(txtCodeReceipt.getText(),
                 codeStaffConvert, codeCusConvert,
-                txtTime.getText(), txtDCash.getText(),
+                txtTime.getText(), txtDCash.getText().replaceAll(",", ""),
                 txtDescription.getText());
     }
 
